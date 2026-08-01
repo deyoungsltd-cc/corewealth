@@ -28,7 +28,7 @@ const sections = [
   { title: '6. Prohibited Activities', content: ['Users are prohibited from: using the platform for any illegal purpose; attempting to gain unauthorized access to any portion of the platform; interfering with the platform\'s operation; creating multiple accounts or using fraudulent identities; providing false information during registration or KYC verification; attempting to manipulate investment returns or exploit system vulnerabilities; transferring or selling accounts.'] },
   { title: '7. Limitation of Liability', content: ['To the maximum extent permitted by law, CoreWealth Bank and its directors, employees, and affiliates shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of the platform. Our total liability shall not exceed the total fees you have paid to us in the twelve months preceding the claim.'] },
   { title: '8. Dispute Resolution', content: ['Any disputes arising from these terms shall first be attempted to be resolved through our internal support channels. If unresolved within 30 days, it shall be submitted to binding arbitration in accordance with applicable rules.'] },
-  { title: '9. Contact', content: ['For questions about these Terms of Service, please contact us at corewealthprimesupportt@gmail.com or through our support channels.'] },
+  { title: '9. Contact', content: ['For questions about these Terms of Service, please contact us at support@corewealthbank.com or through our support channels.'] },
 ];
 
 export default function TermsPage() {

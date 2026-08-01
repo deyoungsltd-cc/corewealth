@@ -141,7 +141,7 @@ export default function ForgotPasswordPage() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#7C3AED]/5 rounded-full blur-[150px] pointer-events-none" />
       <div className="w-full max-w-md relative z-10">
         <div className="text-center mb-8">
-          <CoreWealthLogo className="h-14 mx-auto mb-4 drop-shadow-[0_0_15px_rgba(204,0,0,0.3)]" />
+          <CoreWealthLogo className="h-14 mx-auto mb-4 drop-shadow-[0_0_15px_rgba(124,58,237,0.3)]" />
           <h1 className="text-2xl font-bold text-white">Reset Password</h1>
           <p className="text-gray-400 text-sm mt-1">
             {step === 'email' ? 'Enter your email to receive a reset code' : 'Enter the code and your new password'}

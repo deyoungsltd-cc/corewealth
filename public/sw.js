@@ -1,15 +1,15 @@
-// CoreWealth Prime Capital — Service Worker
+// CoreWealth Bank — Service Worker
 // Handles push notifications and in-app notification forwarding
 
-const TESLA_ICON = '/favicon.ico';
+const APP_ICON = '/favicon.ico';
 
 self.addEventListener('push', (event) => {
-  const data = event.data?.json() || { title: 'CoreWealth Prime Capital', body: 'You have a new notification' };
+  const data = event.data?.json() || { title: 'CoreWealth Bank', body: 'You have a new notification' };
   event.waitUntil(
     self.registration.showNotification(data.title, {
       body: data.body,
-      icon: TESLA_ICON,
-      badge: TESLA_ICON,
+      icon: APP_ICON,
+      badge: APP_ICON,
       tag: 'corewealth-push',
       requireInteraction: false,
       vibrate: [200, 100, 200],
@@ -21,10 +21,10 @@ self.addEventListener('push', (event) => {
 self.addEventListener('message', (event) => {
   if (event.data?.type === 'SHOW_NOTIFICATION') {
     const { title, body } = event.data;
-    self.registration.showNotification(title || 'CoreWealth Prime Capital', {
+    self.registration.showNotification(title || 'CoreWealth Bank', {
       body: body || 'You have a new notification',
-      icon: TESLA_ICON,
-      badge: TESLA_ICON,
+      icon: APP_ICON,
+      badge: APP_ICON,
       tag: 'corewealth-notification',
       requireInteraction: false,
       vibrate: [200, 100, 200],

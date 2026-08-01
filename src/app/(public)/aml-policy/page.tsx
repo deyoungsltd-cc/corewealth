@@ -28,7 +28,7 @@ const sections = [
   { title: '6. Sanctions Compliance', content: ['We maintain strict compliance with international sanctions programs, including those administered by the United Nations, the U.S. Office of Foreign Assets Control (OFAC), the European Union, and other relevant sanctions authorities. We do not provide services to individuals or entities that are subject to sanctions.'] },
   { title: '7. Record Keeping', content: ['We maintain comprehensive records of all user identification documents, transaction histories, due diligence activities, and compliance reports for a minimum of five years in accordance with applicable regulatory requirements.'] },
   { title: '8. Staff Training', content: ['All CoreWealth Bank employees receive comprehensive AML/CTF training upon hiring and participate in ongoing training programs. Our compliance team receives advanced training in suspicious activity identification, investigation procedures, and regulatory reporting requirements.'] },
-  { title: '9. Contact', content: ['For questions about our AML policies or to report suspicious activity, please contact our compliance department at corewealthprimesupportt@gmail.com.'] },
+  { title: '9. Contact', content: ['For questions about our AML policies or to report suspicious activity, please contact our compliance department at support@corewealthbank.com.'] },
 ];
 
 export default function AMLPolicyPage() {

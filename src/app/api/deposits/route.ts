@@ -9,13 +9,14 @@ import { z } from 'zod';
 
 const depositSchema = z.object({
   amount: z.number().positive('Amount must be greater than 0'),
-  method: z.enum(['crypto', 'gift_card']),
+  method: z.enum(['bank_transfer', 'crypto', 'gift_card']),
   cryptoCurrency: z.enum(['BTC', 'ETH', 'USDT']).optional(),
   txHash: z.string().optional(),
   giftCardImage: z.string().optional(),
   giftCardType: z.string().optional(),
   giftCardCode: z.string().optional(),
   giftCardPin: z.string().optional(),
+  reference: z.string().optional(),
   mode: z.enum(['demo', 'live']).default('live'),
 });
 
@@ -36,7 +37,7 @@ async function handler(request: NextRequest, _context: any, user: any) {
       return apiError(parsed.error.issues[0].message, 'VALIDATION_ERROR', 400);
     }
 
-    const { amount, method, cryptoCurrency, txHash, giftCardImage, giftCardType, giftCardCode, giftCardPin, mode } = parsed.data;
+    const { amount, method, cryptoCurrency, txHash, giftCardImage, giftCardType, giftCardCode, giftCardPin, reference, mode } = parsed.data;
 
     // Idempotency: prevent double-click duplicate deposits
     const idempotencyKey = buildIdempotencyKey(user.id, 'deposit', `${amount}-${method}-${mode}`);

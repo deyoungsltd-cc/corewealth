@@ -6,7 +6,7 @@ export default function StructuredData() {
     name: 'CoreWealth Bank',
     url: SITE_URL,
     logo: `${SITE_URL}/logo.png`,
-    description: 'Professionally managed investment platform offering daily returns up to 1.8% across diversified strategies.',
+    description: 'CoreWealth Bank — A full-service digital bank offering secure deposits, transfers, wealth management, and investment services.',
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'London',
@@ -14,14 +14,13 @@ export default function StructuredData() {
     },
     contactPoint: {
       '@type': 'ContactPoint',
-      email: 'corewealthprimesupportt@gmail.com',
+      email: 'support@corewealthbank.com',
       contactType: 'customer support',
       availableLanguage: ['English'],
     },
     sameAs: [
-      'https://twitter.com/CoreWealthPrimeCap',
-      'https://linkedin.com/company/corewealth-prime-capital',
-      'https://t.me/CoreWealthPrimeCapital',
+      'https://twitter.com/CoreWealthBank',
+      'https://linkedin.com/company/corewealth-bank',
     ],
   }
 

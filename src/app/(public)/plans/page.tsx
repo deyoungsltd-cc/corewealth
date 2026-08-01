@@ -35,10 +35,10 @@ const plans = [
     withdrawal: 'Standard processing (1-24 hours)', fees: 'Small processing fee applies',
   },
   {
-    name: 'Silver', badge: 'MOST POPULAR', badgeColor: 'bg-gradient-to-r from-[#7C3AED] to-[#ff1a1a]',
+    name: 'Silver', badge: 'MOST POPULAR', badgeColor: 'bg-gradient-to-r from-[#7C3AED] to-[#A78BFA]',
     min: 5000, max: 9999, daily: 0.8, duration: 21, model: 'Growth',
     image: 'https://images.unsplash.com/photo-1560472355-536de3962603?w=600&h=400&fit=crop',
-    color: 'border-[#7C3AED]', borderColor: 'hover:border-[#ff1a1a]',
+    color: 'border-[#7C3AED]', borderColor: 'hover:border-[#A78BFA]',
     features: [
       { title: 'Higher Daily Returns', desc: 'Earn 0.8% daily returns — 60% more than the Basic plan — with profits credited to your available balance every day.' },
       { title: 'Priority Withdrawals', desc: 'Your withdrawal requests are processed ahead of standard queue, significantly reducing processing time for your funds.' },
@@ -149,7 +149,7 @@ export default function PlansPage() {
                 const returns = calcReturn(plan.daily, plan.min, plan.duration);
                 const roi = ((plan.daily * plan.duration)).toFixed(0);
                 return (
-                  <div key={plan.name} className={`bg-[#1a1a1a] border rounded-2xl p-5 transition-all duration-300 hover:border-[#7C3AED]/20 ${plan.popular ? 'border-[#7C3AED]/30 shadow-[0_0_20px_rgba(204,0,0,0.1)]' : 'border-border'}`}>
+                  <div key={plan.name} className={`bg-[#1a1a1a] border rounded-2xl p-5 transition-all duration-300 hover:border-[#7C3AED]/20 ${plan.popular ? 'border-[#7C3AED]/30 shadow-[0_0_20px_rgba(124,58,237,0.1)]' : 'border-border'}`}>
                     <p className="text-white font-bold text-sm mb-1">{plan.name}</p>
                     <p className="text-gray-500 text-xs mb-4">Invest ${plan.min.toLocaleString()} for {plan.duration} days</p>
                     <div className="space-y-2.5">
@@ -185,7 +185,7 @@ export default function PlansPage() {
             const returns = calcReturn(plan.daily, plan.min, plan.duration);
             return (
               <FadeIn key={plan.name} delay={idx * 100}>
-                <div className={`bg-card border-2 ${plan.color} rounded-2xl overflow-hidden card-shine noise-overlay transition-all duration-500 ${plan.popular ? 'shadow-[0_0_40px_rgba(204,0,0,0.1)]' : ''} hover:shadow-lg`}>
+                <div className={`bg-card border-2 ${plan.color} rounded-2xl overflow-hidden card-shine noise-overlay transition-all duration-500 ${plan.popular ? 'shadow-[0_0_40px_rgba(124,58,237,0.1)]' : ''} hover:shadow-lg`}>
                   <div className="grid grid-cols-1 md:grid-cols-3">
                     <div className="relative h-56 md:h-auto overflow-hidden">
                       <img src={plan.image} alt={`${plan.model} - ${plan.name} Plan`} className="w-full h-full object-cover" loading="lazy" />

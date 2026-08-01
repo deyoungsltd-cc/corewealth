@@ -77,7 +77,7 @@ export default function AdminLoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="admin@corewealth.com"
                 required
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED]/50 focus:shadow-[0_0_20px_rgba(204,0,0,0.08)] transition-all duration-300"
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED]/50 focus:shadow-[0_0_20px_rgba(124,58,237,0.08)] transition-all duration-300"
               />
             </div>
 
@@ -89,7 +89,7 @@ export default function AdminLoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
                 required
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED]/50 focus:shadow-[0_0_20px_rgba(204,0,0,0.08)] transition-all duration-300"
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED]/50 focus:shadow-[0_0_20px_rgba(124,58,237,0.08)] transition-all duration-300"
               />
             </div>
 
@@ -102,7 +102,7 @@ export default function AdminLoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-[#7C3AED] hover:bg-[#ff1a1a] disabled:bg-[#7C3AED]/50 text-white font-bold text-sm py-3.5 rounded-xl transition-all duration-300 shadow-[0_4px_15px_rgba(204,0,0,0.3)] hover:shadow-[0_4px_25px_rgba(204,0,0,0.4)]"
+              className="w-full bg-[#7C3AED] hover:bg-[#6D28D9] disabled:bg-[#7C3AED]/50 text-white font-bold text-sm py-3.5 rounded-xl transition-all duration-300 shadow-[0_4px_15px_rgba(124,58,237,0.3)] hover:shadow-[0_4px_25px_rgba(124,58,237,0.4)]"
             >
               {loading ? (
                 <span className="flex items-center justify-center gap-2">

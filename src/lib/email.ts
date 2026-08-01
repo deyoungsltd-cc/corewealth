@@ -12,7 +12,7 @@ import { Resend } from 'resend';
 const SMTP_HOST = process.env.SMTP_HOST || 'smtp.gmail.com';
 const SMTP_PORT = parseInt(process.env.SMTP_PORT || '587', 10);
 const SMTP_SECURE = process.env.SMTP_SECURE === 'true';
-const SMTP_EMAIL = process.env.SMTP_EMAIL || 'corewealthprimesupportt@gmail.com';
+const SMTP_EMAIL = process.env.SMTP_EMAIL || 'support@corewealthbank.com';
 const SMTP_PASSWORD = process.env.SMTP_PASSWORD || '';
 const FROM_NAME = process.env.EMAIL_FROM_NAME || 'CoreWealth Bank';
 // IMPORTANT: When using Gmail SMTP, FROM_EMAIL MUST match SMTP_EMAIL

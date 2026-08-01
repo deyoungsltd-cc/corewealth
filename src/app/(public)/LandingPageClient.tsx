@@ -311,7 +311,7 @@ function FAQPage() {
         <SectionHeader badge="FAQ" title="Frequently Asked" highlight="Questions" description="Find quick answers to the most common questions about CoreWealth banking services." />
         <Accordion type="single" collapsible className="space-y-3">
           {faqs.map((f, i) => (
-            <AccordionItem key={i} value={`f${i}`} className="glass-card border-0 data-[state=open]:glow-emerald-sm">
+            <AccordionItem key={i} value={`f${i}`} className="glass-card border-0 data-[state=open]:glow-purple-sm">
               <AccordionTrigger className="px-6 hover:no-underline hover:text-primary transition-colors text-left text-sm sm:text-base">{f.q}</AccordionTrigger>
               <AccordionContent className="px-6 pb-6 text-muted-foreground leading-relaxed text-sm">{f.a}</AccordionContent>
             </AccordionItem>
@@ -354,7 +354,7 @@ function ContactPage() {
                   </div>
                   <div><Label>Subject</Label><Input placeholder="How can we help?" className="mt-1.5" required /></div>
                   <div><Label>Message</Label><Textarea placeholder="Tell us more about your inquiry..." rows={5} className="mt-1.5" required /></div>
-                  <button type="submit" className="btn-primary w-full">Send Message <Send className="w-4 h-4" /></button>
+                  <button type="submit" className="btn-primary w-full">Send Message <Mail className="w-4 h-4" /></button>
                 </form>
               )}
             </div>

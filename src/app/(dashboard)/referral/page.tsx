@@ -8,7 +8,7 @@ const markets = [
   { name: 'S&P 500', value: '5,998.74', change: '+1.23%', up: true },
   { name: 'NASDAQ', value: '19,211.10', change: '+1.67%', up: true },
   { name: 'DOW', value: '42,875.44', change: '-0.32%', up: false },
-  { name: 'BTC', value: '$104,230', change: '+3.45%', up: true },
+  { name: 'Gold', value: '$2,438.60', change: '+0.58%', up: true },
 ];
 
 interface ReferralData {

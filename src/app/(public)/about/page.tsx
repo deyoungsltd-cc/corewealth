@@ -49,7 +49,7 @@ export default function AboutPage() {
             </div>
             <div className="relative p-8 sm:p-12">
               <div className="flex flex-col sm:flex-row items-center gap-8">
-                <div className="w-36 h-36 rounded-2xl overflow-hidden border-2 border-[#7C3AED]/30 shrink-0 bg-card shadow-[0_0_40px_rgba(204,0,0,0.15)] relative">
+                <div className="w-36 h-36 rounded-2xl overflow-hidden border-2 border-[#7C3AED]/30 shrink-0 bg-card shadow-[0_0_40px_rgba(124,58,237,0.15)] relative">
                   {aboutPhotoUrl ? (
                     <img src={aboutPhotoUrl} alt="CoreWealth Leadership" className="w-full h-full object-cover" />
                   ) : (
@@ -215,7 +215,7 @@ export default function AboutPage() {
                     </div>
                   ) : (
                     <div className="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-md mx-auto relative">
-                      <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your email address" className="w-full sm:flex-1 bg-white/5 border border-border rounded-xl px-5 py-3.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#7C3AED]/50 focus:shadow-[0_0_20px_rgba(204,0,0,0.1)] transition-all duration-300" />
+                      <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your email address" className="w-full sm:flex-1 bg-white/5 border border-border rounded-xl px-5 py-3.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#7C3AED]/50 focus:shadow-[0_0_20px_rgba(124,58,237,0.1)] transition-all duration-300" />
                       <button onClick={() => { if (email) setSubscribed(true); }} className="btn-red text-sm whitespace-nowrap pulse-ring !rounded-xl">Subscribe</button>
                     </div>
                   )}

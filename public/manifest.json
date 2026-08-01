@@ -1,7 +1,7 @@
 {
-  "name": "CoreWealth Prime Capital",
-  "short_name": "CoreWealthPrime",
-  "description": "Professionally managed investment platform with daily returns up to 1.8%",
+  "name": "CoreWealth Bank",
+  "short_name": "CoreWealth",
+  "description": "CoreWealth Bank — Full-service digital banking with secure deposits, transfers, and investment services.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0a0a0f",

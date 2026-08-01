@@ -58,7 +58,7 @@ export default function RatesSection() {
             <div
               key={product}
               className={`premium-card card-shine p-5 sm:p-6 flex flex-col items-center text-center gap-4 ${
-                featured ? 'glow-emerald' : ''
+                featured ? 'glow-purple' : ''
               }`}
             >
               {badge && (

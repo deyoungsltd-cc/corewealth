@@ -68,7 +68,7 @@ const sections = [
   {
     title: '8. Contact Us',
     content: [
-      'If you have any questions about this Privacy Policy or our data handling practices, please contact us at corewealthprimesupportt@gmail.com or through our support channels accessible on our platform.',
+      'If you have any questions about this Privacy Policy or our data handling practices, please contact us at support@corewealthbank.com or through our support channels accessible on our platform.',
     ],
   },
 ];
