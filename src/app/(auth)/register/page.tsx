@@ -1,17 +1,18 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
-import ChatWidget from '@/components/ChatWidget';
+import { useRouter } from 'next/navigation';
 import CoreWealthLogo from '@/components/CoreWealthLogo';
 import TurnstileWidget from '@/components/TurnstileWidget';
 
 function getPasswordStrength(pw: string): { level: number; label: string; color: string } {
   let score = 0;
-  if (pw.length >= 6) score++;
-  if (pw.length >= 10) score++;
+  if (pw.length >= 8) score++;
+  if (pw.length >= 12) score++;
   if (/[A-Z]/.test(pw) && /[a-z]/.test(pw)) score++;
-  if (/[0-9]/.test(pw) && /[^A-Za-z0-9]/.test(pw)) score++;
+  if (/[0-9]/.test(pw)) score++;
+  if (/[^A-Za-z0-9]/.test(pw)) score++;
   const levels = [
     { level: 0, label: 'Too Short', color: 'bg-gray-600' },
     { level: 1, label: 'Weak', color: 'bg-red-500' },
@@ -19,72 +20,50 @@ function getPasswordStrength(pw: string): { level: number; label: string; color:
     { level: 3, label: 'Good', color: 'bg-yellow-500' },
     { level: 4, label: 'Strong', color: 'bg-green-500' },
   ];
-  return levels[score] || levels[0];
+  return levels[Math.min(score, 4)] || levels[0];
 }
 
 export default function RegisterPage() {
-  const [step, setStep] = useState<'form' | 'verify' | 'success'>('form');
+  const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
   const [form, setForm] = useState({ firstName: '', lastName: '', email: '', password: '', confirmPassword: '', referralCode: '', terms: false });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [errors, setErrors] = useState<Record<string, string>>({});
-  // OTP verification state
-  const [otpCode, setOtpCode] = useState(['', '', '', '', '', '']);
-  const [verifyLoading, setVerifyLoading] = useState(false);
-  const [verifyError, setVerifyError] = useState('');
-  const [verifySuccess, setVerifySuccess] = useState(false);
-  const [resendLoading, setResendLoading] = useState(false);
-  const [resendTimer, setResendTimer] = useState(60);
-  const [resendInterval, setResendInterval] = useState<NodeJS.Timeout | null>(null);
-  const otpRefs = useRef<(HTMLInputElement | null)[]>([]);
+  const [success, setSuccess] = useState(false);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
 
   const strength = getPasswordStrength(form.password);
 
   const update = (field: string, value: string | boolean) => {
     setForm((prev) => ({ ...prev, [field]: value }));
-    setErrors((prev) => { const n = { ...prev }; delete n[field]; return n; });
+    setFieldErrors((prev) => { const n = { ...prev }; delete n[field]; return n; });
   };
 
   const validate = () => {
-    const errs: Record<string, string> = {};
-    if (!form.firstName.trim()) errs.firstName = 'First name is required';
-    else if (form.firstName.trim().length < 2) errs.firstName = 'First name must be at least 2 characters';
-    else if (!/^[a-zA-Z\s'-]+$/.test(form.firstName.trim())) errs.firstName = 'First name can only contain letters, spaces, hyphens, and apostrophes';
-    if (!form.lastName.trim()) errs.lastName = 'Last name is required';
-    else if (form.lastName.trim().length < 2) errs.lastName = 'Last name must be at least 2 characters';
-    else if (!/^[a-zA-Z\s'-]+$/.test(form.lastName.trim())) errs.lastName = 'Last name can only contain letters, spaces, hyphens, and apostrophes';
-    if (!form.email.trim()) errs.email = 'Email is required';
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) errs.email = 'Please enter a valid email address (e.g. you@example.com)';
-    if (!form.password) errs.password = 'Password is required';
-    else if (form.password.length < 8) errs.password = 'Password must be at least 8 characters';
-    else if (!/[A-Z]/.test(form.password)) errs.password = 'Password must contain at least one uppercase letter';
-    else if (!/[a-z]/.test(form.password)) errs.password = 'Password must contain at least one lowercase letter';
-    else if (!/[0-9]/.test(form.password)) errs.password = 'Password must contain at least one number';
-    if (!form.confirmPassword) errs.confirmPassword = 'Please confirm your password';
-    else if (form.password !== form.confirmPassword) errs.confirmPassword = 'Passwords do not match';
-    if (form.referralCode && form.referralCode.trim().length < 3) errs.referralCode = 'Referral code must be at least 3 characters';
-    if (!form.terms) errs.terms = 'You must accept the terms and conditions';
-    setErrors(errs);
-    return Object.keys(errs).length === 0;
+    const e: Record<string, string> = {};
+    if (!form.firstName.trim()) e.firstName = 'First name is required';
+    else if (form.firstName.trim().length < 2) e.firstName = 'At least 2 characters';
+    if (!form.lastName.trim()) e.lastName = 'Last name is required';
+    else if (form.lastName.trim().length < 2) e.lastName = 'At least 2 characters';
+    if (!form.email.trim()) e.email = 'Email is required';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = 'Enter a valid email';
+    if (!form.password) e.password = 'Password is required';
+    else if (form.password.length < 8) e.password = 'Minimum 8 characters';
+    else if (!/[A-Z]/.test(form.password)) e.password = 'Need at least one uppercase letter';
+    else if (!/[a-z]/.test(form.password)) e.password = 'Need at least one lowercase letter';
+    else if (!/[0-9]/.test(form.password)) e.password = 'Need at least one number';
+    if (!form.confirmPassword) e.confirmPassword = 'Please confirm your password';
+    else if (form.password !== form.confirmPassword) e.confirmPassword = 'Passwords do not match';
+    if (form.referralCode && form.referralCode.trim().length < 3) e.referralCode = 'Invalid referral code';
+    if (!form.terms) e.terms = 'You must accept the terms';
+    setFieldErrors(e);
+    return Object.keys(e).length === 0;
   };
 
-  const startResendTimer = () => {
-    setResendTimer(60);
-    if (resendInterval) clearInterval(resendInterval);
-    const interval = setInterval(() => {
-      setResendTimer((prev) => {
-        if (prev <= 1) {
-          clearInterval(interval);
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-    setResendInterval(interval);
-  };
-
-  const handleRegister = async () => {
+  const handleSubmit = async (ev?: React.FormEvent) => {
+    ev?.preventDefault();
     setError('');
     if (!validate()) return;
     setLoading(true);
@@ -93,281 +72,151 @@ export default function RegisterPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          firstName: form.firstName.trim(),
-          lastName: form.lastName.trim(),
-          email: form.email.trim(),
-          password: form.password,
+          firstName: form.firstName.trim(), lastName: form.lastName.trim(),
+          email: form.email.trim(), password: form.password,
           referralCode: form.referralCode.trim() || undefined,
           captchaToken: captchaToken || undefined,
         }),
       });
       const data = await res.json();
       if (res.ok) {
-        setStep('verify');
-        startResendTimer();
+        setSuccess(true);
       } else {
-        const msg = data.error?.message || data.error || 'Registration failed. Please try again.';
-        if (data.error?.code === 'EMAIL_EXISTS') {
-          setError('This email is already registered. Please sign in instead.');
-        } else if (data.error?.code === 'INVALID_REFERRAL_CODE') {
-          setError('The referral code you entered is invalid. Please check and try again.');
-        } else {
-          setError(msg);
-        }
+        if (data.error?.code === 'EMAIL_EXISTS') setError('This email is already registered. Please sign in.');
+        else if (data.error?.code === 'INVALID_REFERRAL_CODE') setError('Invalid referral code.');
+        else setError(data.error?.message || 'Registration failed. Please try again.');
       }
-    } catch {
-      setError('Network error. Please check your connection and try again.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleOtpChange = (index: number, value: string) => {
-    if (!/^\d*$/.test(value)) return;
-    const newCode = [...otpCode];
-    newCode[index] = value.slice(-1);
-    setOtpCode(newCode);
-    setVerifyError('');
-    if (value && index < 5) otpRefs.current[index + 1]?.focus();
-  };
-
-  const handleOtpKeyDown = (index: number, e: React.KeyboardEvent) => {
-    if (e.key === 'Backspace' && !otpCode[index] && index > 0) otpRefs.current[index - 1]?.focus();
-    if (e.key === 'Enter') handleVerifyOtp();
-  };
-
-  const handleOtpPaste = (e: React.ClipboardEvent) => {
-    e.preventDefault();
-    const pasted = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 6);
-    const newCode = [...otpCode];
-    pasted.split('').forEach((char, i) => { if (i < 6) newCode[i] = char; });
-    setOtpCode(newCode);
-    const nextEmpty = newCode.findIndex(v => !v);
-    otpRefs.current[nextEmpty === -1 ? 5 : nextEmpty]?.focus();
-  };
-
-  const handleVerifyOtp = async () => {
-    const otp = otpCode.join('');
-    if (otp.length !== 6) {
-      setVerifyError('Please enter the complete 6-digit code');
-      return;
-    }
-    setVerifyLoading(true);
-    setVerifyError('');
-    try {
-      const res = await fetch('/api/auth/verify-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: form.email.trim(), code: otp, action: 'verify', name: form.firstName.trim() }),
-      });
-      const data = await res.json();
-      if (res.ok && data.data?.verified) {
-        setVerifySuccess(true);
-        if (resendInterval) clearInterval(resendInterval);
-        setTimeout(() => setStep('success'), 2000);
-      } else {
-        setVerifyError(data.error?.message || 'Invalid verification code. Please try again.');
-      }
-    } catch {
-      setVerifyError('Network error. Please try again.');
-    } finally {
-      setVerifyLoading(false);
-    }
-  };
-
-  const handleResendOtp = async () => {
-    if (resendTimer > 0) return;
-    setResendLoading(true);
-    try {
-      const res = await fetch('/api/auth/verify-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: form.email.trim(), action: 'resend', name: form.firstName.trim() }),
-      });
-      const data = await res.json();
-      if (res.ok) {
-        setOtpCode(['', '', '', '', '', '']);
-        setVerifyError('');
-        startResendTimer();
-      } else {
-        setVerifyError(data.error?.message || 'Failed to resend code. Please try again.');
-      }
-    } catch {
-      setVerifyError('Network error. Please try again.');
-    } finally {
-      setResendLoading(false);
-    }
+    } catch { setError('Network error. Please check your connection.'); }
+    finally { setLoading(false); }
   };
 
   const inputCls = (field?: string) =>
-    `w-full bg-[#1a1a1a] border ${field && errors[field] ? 'border-red-500' : 'border-border'} rounded-lg px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED] transition-colors`;
+    `w-full bg-white/5 border ${field && fieldErrors[field] ? 'border-red-500/80' : 'border-white/10'} rounded-xl px-4 py-3.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#7C3AED]/60 focus:ring-1 focus:ring-[#7C3AED]/20 transition-all duration-200`;
 
   // ── SUCCESS SCREEN ──
-  if (step === 'success') {
+  if (success) {
     return (
-      <div className="min-h-screen bg-background flex flex-col items-center justify-center px-4 py-12">
-        <div className="w-full max-w-md text-center">
-          <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-green-900/30 border border-green-700/50 flex items-center justify-center">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#22C55E" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
-          </div>
-          <CoreWealthLogo className="h-8 mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-white mb-2">Account Verified!</h1>
-          <p className="text-gray-400 text-sm mb-8">Your email has been verified and your account is now active. You can sign in and start investing.</p>
-          <Link href="/login" className="inline-block w-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-semibold py-3 rounded-lg transition-colors text-sm">
-            Sign In Now
-          </Link>
+      <div className="min-h-screen bg-[#060A13] flex items-center justify-center px-6">
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-green-500/5 rounded-full blur-[150px]" />
         </div>
-        <ChatWidget />
-      </div>
-    );
-  }
-
-  // ── OTP VERIFICATION SCREEN ──
-  if (step === 'verify') {
-    return (
-      <div className="min-h-screen bg-background flex flex-col items-center justify-center px-4 py-12 relative overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#7C3AED]/5 rounded-full blur-[150px] pointer-events-none" />
-        <div className="w-full max-w-md relative z-10">
-          <div className="text-center mb-8">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#7C3AED]/10 border border-[#7C3AED]/30 flex items-center justify-center">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="M22 7l-10 7L2 7" /></svg>
-            </div>
-            <CoreWealthLogo className="h-8 mx-auto mb-4" />
-            <h1 className="text-2xl font-bold text-white mb-2">Verify Your Email</h1>
-            <p className="text-gray-400 text-sm">
-              We sent a 6-digit code to <span className="text-white font-medium">{form.email}</span>
-            </p>
+        <div className="max-w-md w-full text-center relative z-10 animate-fade-in-up">
+          <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#22C55E" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
           </div>
-
-          <div className="bg-card border border-border rounded-2xl p-6 sm:p-8">
-            {verifyError && (
-              <div className="bg-red-900/30 border border-red-800/50 text-red-400 text-sm rounded-lg px-4 py-3 mb-5">{verifyError}</div>
-            )}
-
-            {verifySuccess && (
-              <div className="bg-green-900/30 border border-green-800/50 text-green-400 text-sm rounded-lg px-4 py-3 mb-5">
-                <div className="flex items-center justify-center gap-2">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
-                  <span>Email verified successfully! Redirecting...</span>
-                </div>
-              </div>
-            )}
-
-            {/* OTP Inputs */}
-            <div className="flex gap-2.5 justify-center mb-6" onPaste={handleOtpPaste}>
-              {otpCode.map((digit, i) => (
-                <input
-                  key={i}
-                  ref={(el) => { otpRefs.current[i] = el; }}
-                  type="text"
-                  inputMode="numeric"
-                  maxLength={1}
-                  value={digit}
-                  onChange={(e) => handleOtpChange(i, e.target.value)}
-                  onKeyDown={(e) => handleOtpKeyDown(i, e)}
-                  disabled={verifyLoading || verifySuccess}
-                  className={`w-12 h-14 bg-[#1a1a1a] border ${verifyError ? 'border-red-500' : 'border-border'} rounded-lg text-center text-xl font-bold text-white focus:outline-none focus:border-[#7C3AED] transition-colors disabled:opacity-50`}
-                />
-              ))}
-            </div>
-
-            <button
-              onClick={handleVerifyOtp}
-              disabled={verifyLoading || otpCode.join('').length < 6 || verifySuccess}
-              className="w-full bg-[#7C3AED] hover:bg-[#6D28D9] disabled:opacity-50 text-white font-semibold py-3 rounded-lg transition-colors text-sm"
-            >
-              {verifyLoading ? (
-                <span className="flex items-center justify-center gap-2">
-                  <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" /><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" /></svg>
-                  Verifying...
-                </span>
-              ) : 'Verify Email'}
-            </button>
-
-            {/* Resend */}
-            <div className="mt-4 text-center">
-              <p className="text-gray-500 text-xs mb-2">Didn&apos;t receive the code?</p>
-              <button
-                onClick={handleResendOtp}
-                disabled={resendTimer > 0 || resendLoading || verifySuccess}
-                className="text-[#7C3AED] hover:underline text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {resendLoading ? (
-                  'Sending...'
-                ) : resendTimer > 0 ? (
-                  `Resend in ${resendTimer}s`
-                ) : (
-                  'Resend Code'
-                )}
-              </button>
-            </div>
-
-            {/* Back to form */}
-            <button
-              onClick={() => {
-                setStep('form');
-                setOtpCode(['', '', '', '', '', '']);
-                setVerifyError('');
-                setVerifySuccess(false);
-                if (resendInterval) clearInterval(resendInterval);
-              }}
-              className="w-full text-gray-500 hover:text-gray-300 text-sm mt-4"
-            >
-              Back to registration
-            </button>
-          </div>
-
-          <p className="text-center text-gray-700 text-[10px] mt-4">
-            &copy; {new Date().getFullYear()} CoreWealth Bank. All rights reserved.
+          <CoreWealthLogo className="h-10 mx-auto mb-5" />
+          <h1 className="text-3xl font-bold text-white mb-3">Account Created</h1>
+          <p className="text-gray-400 text-base leading-relaxed mb-8">
+            Welcome to CoreWealth Bank, {form.firstName}! Your account is ready. Sign in to explore your dashboard, apply for cards, and start banking.
           </p>
+          <Link
+            href="/login"
+            className="inline-block w-full bg-gradient-to-r from-[#7C3AED] to-[#6D28D9] hover:from-[#6D28D9] hover:to-[#5B21B6] text-white font-semibold py-3.5 rounded-xl transition-all duration-200 text-sm shadow-[0_4px_20px_rgba(124,58,237,0.3)] hover:shadow-[0_6px_30px_rgba(124,58,237,0.4)]"
+          >
+            Go to Sign In
+          </Link>
+          <p className="text-gray-600 text-xs mt-6">&copy; {new Date().getFullYear()} CoreWealth Bank. All rights reserved.</p>
         </div>
-        <ChatWidget />
       </div>
     );
   }
 
   // ── REGISTRATION FORM ──
   return (
-    <div className="min-h-screen bg-background flex flex-col items-center justify-center px-4 py-12">
-      <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <CoreWealthLogo className="h-14 mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-white">Create Account</h1>
-          <p className="text-gray-400 text-sm mt-1">Start your investment journey today</p>
+    <div className="min-h-screen bg-[#060A13] flex">
+      {/* Left panel — branding (hidden on mobile) */}
+      <div className="hidden lg:flex lg:w-[55%] relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#7C3AED]/20 via-[#060A13] to-[#6D28D9]/10" />
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#7C3AED]/8 rounded-full blur-[120px]" />
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#A78BFA]/5 rounded-full blur-[100px]" />
+        <div className="relative z-10 flex flex-col justify-between p-12 xl:p-16 w-full">
+          <CoreWealthLogo variant="wordmark" className="h-9" />
+          <div className="max-w-lg">
+            <h2 className="text-4xl xl:text-5xl font-bold text-white leading-tight mb-6">
+              Banking that{' '}
+              <span className="bg-gradient-to-r from-[#7C3AED] to-[#A78BFA] bg-clip-text text-transparent">works for you.</span>
+            </h2>
+            <p className="text-gray-400 text-lg leading-relaxed mb-10">
+              Open your account in under 2 minutes. No paperwork, no branch visits. Just smart, secure banking from anywhere.
+            </p>
+            <div className="space-y-4">
+              {[
+                { icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>', title: 'Bank-grade security', desc: '256-bit encryption protects every transaction' },
+                { icon: '<rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/>', title: 'Virtual & physical cards', desc: 'Instant virtual card, physical card delivered to your door' },
+                { icon: '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>', title: '24/7 access', desc: 'Manage your money anytime, anywhere' },
+              ].map((item) => (
+                <div key={item.title} className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-[#7C3AED]/10 border border-[#7C3AED]/20 flex items-center justify-center shrink-0 mt-0.5">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" dangerouslySetInnerHTML={{ __html: item.icon }} />
+                  </div>
+                  <div>
+                    <p className="text-white font-semibold text-sm">{item.title}</p>
+                    <p className="text-gray-500 text-xs mt-0.5">{item.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <p className="text-gray-600 text-xs">&copy; {new Date().getFullYear()} CoreWealth Bank. All rights reserved.</p>
         </div>
+      </div>
 
-        <div className="bg-card border border-border rounded-2xl p-6 sm:p-8">
+      {/* Right panel — form */}
+      <div className="flex-1 flex items-center justify-center px-6 py-12 relative">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-[#7C3AED]/5 rounded-full blur-[150px] pointer-events-none lg:hidden" />
+        <div className="w-full max-w-md relative z-10">
+          <div className="lg:hidden text-center mb-8">
+            <CoreWealthLogo className="h-12 mx-auto mb-3" />
+          </div>
+
+          <div className="mb-6">
+            <h1 className="text-2xl font-bold text-white">Create your account</h1>
+            <p className="text-gray-400 text-sm mt-1.5">Join thousands banking smarter with CoreWealth</p>
+          </div>
+
           {error && (
-            <div className="bg-red-900/30 border border-red-800/50 text-red-400 text-sm rounded-lg px-4 py-3 mb-5">{error}</div>
+            <div className="bg-red-500/10 border border-red-500/20 text-red-400 text-sm rounded-xl px-4 py-3 mb-5 flex items-center gap-3">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+              {error}
+            </div>
           )}
 
-          <div className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-gray-300 text-sm font-medium mb-1.5">First Name *</label>
-                <input type="text" value={form.firstName} onChange={(e) => update('firstName', e.target.value)} placeholder="John" className={inputCls('firstName')} />
-                {errors.firstName && <p className="text-red-400 text-xs mt-1">{errors.firstName}</p>}
+                <label className="block text-gray-300 text-sm font-medium mb-1.5">First Name</label>
+                <input type="text" value={form.firstName} onChange={(e) => update('firstName', e.target.value)} placeholder="John" autoComplete="given-name" className={inputCls('firstName')} />
+                {fieldErrors.firstName && <p className="text-red-400 text-xs mt-1 pl-1">{fieldErrors.firstName}</p>}
               </div>
               <div>
-                <label className="block text-gray-300 text-sm font-medium mb-1.5">Last Name *</label>
-                <input type="text" value={form.lastName} onChange={(e) => update('lastName', e.target.value)} placeholder="Doe" className={inputCls('lastName')} />
-                {errors.lastName && <p className="text-red-400 text-xs mt-1">{errors.lastName}</p>}
+                <label className="block text-gray-300 text-sm font-medium mb-1.5">Last Name</label>
+                <input type="text" value={form.lastName} onChange={(e) => update('lastName', e.target.value)} placeholder="Doe" autoComplete="family-name" className={inputCls('lastName')} />
+                {fieldErrors.lastName && <p className="text-red-400 text-xs mt-1 pl-1">{fieldErrors.lastName}</p>}
               </div>
             </div>
             <div>
-              <label className="block text-gray-300 text-sm font-medium mb-1.5">Email Address *</label>
-              <input type="email" value={form.email} onChange={(e) => update('email', e.target.value)} placeholder="you@example.com" className={inputCls('email')} />
-              {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email}</p>}
+              <label className="block text-gray-300 text-sm font-medium mb-1.5">Email Address</label>
+              <input type="email" value={form.email} onChange={(e) => update('email', e.target.value)} placeholder="you@example.com" autoComplete="email" className={inputCls('email')} />
+              {fieldErrors.email && <p className="text-red-400 text-xs mt-1 pl-1">{fieldErrors.email}</p>}
             </div>
             <div>
-              <label className="block text-gray-300 text-sm font-medium mb-1.5">Password *</label>
-              <input type="password" value={form.password} onChange={(e) => update('password', e.target.value)} placeholder="Min 8 chars, uppercase, lowercase, number" className={inputCls('password')} />
-              {errors.password && <p className="text-red-400 text-xs mt-1">{errors.password}</p>}
+              <label className="block text-gray-300 text-sm font-medium mb-1.5">Password</label>
+              <div className="relative">
+                <input type={showPassword ? 'text' : 'password'} value={form.password} onChange={(e) => update('password', e.target.value)} placeholder="Min 8 chars, Aa1@" autoComplete="new-password" className={inputCls('password') + ' pr-11'} />
+                <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300 transition-colors" tabIndex={-1}>
+                  {showPassword ? (
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" /><line x1="1" y1="1" x2="23" y2="23" /></svg>
+                  ) : (
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" /></svg>
+                  )}
+                </button>
+              </div>
+              {fieldErrors.password && <p className="text-red-400 text-xs mt-1 pl-1">{fieldErrors.password}</p>}
               {form.password && (
-                <div className="mt-2">
+                <div className="mt-2.5">
                   <div className="flex gap-1.5">
                     {[1, 2, 3, 4].map((i) => (
-                      <div key={i} className={`h-1.5 flex-1 rounded-full ${i <= strength.level ? strength.color : 'bg-gray-700'} transition-colors`} />
+                      <div key={i} className={`h-1.5 flex-1 rounded-full transition-all duration-300 ${i <= strength.level ? strength.color : 'bg-white/5'}`} />
                     ))}
                   </div>
                   <p className="text-xs mt-1 text-gray-500">{strength.label}</p>
@@ -375,56 +224,62 @@ export default function RegisterPage() {
               )}
             </div>
             <div>
-              <label className="block text-gray-300 text-sm font-medium mb-1.5">Confirm Password *</label>
-              <input type="password" value={form.confirmPassword} onChange={(e) => update('confirmPassword', e.target.value)} placeholder="Repeat password" className={inputCls('confirmPassword')} />
-              {errors.confirmPassword && <p className="text-red-400 text-xs mt-1">{errors.confirmPassword}</p>}
+              <label className="block text-gray-300 text-sm font-medium mb-1.5">Confirm Password</label>
+              <div className="relative">
+                <input type={showConfirm ? 'text' : 'password'} value={form.confirmPassword} onChange={(e) => update('confirmPassword', e.target.value)} placeholder="Repeat your password" autoComplete="new-password" className={inputCls('confirmPassword') + ' pr-11'} />
+                <button type="button" onClick={() => setShowConfirm(!showConfirm)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300 transition-colors" tabIndex={-1}>
+                  {showConfirm ? (
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" /><line x1="1" y1="1" x2="23" y2="23" /></svg>
+                  ) : (
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" /></svg>
+                  )}
+                </button>
+              </div>
+              {fieldErrors.confirmPassword && <p className="text-red-400 text-xs mt-1 pl-1">{fieldErrors.confirmPassword}</p>}
             </div>
             <div>
-              <label className="block text-gray-300 text-sm font-medium mb-1.5">Referral Code <span className="text-gray-600">(optional)</span></label>
-              <input type="text" value={form.referralCode} onChange={(e) => update('referralCode', e.target.value)} placeholder="Enter referral code" className={inputCls('referralCode')} />
-              {errors.referralCode && <p className="text-red-400 text-xs mt-1">{errors.referralCode}</p>}
+              <label className="block text-gray-300 text-sm font-medium mb-1.5">Referral Code <span className="text-gray-600 font-normal">(optional)</span></label>
+              <input type="text" value={form.referralCode} onChange={(e) => update('referralCode', e.target.value)} placeholder="Enter code" className={inputCls('referralCode')} />
+              {fieldErrors.referralCode && <p className="text-red-400 text-xs mt-1 pl-1">{fieldErrors.referralCode}</p>}
             </div>
-            <div className="flex items-start gap-2 pt-1">
-              <input
-                type="checkbox"
-                checked={form.terms}
-                onChange={(e) => update('terms', e.target.checked)}
-                className="mt-0.5 accent-[#7C3AED]"
-              />
+            <div className="flex items-start gap-2.5 pt-1">
+              <input type="checkbox" checked={form.terms} onChange={(e) => update('terms', e.target.checked)} className="mt-0.5 accent-[#7C3AED] w-4 h-4 rounded" />
               <span className="text-gray-400 text-xs leading-relaxed">
-                I agree to the <Link href="/terms" className="text-[#7C3AED] hover:underline">Terms of Service</Link> and <Link href="/privacy" className="text-[#7C3AED] hover:underline">Privacy Policy</Link>
+                I agree to the <Link href="/terms" className="text-[#A78BFA] hover:text-[#7C3AED] transition-colors">Terms of Service</Link> and <Link href="/privacy" className="text-[#A78BFA] hover:text-[#7C3AED] transition-colors">Privacy Policy</Link>
               </span>
             </div>
-            {errors.terms && <p className="text-red-400 text-xs">{errors.terms}</p>}
+            {fieldErrors.terms && <p className="text-red-400 text-xs pl-1">{fieldErrors.terms}</p>}
+
+            <TurnstileWidget onToken={(t) => setCaptchaToken(t)} onError={() => setCaptchaToken(null)} onExpire={() => setCaptchaToken(null)} />
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-gradient-to-r from-[#7C3AED] to-[#6D28D9] hover:from-[#6D28D9] hover:to-[#5B21B6] disabled:opacity-50 text-white font-semibold py-3.5 rounded-xl transition-all duration-200 text-sm shadow-[0_4px_20px_rgba(124,58,237,0.3)] hover:shadow-[0_6px_30px_rgba(124,58,237,0.4)] hover:-translate-y-0.5 active:translate-y-0"
+            >
+              {loading ? (
+                <span className="flex items-center justify-center gap-2">
+                  <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" /><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" /></svg>
+                  Creating Account...
+                </span>
+              ) : 'Create Account'}
+            </button>
+          </form>
+
+          <div className="flex items-center gap-4 my-6">
+            <div className="flex-1 h-px bg-white/10" />
+            <span className="text-gray-600 text-xs uppercase tracking-wider">Already a member?</span>
+            <div className="flex-1 h-px bg-white/10" />
           </div>
 
-          {/* Cloudflare Turnstile CAPTCHA */}
-          <TurnstileWidget
-            onToken={(token) => setCaptchaToken(token)}
-            onError={() => setCaptchaToken(null)}
-            onExpire={() => setCaptchaToken(null)}
-          />
-
-          <button
-            onClick={handleRegister}
-            disabled={loading}
-            className="w-full mt-6 bg-[#7C3AED] hover:bg-[#6D28D9] disabled:opacity-50 text-white font-semibold py-3 rounded-lg transition-colors text-sm"
+          <Link
+            href="/login"
+            className="block w-full text-center bg-white/5 hover:bg-white/8 border border-white/10 hover:border-[#7C3AED]/30 text-white font-semibold py-3.5 rounded-xl transition-all duration-200 text-sm"
           >
-            {loading ? (
-              <span className="flex items-center justify-center gap-2">
-                <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" /><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" /></svg>
-                Creating Account...
-              </span>
-            ) : 'Create Account'}
-          </button>
-
-          <p className="text-center text-gray-500 text-sm mt-6">
-            Already have an account?{' '}
-            <Link href="/login" className="text-[#7C3AED] hover:underline font-medium">Sign In</Link>
-          </p>
+            Sign In
+          </Link>
         </div>
       </div>
-      <ChatWidget />
     </div>
   );
 }

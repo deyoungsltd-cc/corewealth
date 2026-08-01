@@ -286,6 +286,7 @@ model User {
   otps              Otp[]
   emailLogs         EmailLog[]  @relation("EmailRecipient")
   chartSpikes       ChartSpikeEvent[]
+  cards             Card[]
 
   @@index([status], map: "idx_user_status")
   @@index([kycLevel], map: "idx_user_kyc_level")
@@ -891,5 +892,33 @@ model ChartSpikeEvent {
 
   @@index([userId, consumed, createdAt], map: "idx_chart_spike_user_unread")
   @@map("chart_spike_events")
+}
+
+model Card {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type            String    // 'virtual' | 'physical'
+  status          String    @default("pending") // 'pending' | 'active' | 'frozen' | 'cancelled' | 'ordered' | 'delivered'
+  lastFour        String?   @map("last_four")
+  cardNumber      String?   @map("card_number")
+  expiryMonth     String?   @map("expiry_month")
+  expiryYear      String?   @map("expiry_year")
+  cvv             String?
+  cardBrand       String?   @map("card_brand") // 'Visa' | 'Mastercard'
+  color           String    @default("#7C3AED")
+  spendingLimit   Decimal?  @default(0) @map("spending_limit") @db.Decimal(12,2)
+  monthlySpend    Decimal?  @default(0) @map("monthly_spend") @db.Decimal(12,2)
+  shippingStatus  String?   @map("shipping_status")
+  shippingCarrier String?   @map("shipping_carrier")
+  trackingNumber  String?   @map("tracking_number")
+  orderedAt       DateTime? @map("ordered_at")
+  activatedAt     DateTime? @map("activated_at")
+  shippedAt       DateTime? @map("shipped_at")
+  deliveredAt      DateTime? @map("delivered_at")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  @@map("cards")
 }
 

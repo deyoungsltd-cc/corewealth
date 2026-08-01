@@ -64,6 +64,10 @@ const titles: Record<string, string> = {
   '/beneficiaries': 'Beneficiaries',
   '/checking-statement': 'Checking Statement',
   '/savings-statement': 'Savings Statement',
+  '/cards': 'Cards',
+  '/cards/apply': 'Apply for Card',
+  '/cards/manage': 'Manage Card',
+  '/cards/tracking': 'Card Tracking',
 };
 
 const bottomNav = [
@@ -140,7 +144,8 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     { href: '/deposit', label: 'Deposit', icon: <Download size={18} /> },
     { href: '/withdraw', label: 'Withdraw', icon: <Upload size={18} /> },
     { href: '/investments', label: 'Investments', icon: <Landmark size={18} /> },
-    { href: '/beneficiaries', label: 'Beneficiaries', icon: <CreditCard size={18} /> },
+    { href: '/cards', label: 'Cards', icon: <CreditCard size={18} /> },
+    { href: '/beneficiaries', label: 'Beneficiaries', icon: <Receipt size={18} /> },
     { href: '/kyc', label: 'Verification', icon: <Shield size={18} /> },
     { href: '/support', label: 'Support', icon: <HelpCircle size={18} /> },
     { href: '/profile', label: 'Profile', icon: <User size={18} /> },
