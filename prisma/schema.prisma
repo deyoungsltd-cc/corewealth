@@ -33,6 +33,11 @@ enum AccountType {
   cd
 }
 
+enum WalletType {
+  demo
+  live
+}
+
 enum TransactionType {
   deposit
   withdrawal
@@ -65,7 +70,14 @@ enum DepositMethod {
   check
 }
 
-// Removed crypto currencies - bank uses fiat only
+enum CryptoCurrency {
+  BTC
+  ETH
+  USDT
+  USD
+  EUR
+  GBP
+}
 
 enum DepositStatus {
   pending
@@ -426,7 +438,7 @@ model Deposit {
   amount            Float           
   usdAmount         Float            @map("usd_amount")
   method            DepositMethod
-  cryptoCurrency    CryptoCurrency?   @map("crypto_currency")
+  cryptoCurrency    CryptoCurrency?   @map("crypto_currency") // legacy field
   txHash            String?           @map("tx_hash")
   status            DepositStatus     @default(pending)
   mode              UserMode          @default(demo)
