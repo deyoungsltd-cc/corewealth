@@ -62,7 +62,7 @@ export default function BlogPage() {
             <div className="glass-card overflow-hidden">
               <div className="grid md:grid-cols-2">
                 <div className="h-56 md:h-auto bg-gradient-to-br from-[#7C3AED]/20 via-[#7C3AED]/10 to-card flex items-center justify-center relative overflow-hidden">
-                  <span className="text-[#7C3AED]/20 text-9xl font-black select-none">TSLA</span>
+                  <span className="text-[#7C3AED]/20 text-9xl font-black select-none">MARKETS</span>
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent to-card/50 hidden md:block" />
                 </div>
                 <div className="p-8 md:p-10 flex flex-col justify-center">

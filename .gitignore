@@ -55,3 +55,11 @@ server.log
 tool-results/
 upload/
 corewealth/
+corewealth/
+scripts/
+download/
+upload/
+tool-results/
+skills/
+worklog.md
+.bak

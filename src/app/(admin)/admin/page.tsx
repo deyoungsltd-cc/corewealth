@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 
-const TradingViewWidget = dynamic(() => import('@/components/TradingViewWidget'), { ssr: false });
 
 function CoreWealthTLogo({ className = 'w-7 h-7' }: { className?: string }) {
   return (
@@ -78,7 +77,7 @@ export default function AdminPage() {
   const [withdrawalFilter, setWithdrawalFilter] = useState('');
   const [toast, setToast] = useState<string | null>(null);
   const [settingsPhotoUrl, setSettingsPhotoUrl] = useState<string | null>(null);
-  const [ceoPhotoUrl, setCEOPhotoUrl] = useState<string | null>(null);
+  const [managementPhotoUrl, setCEOPhotoUrl] = useState<string | null>(null);
   const [settingsLoading, setSettingsLoading] = useState(false);
   const [messageDialog, setMessageDialog] = useState<{type: 'kyc'|'deposit'|'withdrawal', id: string, action: 'approve'|'reject', defaultReason?: string} | null>(null);
   const [dialogMessage, setDialogMessage] = useState('');
@@ -128,7 +127,7 @@ export default function AdminPage() {
 
   // ── Trade Control (chart spike) state ──
   // Admin picks a user, picks a direction + magnitude, and fires a "spike"
-  // that visibly jumps that user's ActiveTradeChart on their next poll.
+  // that visibly jumps that user's  on their next poll.
   const [spikeUserId, setSpikeUserId] = useState<string>('');
   const [spikeDirection, setSpikeDirection] = useState<'up' | 'down'>('up');
   const [spikeMagnitude, setSpikeMagnitude] = useState<number>(10);
@@ -465,7 +464,7 @@ export default function AdminPage() {
       apiCall('/api/admin/settings').then(r => r.json()).then(d => {
         if (d.success) {
           if (d.data?.aboutPhotoUrl) setSettingsPhotoUrl(d.data.aboutPhotoUrl);
-          if (d.data?.ceoPhotoUrl) setCEOPhotoUrl(d.data.ceoPhotoUrl);
+          if (d.data?.managementPhotoUrl) setCEOPhotoUrl(d.data.managementPhotoUrl);
         }
       }).catch(() => {});
       fetchPaymentAddresses();
@@ -561,7 +560,7 @@ export default function AdminPage() {
   const handleSearch = (e: React.FormEvent) => { e.preventDefault(); fetchUsers(searchTerm); };
 
   const saveCEOUrl = async (url?: string) => {
-    const inputUrl = url || (document.getElementById('elonUrlInput') as HTMLInputElement)?.value.trim();
+    const inputUrl = url || (document.getElementById('managementUrlInput') as HTMLInputElement)?.value.trim();
     if (!inputUrl) return;
     setSettingsLoading(true);
     try {
@@ -569,10 +568,10 @@ export default function AdminPage() {
       const res = await fetch('/api/admin/settings', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) },
-        body: JSON.stringify({ ceoPhotoUrl: inputUrl }),
+        body: JSON.stringify({ managementPhotoUrl: inputUrl }),
       });
       const data = await res.json();
-      if (data.success) { setCEOPhotoUrl(data.data.ceoPhotoUrl); showToast('CEO photo URL updated!'); }
+      if (data.success) { setCEOPhotoUrl(data.data.managementPhotoUrl); showToast('CEO photo URL updated!'); }
       else showToast(data.error?.message || 'Update failed');
     } catch { showToast('Update failed'); }
     setSettingsLoading(false);
@@ -1451,7 +1450,7 @@ export default function AdminPage() {
                     <span className="text-gray-500 text-sm">CoreWealth, Inc.</span>
                   </div>
                 </div>
-                <TradingViewWidget />
+                {/* removed */}
               </div>
             </div>
           )}
@@ -1468,7 +1467,7 @@ export default function AdminPage() {
                   <h3 className="text-white font-semibold text-sm">Spike a User&apos;s Trade Chart</h3>
                 </div>
                 <p className="text-gray-500 text-xs mb-5">
-                  Fires a one-time visible jump on the target user&apos;s <span className="text-gray-300">ActiveTradeChart</span>.
+                  Fires a one-time visible jump on the target user&apos;s <span className="text-gray-300"></span>.
                   They will see the spike within ~5 seconds (next poll). The chart only runs if the user has at least one active investment.
                 </p>
 
@@ -2127,8 +2126,8 @@ export default function AdminPage() {
 
                 <div className="flex flex-col sm:flex-row items-start gap-6">
                   <div className="w-40 h-40 rounded-full overflow-hidden border-4 border-[#7C3AED]/30 bg-[#1a1a1a] shrink-0">
-                    {ceoPhotoUrl ? (
-                      <img src={ceoPhotoUrl} alt="Current Management Photo" className="w-full h-full object-cover" />
+                    {managementPhotoUrl ? (
+                      <img src={managementPhotoUrl} alt="Current Management Photo" className="w-full h-full object-cover" />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center text-gray-600 text-xs">No photo set</div>
                     )}
@@ -2149,18 +2148,18 @@ export default function AdminPage() {
                           try {
                             const fd = new FormData();
                             fd.append('photo', file);
-                            fd.append('target', 'elon');
+                            fd.append('target', 'management');
                             const token = localStorage.getItem('adminToken');
                             const res = await fetch('/api/admin/settings', { method: 'POST', headers: token ? { Authorization: `Bearer ${token}` } : {}, body: fd });
                             const data = await res.json();
-                            if (data.success) { setCEOPhotoUrl(data.data.ceoPhotoUrl); showToast('CEO photo updated!'); }
+                            if (data.success) { setCEOPhotoUrl(data.data.managementPhotoUrl); showToast('CEO photo updated!'); }
                             else showToast(data.error?.message || 'Upload failed');
                           } catch { showToast('Upload failed'); }
                           setSettingsLoading(false);
                         }}
                       />
                     </label>
-                    <input type="text" placeholder="Or paste management photo URL..." className="bg-[#1a1a1a] border border-border rounded-lg px-4 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED] transition-colors" defaultValue={ceoPhotoUrl || ''} id="elonUrlInput"
+                    <input type="text" placeholder="Or paste management photo URL..." className="bg-[#1a1a1a] border border-border rounded-lg px-4 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED] transition-colors" defaultValue={managementPhotoUrl || ''} id="managementUrlInput"
                       onKeyDown={(e) => { if (e.key === 'Enter') { saveCEOUrl((e.target as HTMLInputElement).value.trim()); } }}
                     />
                     <button onClick={() => saveCEOUrl()} className="bg-white/5 hover:bg-white/10 text-white text-xs font-medium px-4 py-2 rounded-lg border border-border transition-colors self-start">Save URL</button>

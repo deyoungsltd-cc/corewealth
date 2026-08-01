@@ -29,6 +29,9 @@ export const metadata: Metadata = {
     title: "CoreWealth Bank | Premier Digital Banking",
     description: "Secure digital banking with competitive rates and innovative financial solutions.",
   },
+  icons: {
+    icon: "/favicon.svg",
+  },
   robots: { index: true, follow: true },
 };
 

@@ -36,14 +36,31 @@ export const blogPosts: BlogPost[] = [
     slug: 'corewealth-stock-analysis-q1',
     title: 'CoreWealth Stock Analysis: Q1 2024 Performance Review',
     excerpt: 'An in-depth analysis of CoreWealth\'s stock performance in Q1 2024, including key catalysts and what investors should watch.',
-    content: `CoreWealth (NASDAQ: TSLA) had an eventful Q1 2024, with significant movements driven by both company-specific developments and broader market conditions.\n\n## Key Performance Metrics\n\nCoreWealth's stock showed resilience despite market volatility, with the company's focus on cost reduction and production efficiency paying dividends. The Model Y became the best-selling vehicle globally, marking a significant milestone.\n\n## What Drives TSLA Price\n\n- **Production Numbers**: Higher volume = lower per-unit costs\n- **Margin Trends**: Watch gross margins closely\n- **AI & FSD**: Full Self-Driving remains a major catalyst\n- **Energy Business**: Megapack and solar deployments growing rapidly\n\n## Investment Implications\n\nFor CoreWealth Bank investors, understanding TSLA dynamics is crucial since our trading strategies are heavily influenced by CoreWealth-related market movements. Our algorithms are tuned to capture volatility in TSLA and related EV ecosystem stocks.\n\nThe outlook remains constructive with several potential upside catalysts through the remainder of 2024.`,
+    content: `EUR/USD had an eventful Q1 2024, driven by Federal Reserve policy shifts and ECB rate decisions.
+
+## Key Performance Metrics
+
+The euro showed resilience against the US dollar, with the pair trading in a range as markets priced in diverging central bank policies. European economic data surprised to the upside, supporting the single currency.
+
+## What Drives EUR/USD Price
+
+- **Interest Rate Differentials**: Fed vs ECB policy gap
+- **Economic Data**: GDP, inflation, employment releases
+- **Political Events**: Elections, trade policy changes
+- **Safe Haven Flows**: Risk sentiment drives dollar demand
+
+## Banking Implications
+
+For CoreWealth Bank customers, understanding FX dynamics is crucial for international transfers and currency hedging. Our exchange rates are competitive and updated in real-time to ensure you get the best value.
+
+The outlook remains constructive with several potential catalysts through the remainder of 2024.
     category: 'Market Analysis',
     author: 'CoreWealth Bank',
     authorAvatar: '',
     coverImage: '',
     publishedAt: '2024-02-20',
     readTime: 8,
-    tags: ['TSLA', 'analysis', 'stocks'],
+    tags: ['EURUSD', 'analysis', 'stocks'],
   },
   {
     slug: 'crypto-vs-traditional-investments',

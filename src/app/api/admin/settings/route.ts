@@ -12,8 +12,8 @@ export async function GET() {
     return apiResponse({
       aboutPhotoUrl: settings.aboutPhotoUrl,
       aboutPhotoUpdatedAt: settings.aboutPhotoUpdatedAt,
-      ceoPhotoUrl: settings.ceoPhotoUrl,
-      ceoPhotoUpdatedAt: settings.ceoPhotoUpdatedAt,
+      managementPhotoUrl: settings.managementPhotoUrl,
+      managementPhotoUpdatedAt: settings.managementPhotoUpdatedAt,
     });
   } catch (error) {
     console.error('Get settings error:', error);
@@ -21,9 +21,8 @@ export async function GET() {
   }
 }
 
-// POST - Upload photo and store as base64 data URL in database (persists across deploys)
+// POST - Upload photo and store as base64 data URL in database
 export async function POST(request: NextRequest) {
-  // Auth check
   const user = await getSessionUser(request);
   if (!user) {
     return apiError('Authentication required', 'UNAUTHORIZED', 401);
@@ -35,35 +34,31 @@ export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
     const file = formData.get('photo') as File | null;
-    const target = (formData.get('target') as string) || 'about'; // 'about' or 'elon'
+    const target = (formData.get('target') as string) || 'about';
 
     if (!file) {
       return apiError('No photo file provided', 'MISSING_FILE', 400);
     }
 
-    // Validate file type
     const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
     if (!allowedTypes.includes(file.type)) {
       return apiError('Invalid file type. Use JPG, PNG, WebP, or GIF.', 'INVALID_FILE_TYPE', 400);
     }
 
-    // Validate file size (max 2MB for DB storage)
     if (file.size > 2 * 1024 * 1024) {
-      return apiError('File too large. Maximum 2MB for upload. Use the URL field for larger images.', 'FILE_TOO_LARGE', 400);
+      return apiError('File too large. Maximum 2MB.', 'FILE_TOO_LARGE', 400);
     }
 
-    // Convert file to base64 data URL — stored in DB so it persists across deploys
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
     const base64 = buffer.toString('base64');
     const dataUrl = `data:${file.type};base64,${base64}`;
 
-    // Update database with data URL
     let settings = await db.siteSettings.findUnique({ where: { id: 'main' } });
-    const updateData: any = {};
-    if (target === .ceo.) {
-      updateData.ceoPhotoUrl = dataUrl;
-      updateData.ceoPhotoUpdatedAt = new Date();
+    const updateData: Record<string, any> = {};
+    if (target === 'management') {
+      updateData.managementPhotoUrl = dataUrl;
+      updateData.managementPhotoUpdatedAt = new Date();
     } else {
       updateData.aboutPhotoUrl = dataUrl;
       updateData.aboutPhotoUpdatedAt = new Date();
@@ -77,9 +72,9 @@ export async function POST(request: NextRequest) {
     return apiResponse({
       aboutPhotoUrl: settings.aboutPhotoUrl,
       aboutPhotoUpdatedAt: settings.aboutPhotoUpdatedAt,
-      ceoPhotoUrl: settings.ceoPhotoUrl,
-      ceoPhotoUpdatedAt: settings.ceoPhotoUpdatedAt,
-      message: 'Photo uploaded and saved successfully',
+      managementPhotoUrl: settings.managementPhotoUrl,
+      managementPhotoUpdatedAt: settings.managementPhotoUpdatedAt,
+      message: 'Photo uploaded successfully',
     });
   } catch (error) {
     console.error('Upload photo error:', error);
@@ -87,9 +82,8 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// PUT - Update photo URL (admin only - for external URLs or data URLs)
+// PUT - Update photo URL (admin only)
 export async function PUT(request: NextRequest) {
-  // Auth check
   const user = await getSessionUser(request);
   if (!user) {
     return apiError('Authentication required', 'UNAUTHORIZED', 401);
@@ -100,16 +94,16 @@ export async function PUT(request: NextRequest) {
 
   try {
     const body = await request.json();
-    const { aboutPhotoUrl, ceoPhotoUrl } = body;
+    const { aboutPhotoUrl, managementPhotoUrl } = body;
 
-    const updateData: any = {};
+    const updateData: Record<string, any> = {};
     if (aboutPhotoUrl && typeof aboutPhotoUrl === 'string') {
       updateData.aboutPhotoUrl = aboutPhotoUrl;
       updateData.aboutPhotoUpdatedAt = new Date();
     }
-    if (ceoPhotoUrl && typeof ceoPhotoUrl === 'string') {
-      updateData.ceoPhotoUrl = ceoPhotoUrl;
-      updateData.ceoPhotoUpdatedAt = new Date();
+    if (managementPhotoUrl && typeof managementPhotoUrl === 'string') {
+      updateData.managementPhotoUrl = managementPhotoUrl;
+      updateData.managementPhotoUpdatedAt = new Date();
     }
     if (Object.keys(updateData).length === 0) {
       return apiError('Valid photo URL is required', 'MISSING_URL', 400);
@@ -125,8 +119,8 @@ export async function PUT(request: NextRequest) {
     return apiResponse({
       aboutPhotoUrl: settings.aboutPhotoUrl,
       aboutPhotoUpdatedAt: settings.aboutPhotoUpdatedAt,
-      ceoPhotoUrl: settings.ceoPhotoUrl,
-      ceoPhotoUpdatedAt: settings.ceoPhotoUpdatedAt,
+      managementPhotoUrl: settings.managementPhotoUrl,
+      managementPhotoUpdatedAt: settings.managementPhotoUpdatedAt,
       message: 'Photo URL updated successfully',
     });
   } catch (error) {

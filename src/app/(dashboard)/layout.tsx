@@ -58,7 +58,6 @@ const titles: Record<string, string> = {
   '/security': 'Security',
   '/transactions': 'Transaction History',
   '/market': 'Markets & Rates',
-  '/buy-crypto': 'Crypto Exchange',
   '/internal-transfer': 'Transfer',
   '/wire-transfer': 'Wire Transfer',
   '/pay-bills': 'Pay Bills',

@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -26,9 +26,11 @@ enum KycLevel {
   LEVEL_3
 }
 
-enum WalletType {
-  demo
-  live
+enum AccountType {
+  checking
+  savings
+  money_market
+  cd
 }
 
 enum TransactionType {
@@ -57,15 +59,13 @@ enum InvestmentStatus {
 }
 
 enum DepositMethod {
-  crypto
-  gift_card
+  bank_transfer
+  wire_transfer
+  ach
+  check
 }
 
-enum CryptoCurrency {
-  BTC
-  ETH
-  USDT
-}
+// Removed crypto currencies - bank uses fiat only
 
 enum DepositStatus {
   pending
@@ -84,8 +84,9 @@ enum WithdrawalStatus {
 }
 
 enum WithdrawalDestinationType {
-  crypto
-  bank
+  bank_account
+  wire
+  check
 }
 
 enum ReferralCommissionType {
@@ -842,8 +843,8 @@ model SiteSettings {
   id           String    @id @default("main")
   aboutPhotoUrl String?  @map("about_photo_url")
   aboutPhotoUpdatedAt DateTime? @map("about_photo_updated_at")
-  elonPhotoUrl String?  @map("elon_photo_url")
-  elonPhotoUpdatedAt DateTime? @map("elon_photo_updated_at")
+  managementPhotoUrl String?  @map("management_photo_url")
+  managementPhotoUpdatedAt DateTime?  @map("management_photo_updated_at")
   updatedAt    DateTime  @updatedAt @map("updated_at")
 
   @@map("site_settings")

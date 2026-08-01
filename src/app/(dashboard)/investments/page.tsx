@@ -3,11 +3,10 @@
 import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import ChatWidget from '@/components/ChatWidget';
-import ActiveTradeChart from '@/components/ActiveTradeChart';
-import InvestmentCorrelationChart from '@/components/InvestmentCorrelationChart';
+import  from '@/components/';
+import  from '@/components/';
 
-const TradingViewWidget = dynamic(() => import('@/components/TradingViewWidget'), { ssr: false });
-const HowToInvestSlideshow = dynamic(() => import('@/components/HowToInvestSlideshow'), { ssr: false });
+const  = dynamic(() => import('@/components/'), { ssr: false });
 
 // Fallback hardcoded plans — used if /api/plans fails. The dashboard will
 // prefer the API response so that admins can disable plans and have them
@@ -253,11 +252,10 @@ export default function InvestmentsPage() {
       </div>
 
       {/* Active Trade Chart (Live indicator) */}
-      <ActiveTradeChart
+      <
         investedAmount={activeInvestments.reduce((sum, inv) => sum + Number(inv.amount || 0), 0)}
       />
 
-      {/* TradingView Chart */}
       <div className="bg-card border border-border rounded-xl overflow-hidden !p-0">
         <div className="px-4 py-2.5 border-b border-border flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -266,14 +264,14 @@ export default function InvestmentsPage() {
             <span className="text-gray-500 text-xs">Live</span>
           </div>
         </div>
-        <TradingViewWidget />
+        {/* removed */}
       </div>
 
       {/* Investment Correlation Chart */}
-      <InvestmentCorrelationChart />
+      < />
 
       {/* How to Invest 3D Slideshow */}
-      <HowToInvestSlideshow />
+      < />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {plans.map((plan, i) => (
