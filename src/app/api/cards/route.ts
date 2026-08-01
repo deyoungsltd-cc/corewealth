@@ -10,7 +10,7 @@ async function handler(request: NextRequest, _context: any, user: any) {
 
   if (request.method === 'POST') {
     const body = await request.json();
-    const { type, cardBrand = 'Visa', color = '#7C3AED', planId, shippingAddress, fee = 0 } = body;
+    const { type, cardBrand = 'Visa', color = '#2563EB', planId, shippingAddress, fee = 0 } = body;
 
     // Check existing card limit
     const existingCards = await db.card.count({ where: { userId: user.id, type } });

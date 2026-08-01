@@ -84,7 +84,7 @@ export default function ReferralPage() {
         {/* Referral Link */}
         <div className="bg-[#1a1a1a] rounded-lg p-3 flex items-center gap-2">
           <input type="text" readOnly value={referralLink} className="flex-1 bg-transparent text-gray-300 text-sm font-mono outline-none min-w-0 truncate" />
-          <button onClick={handleCopy} className="shrink-0 bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors">
+          <button onClick={handleCopy} className="shrink-0 bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors">
             {copied ? 'Copied!' : 'Copy'}
           </button>
         </div>
@@ -94,12 +94,12 @@ export default function ReferralPage() {
       {!loading && (
         <div className="bg-card border border-border rounded-xl p-5">
           <h3 className="text-white font-semibold text-sm mb-4 flex items-center gap-2">
-            <span className="w-2 h-2 bg-[#7C3AED] rounded-full" />
+            <span className="w-2 h-2 bg-[#2563EB] rounded-full" />
             Conversion Funnel
           </h3>
           <div className="space-y-0">
             {[
-              { label: 'Total Referred', value: funnel.totalReferred, color: '#7C3AED', pct: 100 },
+              { label: 'Total Referred', value: funnel.totalReferred, color: '#2563EB', pct: 100 },
               { label: 'KYC Completed', value: funnel.kycCompleted, color: '#F59E0B', pct: funnel.totalReferred > 0 ? Math.round((funnel.kycCompleted / funnel.totalReferred) * 100) : 0 },
               { label: 'First Deposit', value: funnel.firstDeposit, color: '#22C55E', pct: funnel.totalReferred > 0 ? Math.round((funnel.firstDeposit / funnel.totalReferred) * 100) : 0 },
             ].map((step, i) => (
@@ -128,7 +128,7 @@ export default function ReferralPage() {
       {/* Share on Social */}
       <div className="bg-card border border-border rounded-xl p-5">
         <h3 className="text-white font-semibold text-sm mb-3 flex items-center gap-2">
-          <span className="w-2 h-2 bg-[#7C3AED] rounded-full" />
+          <span className="w-2 h-2 bg-[#2563EB] rounded-full" />
           Share on Social
         </h3>
         <div className="flex gap-3">

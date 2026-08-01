@@ -156,7 +156,7 @@ export default function VerifyEmailPage() {
           <CoreWealthLogo className="h-8 mx-auto mb-4" />
           <h1 className="text-2xl font-bold text-white mb-2">Email Verified!</h1>
           <p className="text-gray-400 text-sm mb-8">Your email has been verified successfully. Your account is now active.</p>
-          <Link href="/login" className="inline-block w-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-semibold py-3 rounded-lg transition-colors text-sm">
+          <Link href="/login" className="inline-block w-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-semibold py-3 rounded-lg transition-colors text-sm">
             Sign In Now
           </Link>
         </div>
@@ -166,15 +166,15 @@ export default function VerifyEmailPage() {
   }
 
   const inputCls = (hasError?: boolean) =>
-    `w-full bg-[#1a1a1a] border ${hasError ? 'border-red-500' : 'border-border'} rounded-lg px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED] transition-colors`;
+    `w-full bg-[#1a1a1a] border ${hasError ? 'border-red-500' : 'border-border'} rounded-lg px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#2563EB] transition-colors`;
 
   return (
     <div className="min-h-screen bg-background flex flex-col items-center justify-center px-4 py-12 relative overflow-hidden">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#7C3AED]/5 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#2563EB]/5 rounded-full blur-[150px] pointer-events-none" />
       <div className="w-full max-w-md relative z-10">
         <div className="text-center mb-8">
-          <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#7C3AED]/10 border border-[#7C3AED]/30 flex items-center justify-center">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="M22 7l-10 7L2 7" /></svg>
+          <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#2563EB]/10 border border-[#2563EB]/30 flex items-center justify-center">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="M22 7l-10 7L2 7" /></svg>
           </div>
           <CoreWealthLogo className="h-8 mx-auto mb-4" />
           <h1 className="text-2xl font-bold text-white mb-2">Verify Your Email</h1>
@@ -200,7 +200,7 @@ export default function VerifyEmailPage() {
                   autoFocus
                 />
               </div>
-              <button type="submit" disabled={resendLoading} className="w-full bg-[#7C3AED] hover:bg-[#6D28D9] disabled:opacity-50 text-white font-semibold py-3 rounded-lg transition-colors text-sm">
+              <button type="submit" disabled={resendLoading} className="w-full bg-[#2563EB] hover:bg-[#1D4ED8] disabled:opacity-50 text-white font-semibold py-3 rounded-lg transition-colors text-sm">
                 {resendLoading ? 'Sending...' : 'Send Verification Code'}
               </button>
             </form>
@@ -223,7 +223,7 @@ export default function VerifyEmailPage() {
                     onChange={(e) => handleOtpChange(i, e.target.value)}
                     onKeyDown={(e) => handleOtpKeyDown(i, e)}
                     disabled={loading || success}
-                    className={`w-12 h-14 bg-[#1a1a1a] border ${error ? 'border-red-500' : 'border-border'} rounded-lg text-center text-xl font-bold text-white focus:outline-none focus:border-[#7C3AED] transition-colors disabled:opacity-50`}
+                    className={`w-12 h-14 bg-[#1a1a1a] border ${error ? 'border-red-500' : 'border-border'} rounded-lg text-center text-xl font-bold text-white focus:outline-none focus:border-[#2563EB] transition-colors disabled:opacity-50`}
                   />
                 ))}
               </div>
@@ -231,7 +231,7 @@ export default function VerifyEmailPage() {
               <button
                 onClick={handleVerify}
                 disabled={loading || otpCode.join('').length < 6 || success}
-                className="w-full bg-[#7C3AED] hover:bg-[#6D28D9] disabled:opacity-50 text-white font-semibold py-3 rounded-lg transition-colors text-sm"
+                className="w-full bg-[#2563EB] hover:bg-[#1D4ED8] disabled:opacity-50 text-white font-semibold py-3 rounded-lg transition-colors text-sm"
               >
                 {loading ? (
                   <span className="flex items-center justify-center gap-2">
@@ -247,7 +247,7 @@ export default function VerifyEmailPage() {
                 <button
                   onClick={handleResend}
                   disabled={resendTimer > 0 || resendLoading || success}
-                  className="text-[#7C3AED] hover:underline text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="text-[#2563EB] hover:underline text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {resendLoading ? (
                     'Sending...'
@@ -263,7 +263,7 @@ export default function VerifyEmailPage() {
         </div>
 
         <p className="text-center text-gray-500 text-sm mt-6">
-          <Link href="/login" className="text-[#7C3AED] hover:underline font-medium">Back to Sign In</Link>
+          <Link href="/login" className="text-[#2563EB] hover:underline font-medium">Back to Sign In</Link>
         </p>
 
         <p className="text-center text-gray-700 text-[10px] mt-4">

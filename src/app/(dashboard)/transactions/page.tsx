@@ -164,7 +164,7 @@ export default function TransactionsPage() {
             onClick={() => handleFilterChange(f.key)}
             className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-colors shrink-0 ${
               activeFilter === f.key
-                ? 'bg-[#7C3AED] text-white'
+                ? 'bg-[#2563EB] text-white'
                 : 'bg-card border border-border text-gray-400 hover:text-white hover:border-gray-500'
             }`}
           >

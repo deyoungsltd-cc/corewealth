@@ -9,7 +9,7 @@ const TESTIMONIALS = [
     location: 'New York, NY',
     since: '2021',
     initials: 'SM',
-    color: '#7C3AED',
+    color: '#2563EB',
     quote: 'Switching my business accounts to CoreWealth was the best decision I made. The fee-free checking and dedicated business support have saved me thousands over the past three years. Their digital platform is by far the best I have used.',
     rating: 5,
   },
@@ -19,7 +19,7 @@ const TESTIMONIALS = [
     location: 'Austin, TX',
     since: '2018',
     initials: 'JP',
-    color: '#A78BFA',
+    color: '#60A5FA',
     quote: 'I needed a bank that respects my savings goals with competitive rates and no hidden fees. CoreWealth delivers exactly that with the personal touch I remember from community banking. Their 4.25% APY is unmatched.',
     rating: 5,
   },
@@ -29,7 +29,7 @@ const TESTIMONIALS = [
     location: 'San Francisco, CA',
     since: '2022',
     initials: 'PS',
-    color: '#6D28D9',
+    color: '#1D4ED8',
     quote: 'The mobile banking experience is seamless. I manage all my accounts, transfer funds internationally, and deposit checks from my phone. The biometric login and real-time fraud alerts give me complete peace of mind.',
     rating: 5,
   },
@@ -39,7 +39,7 @@ const TESTIMONIALS = [
     location: 'Portland, OR',
     since: '2020',
     initials: 'MC',
-    color: '#C084FC',
+    color: '#93C5FD',
     quote: "As a freelancer, I need flexible banking that keeps up with irregular income. CoreWealth's budgeting tools, overdraft protection, and instant transfers have been a game-changer for managing my cash flow.",
     rating: 4,
   },
@@ -135,18 +135,18 @@ export default function TestimonialsSection() {
       {/* Background glow */}
       <div
         className="absolute bottom-0 left-1/4 w-[600px] h-[400px] rounded-full opacity-10 pointer-events-none blur-[100px]"
-        style={{ background: 'radial-gradient(circle, #7C3AED 0%, transparent 70%)' }}
+        style={{ background: 'radial-gradient(circle, #2563EB 0%, transparent 70%)' }}
       />
       <div
         className="absolute top-1/4 right-1/4 w-[400px] h-[300px] rounded-full opacity-8 pointer-events-none blur-[80px]"
-        style={{ background: 'radial-gradient(circle, #A78BFA 0%, transparent 70%)' }}
+        style={{ background: 'radial-gradient(circle, #60A5FA 0%, transparent 70%)' }}
       />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
         {/* Section Header */}
         <FadeInView>
           <div className="text-center mb-14 sm:mb-16">
-            <p className="text-sm font-semibold uppercase tracking-widest mb-4" style={{ color: '#A78BFA' }}>
+            <p className="text-sm font-semibold uppercase tracking-widest mb-4" style={{ color: '#60A5FA' }}>
               Testimonials
             </p>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
@@ -154,7 +154,7 @@ export default function TestimonialsSection() {
               <span
                 className="bg-clip-text text-transparent"
                 style={{
-                  backgroundImage: 'linear-gradient(135deg, #7C3AED 0%, #A78BFA 50%, #C4B5FD 100%)',
+                  backgroundImage: 'linear-gradient(135deg, #2563EB 0%, #60A5FA 50%, #93C5FD 100%)',
                   WebkitBackgroundClip: 'text',
                 }}
               >
@@ -222,7 +222,7 @@ export default function TestimonialsSection() {
                     className="px-3 py-1 rounded-full text-xs font-medium shrink-0"
                     style={{
                       background: 'rgba(124,58,237,0.12)',
-                      color: '#A78BFA',
+                      color: '#60A5FA',
                     }}
                   >
                     Since {t.since}

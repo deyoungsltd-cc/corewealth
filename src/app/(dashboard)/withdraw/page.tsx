@@ -128,7 +128,7 @@ export default function WithdrawPage() {
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
               placeholder="Enter amount"
-              className="w-full bg-[#1a1a1a] border border-border rounded-lg px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED] transition-colors"
+              className="w-full bg-[#1a1a1a] border border-border rounded-lg px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#2563EB] transition-colors"
             />
           </div>
 
@@ -150,14 +150,14 @@ export default function WithdrawPage() {
               value={walletAddress}
               onChange={(e) => setWalletAddress(e.target.value)}
               placeholder="Enter your bank account number"
-              className="w-full bg-[#1a1a1a] border border-border rounded-lg px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED] transition-colors"
+              className="w-full bg-[#1a1a1a] border border-border rounded-lg px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#2563EB] transition-colors"
             />
           </div>
 
           <button
             onClick={handleReview}
             disabled={loading || !amount || !walletAddress || numAmount > displayBalance || numAmount <= 0}
-            className="w-full bg-[#7C3AED] hover:bg-[#6D28D9] disabled:opacity-50 text-white font-semibold py-3 rounded-lg transition-colors text-sm"
+            className="w-full bg-[#2563EB] hover:bg-[#1D4ED8] disabled:opacity-50 text-white font-semibold py-3 rounded-lg transition-colors text-sm"
           >
             {loading ? 'Submitting...' : 'Review Withdrawal'}
           </button>
@@ -170,10 +170,10 @@ export default function WithdrawPage() {
           <div className="absolute inset-0 bg-black/60" onClick={() => setShowConfirm(false)} />
           <div className="relative w-full sm:max-w-md bg-card border border-border rounded-t-2xl sm:rounded-2xl overflow-hidden animate-scale-in max-h-[90vh] overflow-y-auto">
             {/* Modal header */}
-            <div className="bg-[#7C3AED]/10 border-b border-[#7C3AED]/20 p-5">
+            <div className="bg-[#2563EB]/10 border-b border-[#2563EB]/20 p-5">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-[#7C3AED]/20 flex items-center justify-center">
-                  <svg className="w-5 h-5 text-[#7C3AED]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <div className="w-10 h-10 rounded-full bg-[#2563EB]/20 flex items-center justify-center">
+                  <svg className="w-5 h-5 text-[#2563EB]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
@@ -225,7 +225,7 @@ export default function WithdrawPage() {
                 </button>
                 <button
                   onClick={handleConfirm}
-                  className="flex-1 bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-semibold py-3 rounded-lg transition-colors text-sm"
+                  className="flex-1 bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-semibold py-3 rounded-lg transition-colors text-sm"
                 >
                   Confirm Withdrawal
                 </button>

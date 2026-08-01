@@ -86,8 +86,8 @@ export default function ReceiveFundsPage() {
     <div className="space-y-6 max-w-2xl mx-auto">
       {/* Header */}
       <div className="text-center">
-        <div className="w-14 h-14 mx-auto mb-3 rounded-2xl bg-[#7C3AED]/10 border border-[#7C3AED]/20 flex items-center justify-center">
-          <QrCode className="w-7 h-7 text-[#7C3AED]" />
+        <div className="w-14 h-14 mx-auto mb-3 rounded-2xl bg-[#2563EB]/10 border border-[#2563EB]/20 flex items-center justify-center">
+          <QrCode className="w-7 h-7 text-[#2563EB]" />
         </div>
         <h2 className="text-white font-bold text-xl">Receive Funds</h2>
         <p className="text-gray-400 text-sm mt-1">Share your QR code or account details to receive payments</p>
@@ -95,7 +95,7 @@ export default function ReceiveFundsPage() {
 
       {/* User Info */}
       <div className="bg-white/5 border border-white/10 backdrop-blur rounded-xl p-4 flex items-center gap-3">
-        <div className="w-10 h-10 rounded-full bg-[#7C3AED] flex items-center justify-center text-white text-sm font-bold shrink-0">
+        <div className="w-10 h-10 rounded-full bg-[#2563EB] flex items-center justify-center text-white text-sm font-bold shrink-0">
           {fullName.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) || 'CW'}
         </div>
         <div className="flex-1 min-w-0">
@@ -108,13 +108,13 @@ export default function ReceiveFundsPage() {
       <div className="flex bg-white/5 border border-white/10 rounded-xl p-1">
         <button
           onClick={() => setActiveTab('account')}
-          className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-medium transition-all ${activeTab === 'account' ? 'bg-[#7C3AED] text-white' : 'text-gray-400 hover:text-white'}`}
+          className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-medium transition-all ${activeTab === 'account' ? 'bg-[#2563EB] text-white' : 'text-gray-400 hover:text-white'}`}
         >
           <Landmark className="w-4 h-4" /> Account Details
         </button>
         <button
           onClick={() => setActiveTab('crypto')}
-          className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-medium transition-all ${activeTab === 'crypto' ? 'bg-[#7C3AED] text-white' : 'text-gray-400 hover:text-white'}`}
+          className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-medium transition-all ${activeTab === 'crypto' ? 'bg-[#2563EB] text-white' : 'text-gray-400 hover:text-white'}`}
         >
           <Bitcoin className="w-4 h-4" /> Crypto Address
         </button>
@@ -124,7 +124,7 @@ export default function ReceiveFundsPage() {
         <div className="space-y-5">
           {/* QR Code Card */}
           <div className="bg-white/5 border border-white/10 backdrop-blur rounded-xl p-6">
-            <div className="bg-white rounded-2xl p-6 shadow-2xl shadow-[#7C3AED]/10 mx-auto max-w-[280px]" ref={qrRef}>
+            <div className="bg-white rounded-2xl p-6 shadow-2xl shadow-[#2563EB]/10 mx-auto max-w-[280px]" ref={qrRef}>
               <QRCodeSVG
                 value={payUrl}
                 size={220}
@@ -140,7 +140,7 @@ export default function ReceiveFundsPage() {
               <p className="text-white font-mono text-lg tracking-wider">{FALLBACK.accountNumber}</p>
               <button
                 onClick={() => copyToClipboard(FALLBACK.accountNumber, 'account')}
-                className="w-8 h-8 flex items-center justify-center rounded-lg bg-[#7C3AED]/10 hover:bg-[#7C3AED]/20 text-[#7C3AED] transition-colors"
+                className="w-8 h-8 flex items-center justify-center rounded-lg bg-[#2563EB]/10 hover:bg-[#2563EB]/20 text-[#2563EB] transition-colors"
               >
                 {copiedField === 'account' ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
               </button>
@@ -153,21 +153,21 @@ export default function ReceiveFundsPage() {
               onClick={() => copyToClipboard(payUrl, 'link')}
               className="bg-white/5 border border-white/10 backdrop-blur rounded-xl p-4 flex flex-col items-center gap-2 hover:bg-white/10 transition-colors group"
             >
-              {copiedField === 'link' ? <Check className="w-5 h-5 text-green-400" /> : <Copy className="w-5 h-5 text-gray-400 group-hover:text-[#A78BFA]" />}
+              {copiedField === 'link' ? <Check className="w-5 h-5 text-green-400" /> : <Copy className="w-5 h-5 text-gray-400 group-hover:text-[#60A5FA]" />}
               <span className="text-xs text-gray-400 group-hover:text-white">Copy Link</span>
             </button>
             <button
               onClick={shareViaEmail}
               className="bg-white/5 border border-white/10 backdrop-blur rounded-xl p-4 flex flex-col items-center gap-2 hover:bg-white/10 transition-colors group"
             >
-              <Mail className="w-5 h-5 text-gray-400 group-hover:text-[#A78BFA]" />
+              <Mail className="w-5 h-5 text-gray-400 group-hover:text-[#60A5FA]" />
               <span className="text-xs text-gray-400 group-hover:text-white">Email</span>
             </button>
             <button
               onClick={downloadQR}
               className="bg-white/5 border border-white/10 backdrop-blur rounded-xl p-4 flex flex-col items-center gap-2 hover:bg-white/10 transition-colors group"
             >
-              <Download className="w-5 h-5 text-gray-400 group-hover:text-[#A78BFA]" />
+              <Download className="w-5 h-5 text-gray-400 group-hover:text-[#60A5FA]" />
               <span className="text-xs text-gray-400 group-hover:text-white">Download</span>
             </button>
           </div>
@@ -188,7 +188,7 @@ export default function ReceiveFundsPage() {
                   <span className="text-white text-sm font-mono">{item.value}</span>
                   <button
                     onClick={() => copyToClipboard(item.value, item.label)}
-                    className="text-gray-500 hover:text-[#A78BFA] transition-colors"
+                    className="text-gray-500 hover:text-[#60A5FA] transition-colors"
                   >
                     {copiedField === item.label ? <Check className="w-3.5 h-3.5 text-green-400" /> : <Copy className="w-3.5 h-3.5" />}
                   </button>
@@ -210,7 +210,7 @@ export default function ReceiveFundsPage() {
                 <p className="text-gray-500 text-xs">Bitcoin network</p>
               </div>
             </div>
-            <div className="bg-white rounded-2xl p-6 shadow-2xl shadow-[#7C3AED]/10 mx-auto max-w-[260px]">
+            <div className="bg-white rounded-2xl p-6 shadow-2xl shadow-[#2563EB]/10 mx-auto max-w-[260px]">
               <QRCodeSVG
                 value={`bitcoin:${FALLBACK.btcAddress}`}
                 size={200}
@@ -243,7 +243,7 @@ export default function ReceiveFundsPage() {
                 <p className="text-gray-500 text-xs">Ethereum network</p>
               </div>
             </div>
-            <div className="bg-white rounded-2xl p-6 shadow-2xl shadow-[#7C3AED]/10 mx-auto max-w-[260px]">
+            <div className="bg-white rounded-2xl p-6 shadow-2xl shadow-[#2563EB]/10 mx-auto max-w-[260px]">
               <QRCodeSVG
                 value={`ethereum:${FALLBACK.ethAddress}`}
                 size={200}

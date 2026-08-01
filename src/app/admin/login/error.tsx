@@ -15,7 +15,7 @@ export default function AdminLoginError({
         <p className="text-gray-400 text-sm mb-4">{error?.message || 'Something went wrong loading the login page.'}</p>
         <button
           onClick={() => { localStorage.clear(); document.cookie = 'adminToken=; path=/; max-age=0'; reset(); }}
-          className="bg-[#7C3AED] text-white px-6 py-2 rounded-xl text-sm font-bold"
+          className="bg-[#2563EB] text-white px-6 py-2 rounded-xl text-sm font-bold"
         >
           Clear Data & Retry
         </button>

@@ -41,7 +41,7 @@ export default function TrackingPage() {
       <div className="w-16 h-16 mx-auto rounded-2xl bg-white/5 flex items-center justify-center"><Truck className="w-7 h-7 text-gray-600" /></div>
       <h3 className="text-white font-semibold text-lg">No Physical Card Orders</h3>
       <p className="text-gray-500 text-sm">Order a physical card to track its delivery here.</p>
-      <Link href="/cards/apply?type=physical" className="inline-flex items-center gap-2 bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-sm font-semibold px-6 py-3 rounded-xl transition-colors"><CreditCard className="w-4 h-4" /> Order Physical Card</Link>
+      <Link href="/cards/apply?type=physical" className="inline-flex items-center gap-2 bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-sm font-semibold px-6 py-3 rounded-xl transition-colors"><CreditCard className="w-4 h-4" /> Order Physical Card</Link>
     </div>
   );
 
@@ -56,7 +56,7 @@ export default function TrackingPage() {
           <div key={card.id} className="bg-card border border-border rounded-2xl p-6 space-y-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-8 rounded-lg bg-gradient-to-br from-[#7C3AED] to-[#4C1D95] flex items-center justify-center"><CreditCard className="w-5 h-5 text-white" /></div>
+                <div className="w-12 h-8 rounded-lg bg-gradient-to-br from-[#2563EB] to-[#1E3A8A] flex items-center justify-center"><CreditCard className="w-5 h-5 text-white" /></div>
                 <div><p className="text-white font-semibold text-sm">{card.cardBrand || 'Visa'} Physical Card</p><p className="text-gray-500 text-xs">•••• {card.lastFour || '0000'}</p></div>
               </div>
               <span className={`text-xs font-semibold px-3 py-1 rounded-full ${isDelivered ? 'text-green-400 bg-green-400/10' : 'text-yellow-400 bg-yellow-400/10'}`}>{isDelivered ? 'Delivered' : 'In Progress'}</span>
@@ -71,14 +71,14 @@ export default function TrackingPage() {
                 const date = dateField ? card[dateField] : null;
                 return (
                   <div key={step.key} className="relative pb-8 last:pb-0">
-                    <div className={`absolute -left-8 top-0.5 w-6 h-6 rounded-full flex items-center justify-center text-xs ${reached ? 'bg-[#7C3AED] text-white' : 'bg-white/5 text-gray-600 border border-border'} ${isCurrent ? 'ring-4 ring-[#7C3AED]/20' : ''}`}>{reached ? step.icon : <span className="w-2 h-2 bg-gray-600 rounded-full" />}</div>
+                    <div className={`absolute -left-8 top-0.5 w-6 h-6 rounded-full flex items-center justify-center text-xs ${reached ? 'bg-[#2563EB] text-white' : 'bg-white/5 text-gray-600 border border-border'} ${isCurrent ? 'ring-4 ring-[#2563EB]/20' : ''}`}>{reached ? step.icon : <span className="w-2 h-2 bg-gray-600 rounded-full" />}</div>
                     <div className={`${i < STEPS.length - 1 ? 'border-l-2 border-white/5 ml-[-20px] pl-4 pb-0' : 'ml-[-20px] pl-4'}`}>
                       <div className="flex items-center gap-2">
                         <p className={`text-sm font-medium ${reached ? 'text-white' : 'text-gray-600'}`}>{step.label}</p>
                         {date && <span className="text-gray-500 text-xs">{formatDate(date)}</span>}
                       </div>
                       <p className={`text-xs mt-0.5 ${reached ? 'text-gray-400' : 'text-gray-700'}`}>{step.desc}</p>
-                      {isCurrent && card.shippingCarrier && <p className="text-[#A78BFA] text-xs mt-1">Carrier: {card.shippingCarrier}</p>}
+                      {isCurrent && card.shippingCarrier && <p className="text-[#60A5FA] text-xs mt-1">Carrier: {card.shippingCarrier}</p>}
                     </div>
                   </div>
                 );
@@ -89,14 +89,14 @@ export default function TrackingPage() {
             {card.trackingNumber && (
               <div className="bg-[#111] rounded-xl p-4 flex items-center justify-between">
                 <div><p className="text-gray-500 text-xs">Tracking Number</p><p className="text-white font-mono text-sm mt-0.5">{card.trackingNumber}</p></div>
-                <button onClick={() => { navigator.clipboard.writeText(card.trackingNumber); setCopied(true); setTimeout(() => setCopied(false), 2000); }} className="text-gray-400 hover:text-[#7C3AED] transition-colors">{copied ? <Check className="w-5 h-5 text-green-400" /> : <Copy className="w-5 h-5" />}</button>
+                <button onClick={() => { navigator.clipboard.writeText(card.trackingNumber); setCopied(true); setTimeout(() => setCopied(false), 2000); }} className="text-gray-400 hover:text-[#2563EB] transition-colors">{copied ? <Check className="w-5 h-5 text-green-400" /> : <Copy className="w-5 h-5" />}</button>
               </div>
             )}
 
             {/* Estimated Delivery */}
             {!isDelivered && card.orderedAt && (
-              <div className="bg-[#7C3AED]/5 border border-[#7C3AED]/20 rounded-xl p-4 flex items-center gap-3">
-                <Clock className="w-5 h-5 text-[#A78BFA] shrink-0" />
+              <div className="bg-[#2563EB]/5 border border-[#2563EB]/20 rounded-xl p-4 flex items-center gap-3">
+                <Clock className="w-5 h-5 text-[#60A5FA] shrink-0" />
                 <div><p className="text-white text-sm font-medium">Estimated Delivery</p><p className="text-gray-400 text-xs">7-10 business days from order date ({formatDate(card.orderedAt)})</p></div>
               </div>
             )}

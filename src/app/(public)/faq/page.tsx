@@ -83,7 +83,7 @@ export default function FAQPage() {
         <FadeIn>
           <div className="text-center">
             <h1 className="text-4xl sm:text-5xl font-bold mb-6 heading-gradient">Frequently Asked Questions</h1>
-            <p className="text-gray-400 text-lg max-w-xl mx-auto leading-relaxed">Everything you need to know about investing with CoreWealth Bank. Can&apos;t find what you&apos;re looking for? <Link href="/contact" className="text-[#7C3AED] hover:underline">Contact our support team</Link>.</p>
+            <p className="text-gray-400 text-lg max-w-xl mx-auto leading-relaxed">Everything you need to know about investing with CoreWealth Bank. Can&apos;t find what you&apos;re looking for? <Link href="/contact" className="text-[#2563EB] hover:underline">Contact our support team</Link>.</p>
           </div>
         </FadeIn>
       </section>
@@ -99,7 +99,7 @@ export default function FAQPage() {
             <FadeIn key={section.category} delay={sIdx * 80}>
               <div>
                 <h2 className="text-white font-bold text-xl mb-6 flex items-center gap-3">
-                  <span className="w-1.5 h-7 bg-[#7C3AED] rounded-full" />
+                  <span className="w-1.5 h-7 bg-[#2563EB] rounded-full" />
                   {section.category}
                 </h2>
                 <div className="space-y-3">
@@ -109,7 +109,7 @@ export default function FAQPage() {
                     return (
                       <div
                         key={key}
-                        className={`dash-card bg-card border rounded-2xl overflow-hidden transition-all duration-500 ${isOpen ? 'border-[#7C3AED]/50 shadow-[0_0_30px_rgba(204,0,0,0.1)]' : 'border-border hover:border-border/80'}`}
+                        className={`dash-card bg-card border rounded-2xl overflow-hidden transition-all duration-500 ${isOpen ? 'border-[#2563EB]/50 shadow-[0_0_30px_rgba(204,0,0,0.1)]' : 'border-border hover:border-border/80'}`}
                       >
                         <button
                           onClick={() => toggleItem(key)}
@@ -117,7 +117,7 @@ export default function FAQPage() {
                         >
                           <span className="text-white font-medium text-sm sm:text-base pr-4">{item.q}</span>
                           <svg
-                            className={`w-5 h-5 shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180 text-[#7C3AED]' : 'text-gray-500'}`}
+                            className={`w-5 h-5 shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180 text-[#2563EB]' : 'text-gray-500'}`}
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
                           >
                             <polyline points="6 9 12 15 18 9" />

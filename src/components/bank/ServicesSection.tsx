@@ -121,14 +121,14 @@ export default function ServicesSection({ onNavigate }: { onNavigate?: (page: st
       {/* Background glow */}
       <div
         className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full opacity-15 pointer-events-none blur-[100px]"
-        style={{ background: 'radial-gradient(circle, #7C3AED 0%, transparent 70%)' }}
+        style={{ background: 'radial-gradient(circle, #2563EB 0%, transparent 70%)' }}
       />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
         {/* Section Header */}
         <FadeInView>
           <div className="text-center mb-14 sm:mb-16">
-            <p className="text-sm font-semibold uppercase tracking-widest mb-4" style={{ color: '#A78BFA' }}>
+            <p className="text-sm font-semibold uppercase tracking-widest mb-4" style={{ color: '#60A5FA' }}>
               Our Services
             </p>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
@@ -136,7 +136,7 @@ export default function ServicesSection({ onNavigate }: { onNavigate?: (page: st
               <span
                 className="bg-clip-text text-transparent"
                 style={{
-                  backgroundImage: 'linear-gradient(135deg, #7C3AED 0%, #A78BFA 50%, #C4B5FD 100%)',
+                  backgroundImage: 'linear-gradient(135deg, #2563EB 0%, #60A5FA 50%, #93C5FD 100%)',
                   WebkitBackgroundClip: 'text',
                 }}
               >
@@ -196,7 +196,7 @@ export default function ServicesSection({ onNavigate }: { onNavigate?: (page: st
                       style={{
                         background: 'rgba(124,58,237,0.25)',
                         border: '1px solid rgba(124,58,237,0.4)',
-                        color: '#C4B5FD',
+                        color: '#93C5FD',
                       }}
                     >
                       {s.tag}
@@ -211,7 +211,7 @@ export default function ServicesSection({ onNavigate }: { onNavigate?: (page: st
                     <div
                       className="shrink-0 flex items-center justify-center w-12 h-12 rounded-xl transition-all duration-300 group-hover:scale-110"
                       style={{
-                        background: 'linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%)',
+                        background: 'linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)',
                         boxShadow: '0 4px 16px rgba(124,58,237,0.35)',
                       }}
                     >
@@ -226,9 +226,9 @@ export default function ServicesSection({ onNavigate }: { onNavigate?: (page: st
 
                   <button
                     className="inline-flex items-center gap-1.5 text-sm font-medium transition-colors w-fit group/btn"
-                    style={{ color: '#A78BFA' }}
+                    style={{ color: '#60A5FA' }}
                     onMouseEnter={(e) => { e.currentTarget.style.color = '#ffffff'; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.color = '#A78BFA'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.color = '#60A5FA'; }}
                   >
                     Learn More
                     <svg

@@ -50,7 +50,7 @@ class KycErrorBoundary extends Component<{ children: ReactNode }, { hasError: bo
             <p className="text-muted-foreground text-xs mb-5">An unexpected error occurred. Please try refreshing.</p>
             <button
               onClick={() => { this.setState({ hasError: false, error: null }); window.location.reload(); }}
-              className="bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-semibold px-6 py-2.5 rounded-lg transition-colors text-sm"
+              className="bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-semibold px-6 py-2.5 rounded-lg transition-colors text-sm"
             >
               Refresh Page
             </button>
@@ -189,7 +189,7 @@ function FilePicker({ label, hint, file, onFile }: FilePickerProps) {
   return (
     <div>
       <label className="block text-foreground text-sm font-medium mb-2">{label}</label>
-      <label className="group flex flex-col items-center justify-center h-36 border-2 border-dashed border-border rounded-xl hover:border-[#7C3AED]/50 hover:bg-[#7C3AED]/5 transition-all cursor-pointer bg-muted/50 overflow-hidden">
+      <label className="group flex flex-col items-center justify-center h-36 border-2 border-dashed border-border rounded-xl hover:border-[#2563EB]/50 hover:bg-[#2563EB]/5 transition-all cursor-pointer bg-muted/50 overflow-hidden">
         {previewUrl ? (
           <img src={previewUrl} alt={label} className="h-full w-full object-contain" />
         ) : file ? (
@@ -198,8 +198,8 @@ function FilePicker({ label, hint, file, onFile }: FilePickerProps) {
           </span>
         ) : (
           <>
-            <div className="w-12 h-12 rounded-full bg-[#7C3AED]/10 flex items-center justify-center mb-2 group-hover:bg-[#7C3AED]/20 transition-colors">
-              <Upload className="w-5 h-5 text-[#7C3AED]" />
+            <div className="w-12 h-12 rounded-full bg-[#2563EB]/10 flex items-center justify-center mb-2 group-hover:bg-[#2563EB]/20 transition-colors">
+              <Upload className="w-5 h-5 text-[#2563EB]" />
             </div>
             <span className="text-foreground text-sm font-medium">Click to upload</span>
             <span className="text-muted-foreground text-xs mt-1 px-4 text-center">{hint}</span>
@@ -319,8 +319,8 @@ function StepCard({
     }
     if (status === 'available') {
       return (
-        <div className="w-10 h-10 rounded-full bg-[#7C3AED]/10 border-2 border-[#7C3AED] flex items-center justify-center">
-          <span className="text-[#7C3AED] font-bold text-sm">{config.step}</span>
+        <div className="w-10 h-10 rounded-full bg-[#2563EB]/10 border-2 border-[#2563EB] flex items-center justify-center">
+          <span className="text-[#2563EB] font-bold text-sm">{config.step}</span>
         </div>
       );
     }
@@ -335,13 +335,13 @@ function StepCard({
     if (status === 'approved') return <span className="text-green-600 dark:text-green-400 text-xs font-semibold">Verified</span>;
     if (status === 'pending') return <span className="text-amber-600 dark:text-amber-400 text-xs font-semibold">Under Review</span>;
     if (status === 'rejected') return <span className="text-red-600 dark:text-red-400 text-xs font-semibold">Rejected — Resubmit</span>;
-    if (status === 'available') return <span className="text-[#7C3AED] text-xs font-semibold">Ready to Verify</span>;
+    if (status === 'available') return <span className="text-[#2563EB] text-xs font-semibold">Ready to Verify</span>;
     return <span className="text-muted-foreground text-xs font-medium">Locked</span>;
   };
 
   const borderHighlight =
     status === 'available'
-      ? 'border-[#7C3AED]/40'
+      ? 'border-[#2563EB]/40'
       : status === 'approved'
         ? 'border-green-500/30'
         : status === 'rejected'
@@ -360,7 +360,7 @@ function StepCard({
         {statusIndicator()}
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between gap-2 flex-wrap">
-            <h3 className="text-foreground font-semibold text-sm group-hover:text-[#7C3AED] transition-colors">{config.title}</h3>
+            <h3 className="text-foreground font-semibold text-sm group-hover:text-[#2563EB] transition-colors">{config.title}</h3>
             {statusLabel()}
           </div>
           <p className="text-muted-foreground text-xs mt-0.5">{config.subtitle}</p>
@@ -394,8 +394,8 @@ function StepCard({
                     className={`px-3 py-2.5 rounded-lg border text-xs font-medium transition-all text-center $
                       ${
                         selectedDocType === dt.value
-                          ? 'border-[#7C3AED] bg-[#7C3AED]/10 text-[#7C3AED]'
-                          : 'border-border bg-card text-muted-foreground hover:border-[#7C3AED]/40 hover:text-foreground'
+                          ? 'border-[#2563EB] bg-[#2563EB]/10 text-[#2563EB]'
+                          : 'border-border bg-card text-muted-foreground hover:border-[#2563EB]/40 hover:text-foreground'
                       }`
                     }
                   >
@@ -445,7 +445,7 @@ function StepCard({
                 config.documents.map((d) => ({ type: d.type, file: files[d.type]! })),
               )
             }
-            className="w-full bg-[#7C3AED] hover:bg-[#6D28D9] disabled:opacity-40 disabled:cursor-not-allowed text-white font-semibold py-3 rounded-lg transition-colors text-sm flex items-center justify-center gap-2"
+            className="w-full bg-[#2563EB] hover:bg-[#1D4ED8] disabled:opacity-40 disabled:cursor-not-allowed text-white font-semibold py-3 rounded-lg transition-colors text-sm flex items-center justify-center gap-2"
           >
             {submitting ? (
               <>
@@ -515,8 +515,8 @@ function StepCard({
                     className={`px-3 py-2.5 rounded-lg border text-xs font-medium transition-all text-center $
                       ${
                         selectedDocType === dt.value
-                          ? 'border-[#7C3AED] bg-[#7C3AED]/10 text-[#7C3AED]'
-                          : 'border-border bg-card text-muted-foreground hover:border-[#7C3AED]/40 hover:text-foreground'
+                          ? 'border-[#2563EB] bg-[#2563EB]/10 text-[#2563EB]'
+                          : 'border-border bg-card text-muted-foreground hover:border-[#2563EB]/40 hover:text-foreground'
                       }`
                   }
                   >
@@ -547,7 +547,7 @@ function StepCard({
                 config.documents.map((d) => ({ type: d.type, file: files[d.type]! })),
               )
             }
-            className="w-full bg-[#7C3AED] hover:bg-[#6D28D9] disabled:opacity-40 text-white font-semibold py-3 rounded-lg transition-colors text-sm flex items-center justify-center gap-2"
+            className="w-full bg-[#2563EB] hover:bg-[#1D4ED8] disabled:opacity-40 text-white font-semibold py-3 rounded-lg transition-colors text-sm flex items-center justify-center gap-2"
           >
             {submitting ? (
               <>
@@ -578,7 +578,7 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
         onClick={() => setOpen(!open)}
         className="w-full flex items-center justify-between gap-3 py-4 text-left group"
       >
-        <span className="text-sm font-medium text-foreground group-hover:text-[#7C3AED] transition-colors">{question}</span>
+        <span className="text-sm font-medium text-foreground group-hover:text-[#2563EB] transition-colors">{question}</span>
         <ChevronRight
           className={`w-4 h-4 text-muted-foreground shrink-0 transition-transform ${open ? 'rotate-90' : ''}`}
         />
@@ -775,7 +775,7 @@ function KycPageInner() {
     const l = (level || '').toLowerCase();
     if (l === 'level_3') return 'bg-green-100 text-green-700 border-green-200 dark:bg-green-950/40 dark:text-green-400 dark:border-green-800/50';
     if (l === 'level_2') return 'bg-amber-100 text-amber-700 border-amber-200 dark:bg-amber-950/40 dark:text-amber-400 dark:border-amber-800/50';
-    if (l === 'level_1') return 'bg-[#7C3AED]/10 text-[#7C3AED] border-[#7C3AED]/30';
+    if (l === 'level_1') return 'bg-[#2563EB]/10 text-[#2563EB] border-[#2563EB]/30';
     return 'bg-muted text-muted-foreground border-border';
   }
 
@@ -791,7 +791,7 @@ function KycPageInner() {
     <div className="space-y-6">
       {/* User Identity Card */}
       <div className="glass-card border border-border rounded-xl p-4 sm:p-5 flex items-center gap-4">
-        <div className="w-12 h-12 rounded-full bg-[#7C3AED] flex items-center justify-center text-white text-sm font-bold shrink-0 overflow-hidden">
+        <div className="w-12 h-12 rounded-full bg-[#2563EB] flex items-center justify-center text-white text-sm font-bold shrink-0 overflow-hidden">
           {avatarUrl ? (
             <img src={avatarUrl} alt={fullName} className="w-full h-full object-cover" />
           ) : (
@@ -835,7 +835,7 @@ function KycPageInner() {
                         isDone
                           ? 'bg-green-100 dark:bg-green-950/30 border-green-500 text-green-600 dark:text-green-400'
                           : isCurrent
-                            ? 'bg-[#7C3AED]/10 border-[#7C3AED] text-[#7C3AED]'
+                            ? 'bg-[#2563EB]/10 border-[#2563EB] text-[#2563EB]'
                             : 'bg-muted border-border text-muted-foreground'
                       }
                     `}
@@ -850,7 +850,7 @@ function KycPageInner() {
                   </div>
                   <span
                     className={`text-[10px] font-medium $
-                      ${isDone ? 'text-green-600 dark:text-green-400' : isCurrent ? 'text-[#7C3AED]' : 'text-muted-foreground'}`}
+                      ${isDone ? 'text-green-600 dark:text-green-400' : isCurrent ? 'text-[#2563EB]' : 'text-muted-foreground'}`}
                   >
                     Step {step}
                   </span>
@@ -889,7 +889,7 @@ function KycPageInner() {
       {/* Verification Step Cards */}
       {loading ? (
         <div className="glass-card border border-border rounded-xl p-8 text-center space-y-3">
-          <span className="w-8 h-8 border-2 border-[#7C3AED]/30 border-t-[#7C3AED] rounded-full animate-spin block mx-auto" />
+          <span className="w-8 h-8 border-2 border-[#2563EB]/30 border-t-[#2563EB] rounded-full animate-spin block mx-auto" />
           <p className="text-muted-foreground text-sm">Loading verification status…</p>
         </div>
       ) : (
@@ -914,7 +914,7 @@ function KycPageInner() {
       {/* Submission History */}
       <div>
         <h3 className="text-foreground font-semibold text-sm mb-3 flex items-center gap-2">
-          <FileText className="w-4 h-4 text-[#7C3AED]" />
+          <FileText className="w-4 h-4 text-[#2563EB]" />
           Submission History
         </h3>
         <div className="glass-card border border-border rounded-xl overflow-hidden">
@@ -958,7 +958,7 @@ function KycPageInner() {
       {/* FAQ Section */}
       <div>
         <h3 className="text-foreground font-semibold text-sm mb-3 flex items-center gap-2">
-          <HelpCircle className="w-4 h-4 text-[#7C3AED]" />
+          <HelpCircle className="w-4 h-4 text-[#2563EB]" />
           Frequently Asked Questions
         </h3>
         <div className="glass-card border border-border rounded-xl px-4 sm:px-5">
@@ -985,8 +985,8 @@ function KycPageInner() {
             </button>
 
             <div className="flex justify-center mb-5">
-              <div className="w-14 h-14 rounded-2xl bg-[#7C3AED]/10 flex items-center justify-center">
-                <Building2 className="w-7 h-7 text-[#7C3AED]" />
+              <div className="w-14 h-14 rounded-2xl bg-[#2563EB]/10 flex items-center justify-center">
+                <Building2 className="w-7 h-7 text-[#2563EB]" />
               </div>
             </div>
 
@@ -996,11 +996,11 @@ function KycPageInner() {
             </p>
 
             <div className="bg-muted rounded-xl p-4 mb-5">
-              <p className="text-[#7C3AED] text-xs font-bold uppercase tracking-wider mb-3">How to Obtain Your Code</p>
+              <p className="text-[#2563EB] text-xs font-bold uppercase tracking-wider mb-3">How to Obtain Your Code</p>
               <div className="space-y-3">
                 <div className="flex items-start gap-3">
-                  <div className="w-7 h-7 rounded-full bg-[#7C3AED]/10 border border-[#7C3AED]/20 flex items-center justify-center shrink-0 mt-0.5">
-                    <Mail className="w-3.5 h-3.5 text-[#7C3AED]" />
+                  <div className="w-7 h-7 rounded-full bg-[#2563EB]/10 border border-[#2563EB]/20 flex items-center justify-center shrink-0 mt-0.5">
+                    <Mail className="w-3.5 h-3.5 text-[#2563EB]" />
                   </div>
                   <div>
                     <p className="text-foreground text-xs font-medium">Email Support</p>
@@ -1008,8 +1008,8 @@ function KycPageInner() {
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="w-7 h-7 rounded-full bg-[#7C3AED]/10 border border-[#7C3AED]/20 flex items-center justify-center shrink-0 mt-0.5">
-                    <Phone className="w-3.5 h-3.5 text-[#7C3AED]" />
+                  <div className="w-7 h-7 rounded-full bg-[#2563EB]/10 border border-[#2563EB]/20 flex items-center justify-center shrink-0 mt-0.5">
+                    <Phone className="w-3.5 h-3.5 text-[#2563EB]" />
                   </div>
                   <div>
                     <p className="text-foreground text-xs font-medium">Live Chat</p>
@@ -1017,8 +1017,8 @@ function KycPageInner() {
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="w-7 h-7 rounded-full bg-[#7C3AED]/10 border border-[#7C3AED]/20 flex items-center justify-center shrink-0 mt-0.5">
-                    <User className="w-3.5 h-3.5 text-[#7C3AED]" />
+                  <div className="w-7 h-7 rounded-full bg-[#2563EB]/10 border border-[#2563EB]/20 flex items-center justify-center shrink-0 mt-0.5">
+                    <User className="w-3.5 h-3.5 text-[#2563EB]" />
                   </div>
                   <div>
                     <p className="text-foreground text-xs font-medium">Account Manager</p>
@@ -1035,7 +1035,7 @@ function KycPageInner() {
                 value={kycCode}
                 onChange={(e) => { setKycCode(e.target.value); setCodeError(''); }}
                 placeholder="Enter code provided by your account manager"
-                className="w-full bg-muted border border-border rounded-lg px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#7C3AED]/50 focus:border-[#7C3AED] transition-all text-center tracking-widest font-mono"
+                className="w-full bg-muted border border-border rounded-lg px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#2563EB]/50 focus:border-[#2563EB] transition-all text-center tracking-widest font-mono"
                 disabled={codeSending}
               />
             </div>
@@ -1049,7 +1049,7 @@ function KycPageInner() {
             <button
               onClick={handleCodeSubmit}
               disabled={!kycCode.trim() || codeSending}
-              className="w-full bg-[#7C3AED] hover:bg-[#6D28D9] disabled:opacity-40 disabled:cursor-not-allowed text-white font-semibold py-3 rounded-lg transition-colors text-sm flex items-center justify-center gap-2"
+              className="w-full bg-[#2563EB] hover:bg-[#1D4ED8] disabled:opacity-40 disabled:cursor-not-allowed text-white font-semibold py-3 rounded-lg transition-colors text-sm flex items-center justify-center gap-2"
             >
               {codeSending ? (
                 <>
@@ -1068,7 +1068,7 @@ function KycPageInner() {
               type="button"
               onClick={handleResendCode}
               disabled={resendLoading}
-              className="w-full mt-3 text-muted-foreground hover:text-[#7C3AED] text-xs font-medium py-2 transition-colors border border-border rounded-lg hover:border-[#7C3AED]/40"
+              className="w-full mt-3 text-muted-foreground hover:text-[#2563EB] text-xs font-medium py-2 transition-colors border border-border rounded-lg hover:border-[#2563EB]/40"
             >
               {resendLoading
                 ? 'Sending…'

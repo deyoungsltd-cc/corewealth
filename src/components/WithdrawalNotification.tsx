@@ -137,7 +137,7 @@ export default function WithdrawalNotification() {
 
           {/* User */}
           <div className="mt-3 pt-3 border-t border-border flex items-center gap-2">
-            <div className="w-6 h-6 rounded-full bg-gradient-to-br from-[#7C3AED] to-[#8B0000] flex items-center justify-center text-white text-[8px] font-bold shrink-0">
+            <div className="w-6 h-6 rounded-full bg-gradient-to-br from-[#2563EB] to-[#8B0000] flex items-center justify-center text-white text-[8px] font-bold shrink-0">
               {current.name.charAt(0)}
             </div>
             <p className="text-gray-400 text-xs">{current.name} received funds</p>

@@ -35,10 +35,10 @@ const plans = [
     withdrawal: 'Standard processing (1-24 hours)', fees: 'Small processing fee applies',
   },
   {
-    name: 'Silver', badge: 'MOST POPULAR', badgeColor: 'bg-gradient-to-r from-[#7C3AED] to-[#A78BFA]',
+    name: 'Silver', badge: 'MOST POPULAR', badgeColor: 'bg-gradient-to-r from-[#2563EB] to-[#60A5FA]',
     min: 5000, max: 9999, daily: 0.8, duration: 21, model: 'Growth',
     image: 'https://images.unsplash.com/photo-1560472355-536de3962603?w=600&h=400&fit=crop',
-    color: 'border-[#7C3AED]', borderColor: 'hover:border-[#A78BFA]',
+    color: 'border-[#2563EB]', borderColor: 'hover:border-[#60A5FA]',
     features: [
       { title: 'Higher Daily Returns', desc: 'Earn 0.8% daily returns — 60% more than the Basic plan — with profits credited to your available balance every day.' },
       { title: 'Priority Withdrawals', desc: 'Your withdrawal requests are processed ahead of standard queue, significantly reducing processing time for your funds.' },
@@ -110,9 +110,9 @@ export default function PlansPage() {
             <table className="dark-table min-w-[640px]">
               <thead>
                 <tr>
-                  <th className="bg-gradient-to-r from-[#7C3AED]/10 to-transparent">Feature</th>
+                  <th className="bg-gradient-to-r from-[#2563EB]/10 to-transparent">Feature</th>
                   <th>Basic</th>
-                  <th className="!text-[#7C3AED] !bg-[#7C3AED]/5">Silver ★</th>
+                  <th className="!text-[#2563EB] !bg-[#2563EB]/5">Silver ★</th>
                   <th>Gold</th>
                   <th>Platinum</th>
                 </tr>
@@ -120,11 +120,11 @@ export default function PlansPage() {
               <tbody>
                 <tr><td>Minimum Investment</td><td>$200</td><td className="!text-white font-medium">$5,000</td><td>$10,000</td><td>$50,000</td></tr>
                 <tr><td>Maximum Investment</td><td>$4,999</td><td className="!text-white font-medium">$9,999</td><td>$49,999</td><td>$100,000</td></tr>
-                <tr><td>Daily Return</td><td>0.5%</td><td className="!text-[#7C3AED] font-bold">0.8%</td><td>1.2%</td><td>1.8%</td></tr>
+                <tr><td>Daily Return</td><td>0.5%</td><td className="!text-[#2563EB] font-bold">0.8%</td><td>1.2%</td><td>1.8%</td></tr>
                 <tr><td>Duration</td><td>30 Days</td><td className="!text-white font-medium">21 Days</td><td>14 Days</td><td>7 Days</td></tr>
                 <tr><td>Withdrawal Speed</td><td>1-24 hrs</td><td className="!text-white font-medium">1-6 hrs</td><td>Under 1 hr</td><td>Under 30 min</td></tr>
                 <tr><td>Withdrawal Fees</td><td>Standard</td><td className="!text-white font-medium">Reduced</td><td className="text-green-400">Free</td><td className="text-green-400">Free</td></tr>
-                <tr><td>Account Manager</td><td className="text-gray-600">—</td><td className="text-green-400">✓</td><td className="text-green-400">✓</td><td className="text-[#7C3AED] font-bold">✓ VIP</td></tr>
+                <tr><td>Account Manager</td><td className="text-gray-600">—</td><td className="text-green-400">✓</td><td className="text-green-400">✓</td><td className="text-[#2563EB] font-bold">✓ VIP</td></tr>
               </tbody>
             </table>
           </div>
@@ -140,7 +140,7 @@ export default function PlansPage() {
         <FadeIn delay={150}>
           <div className="dash-card card-shine noise-overlay p-8 sm:p-10">
             <h2 className="text-white font-bold text-2xl mb-2 flex items-center gap-3">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="1.5"><path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="1.5"><path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
               ROI Preview
             </h2>
             <p className="text-gray-400 text-sm mb-8">See estimated returns for minimum investment in each plan.</p>
@@ -149,7 +149,7 @@ export default function PlansPage() {
                 const returns = calcReturn(plan.daily, plan.min, plan.duration);
                 const roi = ((plan.daily * plan.duration)).toFixed(0);
                 return (
-                  <div key={plan.name} className={`bg-[#1a1a1a] border rounded-2xl p-5 transition-all duration-300 hover:border-[#7C3AED]/20 ${plan.popular ? 'border-[#7C3AED]/30 shadow-[0_0_20px_rgba(124,58,237,0.1)]' : 'border-border'}`}>
+                  <div key={plan.name} className={`bg-[#1a1a1a] border rounded-2xl p-5 transition-all duration-300 hover:border-[#2563EB]/20 ${plan.popular ? 'border-[#2563EB]/30 shadow-[0_0_20px_rgba(124,58,237,0.1)]' : 'border-border'}`}>
                     <p className="text-white font-bold text-sm mb-1">{plan.name}</p>
                     <p className="text-gray-500 text-xs mb-4">Invest ${plan.min.toLocaleString()} for {plan.duration} days</p>
                     <div className="space-y-2.5">
@@ -163,7 +163,7 @@ export default function PlansPage() {
                       </div>
                       <div className="flex justify-between text-xs">
                         <span className="text-gray-500">ROI</span>
-                        <span className="text-[#7C3AED] font-bold">{roi}%</span>
+                        <span className="text-[#2563EB] font-bold">{roi}%</span>
                       </div>
                     </div>
                   </div>
@@ -196,7 +196,7 @@ export default function PlansPage() {
                           <div className="absolute top-4 right-4">
                             <span className="glow-dot" />
                           </div>
-                          <div className="absolute bottom-4 left-4 right-4 bg-[#7C3AED]/90 backdrop-blur-sm rounded-lg px-3 py-2 text-center">
+                          <div className="absolute bottom-4 left-4 right-4 bg-[#2563EB]/90 backdrop-blur-sm rounded-lg px-3 py-2 text-center">
                             <span className="text-white text-xs font-bold">Recommended for most investors</span>
                           </div>
                         </>
@@ -206,7 +206,7 @@ export default function PlansPage() {
                       <div className="flex flex-wrap items-center gap-3 mb-4">
                         <h2 className="text-white font-bold text-2xl">{plan.name} Plan</h2>
                         <span className="text-gray-500 text-sm">· {plan.model}</span>
-                        <span className="text-[#7C3AED] text-2xl font-black">{plan.daily}% daily</span>
+                        <span className="text-[#2563EB] text-2xl font-black">{plan.daily}% daily</span>
                       </div>
                       <div className="flex flex-wrap gap-5 mb-5 text-sm">
                         <span className="text-gray-400">Min: <span className="text-white font-medium">${plan.min.toLocaleString()}</span></span>
@@ -230,7 +230,7 @@ export default function PlansPage() {
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
                         {plan.features.map((f) => (
                           <div key={f.title} className="flex items-start gap-2.5">
-                            <svg className="shrink-0 mt-1" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+                            <svg className="shrink-0 mt-1" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
                             <div>
                               <p className="text-white text-xs font-semibold">{f.title}</p>
                               <p className="text-gray-500 text-[11px] leading-relaxed">{f.desc}</p>
@@ -263,14 +263,14 @@ export default function PlansPage() {
         <FadeIn delay={100}>
           <div className="dash-card card-shine noise-overlay p-8 sm:p-10">
             <h3 className="text-white font-bold text-xl mb-4 flex items-center gap-3">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
               Important Information
             </h3>
             <ul className="space-y-4 text-gray-400 text-sm leading-relaxed">
-              <li className="flex items-start gap-3"><span className="text-[#7C3AED] shrink-0 mt-1">&bull;</span> All plans guarantee full principal return at the end of the investment duration.</li>
-              <li className="flex items-start gap-3"><span className="text-[#7C3AED] shrink-0 mt-1">&bull;</span> Daily returns are automatically credited to your available balance every 24 hours.</li>
-              <li className="flex items-start gap-3"><span className="text-[#7C3AED] shrink-0 mt-1">&bull;</span> You may hold multiple active investments across different plans simultaneously.</li>
-              <li className="flex items-start gap-3"><span className="text-[#7C3AED] shrink-0 mt-1">&bull;</span> Past performance does not guarantee future results. Please read our <Link href="/risk-disclosure" className="text-[#7C3AED] hover:underline font-medium">Risk Disclosure</Link> before investing.</li>
+              <li className="flex items-start gap-3"><span className="text-[#2563EB] shrink-0 mt-1">&bull;</span> All plans guarantee full principal return at the end of the investment duration.</li>
+              <li className="flex items-start gap-3"><span className="text-[#2563EB] shrink-0 mt-1">&bull;</span> Daily returns are automatically credited to your available balance every 24 hours.</li>
+              <li className="flex items-start gap-3"><span className="text-[#2563EB] shrink-0 mt-1">&bull;</span> You may hold multiple active investments across different plans simultaneously.</li>
+              <li className="flex items-start gap-3"><span className="text-[#2563EB] shrink-0 mt-1">&bull;</span> Past performance does not guarantee future results. Please read our <Link href="/risk-disclosure" className="text-[#2563EB] hover:underline font-medium">Risk Disclosure</Link> before investing.</li>
             </ul>
           </div>
         </FadeIn>

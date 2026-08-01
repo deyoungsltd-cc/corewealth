@@ -191,7 +191,7 @@ export default function MarketPage() {
       {/* ── Page Header ── */}
       <div>
         <h1 className="text-foreground font-bold text-lg flex items-center gap-2">
-          <TrendingUp className="w-5 h-5 text-[#7C3AED]" />
+          <TrendingUp className="w-5 h-5 text-[#2563EB]" />
           Markets and Rates
         </h1>
         <p className="text-muted-foreground text-xs mt-0.5">
@@ -204,7 +204,7 @@ export default function MarketPage() {
          ════════════════════════════════════════════ */}
       <section>
         <div className="flex items-center gap-2 mb-3">
-          <Percent className="w-4 h-4 text-[#7C3AED]" />
+          <Percent className="w-4 h-4 text-[#2563EB]" />
           <h2 className="text-foreground font-semibold text-sm">Deposit Interest Rates</h2>
         </div>
 
@@ -226,15 +226,15 @@ export default function MarketPage() {
               >
                 {/* Account name + icon */}
                 <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-[#7C3AED]/10 flex items-center justify-center flex-shrink-0">
-                    <Icon className="w-4 h-4 text-[#7C3AED]" />
+                  <div className="w-8 h-8 rounded-lg bg-[#2563EB]/10 flex items-center justify-center flex-shrink-0">
+                    <Icon className="w-4 h-4 text-[#2563EB]" />
                   </div>
                   <span className="text-sm font-medium text-foreground">{item.account}</span>
                 </div>
 
                 {/* APY */}
                 <div className="sm:text-right pl-10 sm:pl-0">
-                  <span className="text-sm font-bold text-[#7C3AED]">{fmtRate(item.apy)}%</span>
+                  <span className="text-sm font-bold text-[#2563EB]">{fmtRate(item.apy)}%</span>
                   <span className="text-[10px] text-muted-foreground ml-1">APY</span>
                 </div>
 
@@ -262,7 +262,7 @@ export default function MarketPage() {
          ════════════════════════════════════════════ */}
       <section>
         <div className="flex items-center gap-2 mb-3">
-          <Globe className="w-4 h-4 text-[#7C3AED]" />
+          <Globe className="w-4 h-4 text-[#2563EB]" />
           <h2 className="text-foreground font-semibold text-sm">Currency Exchange Rates</h2>
         </div>
 
@@ -328,7 +328,7 @@ export default function MarketPage() {
          ════════════════════════════════════════════ */}
       <section>
         <div className="flex items-center gap-2 mb-3">
-          <Landmark className="w-4 h-4 text-[#7C3AED]" />
+          <Landmark className="w-4 h-4 text-[#2563EB]" />
           <h2 className="text-foreground font-semibold text-sm">Lending Rates</h2>
         </div>
 
@@ -350,8 +350,8 @@ export default function MarketPage() {
               >
                 {/* Loan type + icon */}
                 <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-[#7C3AED]/10 flex items-center justify-center flex-shrink-0">
-                    <Icon className="w-4 h-4 text-[#7C3AED]" />
+                  <div className="w-8 h-8 rounded-lg bg-[#2563EB]/10 flex items-center justify-center flex-shrink-0">
+                    <Icon className="w-4 h-4 text-[#2563EB]" />
                   </div>
                   <div>
                     <span className="text-sm font-medium text-foreground">{item.type}</span>
@@ -392,7 +392,7 @@ export default function MarketPage() {
          ════════════════════════════════════════════ */}
       <section>
         <div className="flex items-center gap-2 mb-3">
-          <Newspaper className="w-4 h-4 text-[#7C3AED]" />
+          <Newspaper className="w-4 h-4 text-[#2563EB]" />
           <h2 className="text-foreground font-semibold text-sm">Market News</h2>
         </div>
 
@@ -400,11 +400,11 @@ export default function MarketPage() {
           {newsArticles.map((article, i) => (
             <article
               key={i}
-              className="glass-card border border-border rounded-xl p-4 hover:border-[#7C3AED]/20 transition-colors"
+              className="glass-card border border-border rounded-xl p-4 hover:border-[#2563EB]/20 transition-colors"
             >
               {/* Meta row */}
               <div className="flex items-center gap-2 mb-2 flex-wrap">
-                <span className="text-[#7C3AED] text-[10px] font-bold">{article.source}</span>
+                <span className="text-[#2563EB] text-[10px] font-bold">{article.source}</span>
                 <span className="text-muted-foreground/50 text-[10px]">·</span>
                 <span className="text-muted-foreground text-[10px]">{article.time}</span>
                 <span

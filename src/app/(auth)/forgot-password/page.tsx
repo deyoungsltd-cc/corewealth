@@ -124,7 +124,7 @@ export default function ForgotPasswordPage() {
           <CoreWealthLogo className="h-8 mx-auto mb-4" />
           <h1 className="text-2xl font-bold text-white mb-2">Password Reset</h1>
           <p className="text-gray-400 text-sm mb-8">Your password has been reset successfully. You can now sign in with your new password.</p>
-          <Link href="/login" className="inline-block w-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-semibold py-3 rounded-lg transition-colors text-sm">
+          <Link href="/login" className="inline-block w-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-semibold py-3 rounded-lg transition-colors text-sm">
             Sign In Now
           </Link>
         </div>
@@ -134,11 +134,11 @@ export default function ForgotPasswordPage() {
   }
 
   const inputCls = (field?: string) =>
-    `w-full bg-[#1a1a1a] border ${field && (errors[field] || resetFieldErrors[field]) ? 'border-red-500' : 'border-border'} rounded-lg px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED] transition-colors`;
+    `w-full bg-[#1a1a1a] border ${field && (errors[field] || resetFieldErrors[field]) ? 'border-red-500' : 'border-border'} rounded-lg px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#2563EB] transition-colors`;
 
   return (
     <div className="min-h-screen bg-background flex flex-col items-center justify-center px-4 py-12 relative overflow-hidden">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#7C3AED]/5 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#2563EB]/5 rounded-full blur-[150px] pointer-events-none" />
       <div className="w-full max-w-md relative z-10">
         <div className="text-center mb-8">
           <CoreWealthLogo className="h-14 mx-auto mb-4 drop-shadow-[0_0_15px_rgba(124,58,237,0.3)]" />
@@ -166,7 +166,7 @@ export default function ForgotPasswordPage() {
                 />
                 {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email}</p>}
               </div>
-              <button type="submit" disabled={loading} className="w-full bg-[#7C3AED] hover:bg-[#6D28D9] disabled:opacity-50 text-white font-semibold py-3 rounded-lg transition-colors text-sm">
+              <button type="submit" disabled={loading} className="w-full bg-[#2563EB] hover:bg-[#1D4ED8] disabled:opacity-50 text-white font-semibold py-3 rounded-lg transition-colors text-sm">
                 {loading ? (
                   <span className="flex items-center justify-center gap-2">
                     <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" /><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" /></svg>
@@ -195,7 +195,7 @@ export default function ForgotPasswordPage() {
                     value={digit}
                     onChange={(e) => handleOtpChange(i, e.target.value)}
                     onKeyDown={(e) => handleOtpKeyDown(i, e)}
-                    className={`w-12 h-14 bg-[#1a1a1a] border ${resetFieldErrors.code ? 'border-red-500' : 'border-border'} rounded-lg text-center text-xl font-bold text-white focus:outline-none focus:border-[#7C3AED] transition-colors`}
+                    className={`w-12 h-14 bg-[#1a1a1a] border ${resetFieldErrors.code ? 'border-red-500' : 'border-border'} rounded-lg text-center text-xl font-bold text-white focus:outline-none focus:border-[#2563EB] transition-colors`}
                   />
                 ))}
               </div>
@@ -226,7 +226,7 @@ export default function ForgotPasswordPage() {
               <button
                 onClick={handleResetPassword}
                 disabled={resetLoading || code.join('').length < 6}
-                className="w-full bg-[#7C3AED] hover:bg-[#6D28D9] disabled:opacity-50 text-white font-semibold py-3 rounded-lg transition-colors text-sm"
+                className="w-full bg-[#2563EB] hover:bg-[#1D4ED8] disabled:opacity-50 text-white font-semibold py-3 rounded-lg transition-colors text-sm"
               >
                 {resetLoading ? (
                   <span className="flex items-center justify-center gap-2">
@@ -244,7 +244,7 @@ export default function ForgotPasswordPage() {
 
         <p className="text-center text-gray-500 text-sm mt-6">
           Remember your password?{' '}
-          <Link href="/login" className="text-[#7C3AED] hover:underline font-medium">Sign In</Link>
+          <Link href="/login" className="text-[#2563EB] hover:underline font-medium">Sign In</Link>
         </p>
 
         <p className="text-center text-gray-700 text-[10px] mt-4">

@@ -102,10 +102,10 @@ export default function LinkBankPage() {
   return (
     <div className="space-y-6 max-w-2xl mx-auto">
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-[#7C3AED]/20 via-[#7C3AED]/5 to-transparent border border-[#7C3AED]/20 rounded-2xl p-6">
+      <div className="bg-gradient-to-br from-[#2563EB]/20 via-[#2563EB]/5 to-transparent border border-[#2563EB]/20 rounded-2xl p-6">
         <div className="flex items-start gap-4">
-          <div className="w-12 h-12 rounded-xl bg-[#7C3AED]/20 flex items-center justify-center shrink-0">
-            <Landmark className="w-6 h-6 text-[#A78BFA]" />
+          <div className="w-12 h-12 rounded-xl bg-[#2563EB]/20 flex items-center justify-center shrink-0">
+            <Landmark className="w-6 h-6 text-[#60A5FA]" />
           </div>
           <div>
             <h2 className="text-white font-bold text-lg">Link External Bank</h2>
@@ -134,14 +134,14 @@ export default function LinkBankPage() {
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <h3 className="text-white font-semibold text-sm">Linked Accounts ({linkedBanks.length})</h3>
-            <button onClick={() => setShowLinked(!showLinked)} className="text-[#A78BFA] text-xs font-medium hover:underline">
+            <button onClick={() => setShowLinked(!showLinked)} className="text-[#60A5FA] text-xs font-medium hover:underline">
               {showLinked ? 'Hide' : 'Show'}
             </button>
           </div>
           {showLinked && linkedBanks.map(bank => (
             <div key={bank.id} className="bg-white/5 border border-white/10 backdrop-blur rounded-xl p-4 flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-[#7C3AED]/10 flex items-center justify-center shrink-0">
-                <span className="text-[#A78BFA] font-bold text-sm">{bank.name[0]}</span>
+              <div className="w-10 h-10 rounded-full bg-[#2563EB]/10 flex items-center justify-center shrink-0">
+                <span className="text-[#60A5FA] font-bold text-sm">{bank.name[0]}</span>
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-white font-semibold text-sm">{bank.name}</p>
@@ -171,7 +171,7 @@ export default function LinkBankPage() {
           placeholder="Search for your bank..."
           value={search}
           onChange={e => { setSearch(e.target.value); setShowManual(false); }}
-          className="w-full bg-white/5 border border-white/10 backdrop-blur rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder-gray-500 outline-none focus:border-[#7C3AED]/50 transition-colors"
+          className="w-full bg-white/5 border border-white/10 backdrop-blur rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder-gray-500 outline-none focus:border-[#2563EB]/50 transition-colors"
         />
       </div>
 
@@ -187,7 +187,7 @@ export default function LinkBankPage() {
                   key={bank.name}
                   onClick={() => !isLinked && handleLinkBank(bank)}
                   disabled={isLinked}
-                  className={`bg-white/5 border border-white/10 backdrop-blur rounded-xl p-4 flex flex-col items-center gap-2.5 transition-all hover:bg-white/10 hover:border-[#7C3AED]/20 ${isLinked ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                  className={`bg-white/5 border border-white/10 backdrop-blur rounded-xl p-4 flex flex-col items-center gap-2.5 transition-all hover:bg-white/10 hover:border-[#2563EB]/20 ${isLinked ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
                 >
                   <div className="w-11 h-11 rounded-full flex items-center justify-center" style={{ backgroundColor: `${bank.color}20` }}>
                     <span className="font-bold text-lg" style={{ color: bank.color }}>{bank.letter}</span>
@@ -221,7 +221,7 @@ export default function LinkBankPage() {
                 <p className="text-gray-500 text-xs">Enter your bank details manually</p>
               </div>
             </div>
-            <ChevronRight className="w-4 h-4 text-gray-500 group-hover:text-[#A78BFA] transition-colors" />
+            <ChevronRight className="w-4 h-4 text-gray-500 group-hover:text-[#60A5FA] transition-colors" />
           </button>
         </div>
       )}
@@ -241,7 +241,7 @@ export default function LinkBankPage() {
                 value={manualForm.bankName}
                 onChange={e => setManualForm(f => ({ ...f, bankName: e.target.value }))}
                 placeholder="e.g. Chase, Bank of America"
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-600 outline-none focus:border-[#7C3AED]/50 transition-colors"
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-600 outline-none focus:border-[#2563EB]/50 transition-colors"
               />
             </div>
             <div className="grid grid-cols-2 gap-3">
@@ -253,7 +253,7 @@ export default function LinkBankPage() {
                   onChange={e => setManualForm(f => ({ ...f, routingNumber: e.target.value.replace(/\D/g, '').slice(0, 9) }))}
                   placeholder="9 digits"
                   maxLength={9}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-600 outline-none focus:border-[#7C3AED]/50 transition-colors font-mono"
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-600 outline-none focus:border-[#2563EB]/50 transition-colors font-mono"
                 />
               </div>
               <div>
@@ -264,7 +264,7 @@ export default function LinkBankPage() {
                   onChange={e => setManualForm(f => ({ ...f, accountNumber: e.target.value.replace(/\D/g, '').slice(0, 17) }))}
                   placeholder="Up to 17 digits"
                   maxLength={17}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-600 outline-none focus:border-[#7C3AED]/50 transition-colors font-mono"
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-600 outline-none focus:border-[#2563EB]/50 transition-colors font-mono"
                 />
               </div>
             </div>
@@ -277,7 +277,7 @@ export default function LinkBankPage() {
                       key={t}
                       type="button"
                       onClick={() => setManualForm(f => ({ ...f, accountType: t }))}
-                      className={`flex-1 py-2.5 rounded-lg text-xs font-medium transition-all ${manualForm.accountType === t ? 'bg-[#7C3AED] text-white' : 'text-gray-400 hover:text-white'}`}
+                      className={`flex-1 py-2.5 rounded-lg text-xs font-medium transition-all ${manualForm.accountType === t ? 'bg-[#2563EB] text-white' : 'text-gray-400 hover:text-white'}`}
                     >
                       {t.charAt(0).toUpperCase() + t.slice(1)}
                     </button>
@@ -291,14 +291,14 @@ export default function LinkBankPage() {
                   value={manualForm.holderName}
                   onChange={e => setManualForm(f => ({ ...f, holderName: e.target.value }))}
                   placeholder="Full name on account"
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-600 outline-none focus:border-[#7C3AED]/50 transition-colors"
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-600 outline-none focus:border-[#2563EB]/50 transition-colors"
                 />
               </div>
             </div>
             <button
               type="submit"
               disabled={submitting}
-              className="w-full bg-[#7C3AED] hover:bg-[#6D28D9] disabled:opacity-50 text-white font-semibold text-sm py-3 rounded-xl transition-colors flex items-center justify-center gap-2"
+              className="w-full bg-[#2563EB] hover:bg-[#1D4ED8] disabled:opacity-50 text-white font-semibold text-sm py-3 rounded-xl transition-colors flex items-center justify-center gap-2"
             >
               {submitting ? (
                 <><span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> Verifying...</>
@@ -312,7 +312,7 @@ export default function LinkBankPage() {
 
       {/* Toast */}
       {toast && (
-        <div className="fixed bottom-20 lg:bottom-6 left-1/2 -translate-x-1/2 bg-[#7C3AED]/20 border border-[#7C3AED]/30 text-[#A78BFA] text-xs font-medium px-4 py-2 rounded-full animate-fade-in">
+        <div className="fixed bottom-20 lg:bottom-6 left-1/2 -translate-x-1/2 bg-[#2563EB]/20 border border-[#2563EB]/30 text-[#60A5FA] text-xs font-medium px-4 py-2 rounded-full animate-fade-in">
           {toast}
         </div>
       )}

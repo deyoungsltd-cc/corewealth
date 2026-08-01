@@ -109,7 +109,7 @@ export default function GoogleTranslate() {
                   onClick={() => changeLanguage(lang.code)}
                   className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors ${
                     selected === lang.code
-                      ? 'bg-[#7C3AED]/10 text-[#7C3AED]'
+                      ? 'bg-[#2563EB]/10 text-[#2563EB]'
                       : 'text-gray-300 hover:bg-white/5 hover:text-white'
                   }`}
                 >

@@ -9,9 +9,9 @@ const CATEGORIES = [
   { id: 'internet', name: 'Internet', color: '#06B6D4', icon: '<path d="M5 12.55a11 11 0 0 1 14.08 0" /><path d="M1.42 9a16 16 0 0 1 21.16 0" /><path d="M8.53 16.11a6 6 0 0 1 6.95 0" /><circle cx="12" cy="20" r="1" />' },
   { id: 'gas', name: 'Gas', color: '#F97316', icon: '<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z" />' },
   { id: 'phone', name: 'Phone/Airtime', color: '#22C55E', icon: '<rect x="5" y="2" width="14" height="20" rx="2" ry="2" /><line x1="12" y1="18" x2="12.01" y2="18" />' },
-  { id: 'tv', name: 'TV/Cable', color: '#7C3AED', icon: '<rect x="2" y="7" width="20" height="15" rx="2" ry="2" /><polyline points="17 2 12 7 7 2" />' },
+  { id: 'tv', name: 'TV/Cable', color: '#2563EB', icon: '<rect x="2" y="7" width="20" height="15" rx="2" ry="2" /><polyline points="17 2 12 7 7 2" />' },
   { id: 'insurance', name: 'Insurance', color: '#EC4899', icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />' },
-  { id: 'rent', name: 'Rent/Mortgage', color: '#8B5CF6', icon: '<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><polyline points="9 22 9 12 15 12 15 22" />' },
+  { id: 'rent', name: 'Rent/Mortgage', color: '#3B82F6', icon: '<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><polyline points="9 22 9 12 15 12 15 22" />' },
 ];
 
 const RECENT = [
@@ -45,7 +45,7 @@ export default function PayBillsPage() {
     } catch { setError('Network error'); } finally { setLoading(false); }
   };
 
-  const inputCls = 'w-full bg-[#1a1a1a] border border-border rounded-lg px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED] transition-colors';
+  const inputCls = 'w-full bg-[#1a1a1a] border border-border rounded-lg px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#2563EB] transition-colors';
 
   return (
     <div className="space-y-5">
@@ -54,7 +54,7 @@ export default function PayBillsPage() {
           <p className="text-gray-400 text-sm">Select a bill category to pay</p>
           <div className="grid grid-cols-2 gap-3">
             {CATEGORIES.map(cat => (
-              <button key={cat.id} onClick={() => setSelected(cat.id)} className="bg-card border border-border rounded-xl p-4 hover:border-[#7C3AED]/40 transition-all text-left group">
+              <button key={cat.id} onClick={() => setSelected(cat.id)} className="bg-card border border-border rounded-xl p-4 hover:border-[#2563EB]/40 transition-all text-left group">
                 <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-3 transition-transform group-hover:scale-110" style={{ backgroundColor: `${cat.color}15`, color: cat.color }}>
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" dangerouslySetInnerHTML={{ __html: cat.icon }} />
                 </div>
@@ -98,7 +98,7 @@ export default function PayBillsPage() {
           <div><label className="block text-gray-300 text-sm font-medium mb-1.5">Amount (USD) *</label><div className="relative"><span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-sm">$</span><input type="number" value={amount} onChange={e => setAmount(e.target.value)} placeholder="0.00" className={inputCls + ' pl-8'} /></div></div>
           <div><label className="block text-gray-300 text-sm font-medium mb-1.5">Payment Date</label><input type="date" value={payDate} onChange={e => setPayDate(e.target.value)} className={inputCls} /></div>
           <div className="bg-[#111] border border-border rounded-lg p-3"><div className="flex justify-between text-sm"><span className="text-gray-500">Convenience fee</span><span className="text-white">$1.50</span></div></div>
-          <button onClick={handlePay} disabled={loading} className="w-full bg-[#7C3AED] hover:bg-[#6D28D9] disabled:opacity-50 text-white font-semibold py-3 rounded-lg transition-colors text-sm">{loading ? 'Processing...' : `Pay $${amount ? parseFloat(amount).toFixed(2) : '0.00'}`}</button>
+          <button onClick={handlePay} disabled={loading} className="w-full bg-[#2563EB] hover:bg-[#1D4ED8] disabled:opacity-50 text-white font-semibold py-3 rounded-lg transition-colors text-sm">{loading ? 'Processing...' : `Pay $${amount ? parseFloat(amount).toFixed(2) : '0.00'}`}</button>
         </div>
       )}
       <ChatWidget />

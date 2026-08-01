@@ -39,8 +39,8 @@ export default function SavingsStatementPage() {
         <div className="bg-card border border-border rounded-xl p-4 flex-1 min-w-[140px]"><p className="text-gray-500 text-xs">Net Change</p><p className={`font-bold text-lg mt-1 ${(totalCredits - totalDebits) >= 0 ? 'text-green-400' : 'text-red-400'}`}>${(totalCredits - totalDebits).toFixed(2)}</p></div>
       </div>
       <div className="flex gap-3 items-end">
-        <div className="flex-1"><label className="block text-gray-300 text-xs font-medium mb-1">From</label><input type="date" value={from} onChange={e => setFrom(e.target.value)} className="w-full bg-[#1a1a1a] border border-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-[#7C3AED]" /></div>
-        <div className="flex-1"><label className="block text-gray-300 text-xs font-medium mb-1">To</label><input type="date" value={to} onChange={e => setTo(e.target.value)} className="w-full bg-[#1a1a1a] border border-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-[#7C3AED]" /></div>
+        <div className="flex-1"><label className="block text-gray-300 text-xs font-medium mb-1">From</label><input type="date" value={from} onChange={e => setFrom(e.target.value)} className="w-full bg-[#1a1a1a] border border-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-[#2563EB]" /></div>
+        <div className="flex-1"><label className="block text-gray-300 text-xs font-medium mb-1">To</label><input type="date" value={to} onChange={e => setTo(e.target.value)} className="w-full bg-[#1a1a1a] border border-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-[#2563EB]" /></div>
         <button className="bg-white/5 hover:bg-white/10 border border-border px-4 py-2 rounded-lg text-sm text-gray-300 hover:text-white transition-colors whitespace-nowrap">Export PDF</button>
       </div>
       <div className="bg-card border border-border rounded-xl overflow-hidden">

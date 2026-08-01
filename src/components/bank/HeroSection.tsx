@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
+import Globe3D from '@/components/bank/Globe3D';
 
 interface HeroSectionProps {
   currentPage?: string;
@@ -215,8 +216,8 @@ function Particles() {
             bottom: 0,
             width: p.size,
             height: p.size,
-            background: `linear-gradient(135deg, #A78BFA, #7C3AED)`,
-            boxShadow: `0 0 ${p.size * 2}px rgba(167, 139, 250, 0.5)`,
+            background: 'linear-gradient(135deg, #60A5FA, #2563EB)',
+            boxShadow: '0 0 6px rgba(96, 165, 250, 0.5)',
             '--p-opacity': p.opacity,
             animation: `particleFloat ${p.duration}s ${p.delay}s infinite ease-out`,
           } as React.CSSProperties}
@@ -247,9 +248,9 @@ function StatItem({ stat, delay }: { stat: typeof STATS[number]; delay: number }
       {IconComponent && (
         <div
           className="flex items-center justify-center w-10 h-10 rounded-xl mb-1"
-          style={{ background: 'rgba(124,58,237,0.2)' }}
+          style={{ background: 'rgba(37, 99, 235, 0.2)' }}
         >
-          <span style={{ color: '#A78BFA' }}>
+          <span style={{ color: '#60A5FA' }}>
             <IconComponent />
           </span>
         </div>
@@ -293,7 +294,7 @@ export default function HeroSection({ currentPage, onNavigate }: HeroSectionProp
           key={i}
           className="absolute inset-0 transition-opacity duration-[2000ms] ease-in-out"
           style={{
-            opacity: currentSlide === i ? 0.4 : 0,
+            opacity: currentSlide === i ? 0.6 : 0,
             backgroundImage: `url(${slide.img})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
@@ -301,7 +302,7 @@ export default function HeroSection({ currentPage, onNavigate }: HeroSectionProp
         />
       ))}
 
-      {/* ─── Animated gradient mesh overlay ─── */}
+      {/* ─── Lightened dark overlay (lets images show through) ─── */}
       <div className="absolute inset-0 z-[2]">
         <style>{`
           @keyframes meshMove1 {
@@ -323,14 +324,18 @@ export default function HeroSection({ currentPage, onNavigate }: HeroSectionProp
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
           }
+          @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+          }
         `}</style>
-        {/* Primary dark overlay */}
+        {/* MUCH lighter overlay so banking photos show through */}
         <div
           className="absolute inset-0"
           style={{
             background: `
-              linear-gradient(135deg, rgba(6,10,19,0.92) 0%, rgba(6,10,19,0.75) 30%, rgba(6,10,19,0.55) 55%, rgba(6,10,19,0.85) 100%),
-              linear-gradient(to top, rgba(6,10,19,0.95) 0%, rgba(6,10,19,0.4) 50%, rgba(6,10,19,0.6) 100%)
+              linear-gradient(135deg, rgba(6,10,19,0.6) 0%, rgba(6,10,19,0.4) 30%, rgba(6,10,19,0.3) 55%, rgba(6,10,19,0.5) 100%),
+              linear-gradient(to top, rgba(6,10,19,0.7) 0%, rgba(6,10,19,0.15) 50%, rgba(6,10,19,0.6) 100%)
             `,
           }}
         />
@@ -338,28 +343,28 @@ export default function HeroSection({ currentPage, onNavigate }: HeroSectionProp
         <div
           className="absolute -top-40 -left-40 w-[700px] h-[700px] rounded-full opacity-30 blur-[140px]"
           style={{
-            background: 'radial-gradient(circle, #7C3AED 0%, #4C1D95 40%, transparent 70%)',
+            background: 'radial-gradient(circle, #2563EB 0%, #1E3A8A 40%, transparent 70%)',
             animation: 'meshMove1 20s ease-in-out infinite',
           }}
         />
         <div
           className="absolute top-1/3 -right-48 w-[500px] h-[500px] rounded-full opacity-20 blur-[120px]"
           style={{
-            background: 'radial-gradient(circle, #A78BFA 0%, #7C3AED 50%, transparent 70%)',
+            background: 'radial-gradient(circle, #60A5FA 0%, #2563EB 50%, transparent 70%)',
             animation: 'meshMove2 25s ease-in-out infinite',
           }}
         />
         <div
           className="absolute -bottom-32 left-1/3 w-[450px] h-[450px] rounded-full opacity-15 blur-[100px]"
           style={{
-            background: 'radial-gradient(circle, #6D28D9 0%, #4C1D95 50%, transparent 70%)',
+            background: 'radial-gradient(circle, #1D4ED8 0%, #1E3A8A 50%, transparent 70%)',
             animation: 'meshMove3 18s ease-in-out infinite',
           }}
         />
         <div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-10 blur-[150px]"
           style={{
-            background: 'radial-gradient(circle, #C084FC 0%, transparent 60%)',
+            background: 'radial-gradient(circle, #93C5FD 0%, transparent 60%)',
             animation: 'meshMove1 22s ease-in-out infinite reverse',
           }}
         />
@@ -367,6 +372,20 @@ export default function HeroSection({ currentPage, onNavigate }: HeroSectionProp
 
       {/* ─── Particle / Sparkle effects ─── */}
       <Particles />
+
+      {/* ─── 3D Globe: desktop right side, mobile background ─── */}
+      <div className="hidden lg:block absolute right-0 top-0 w-[45%] h-full z-[3] pointer-events-none">
+        <div className="w-full h-full flex items-center justify-center">
+          <div className="w-[500px] h-[500px] pointer-events-auto">
+            <Globe3D />
+          </div>
+        </div>
+      </div>
+      <div className="lg:hidden absolute inset-0 z-[3] flex items-center justify-center pointer-events-none opacity-30">
+        <div className="w-[280px] h-[280px]">
+          <Globe3D />
+        </div>
+      </div>
 
       {/* ─── Slide indicators ─── */}
       <div className="absolute bottom-28 sm:bottom-32 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
@@ -380,142 +399,142 @@ export default function HeroSection({ currentPage, onNavigate }: HeroSectionProp
               width: currentSlide === i ? 28 : 8,
               height: 8,
               background: currentSlide === i
-                ? 'linear-gradient(90deg, #7C3AED, #A78BFA)'
+                ? 'linear-gradient(90deg, #2563EB, #60A5FA)'
                 : 'rgba(255,255,255,0.25)',
-              boxShadow: currentSlide === i ? '0 0 12px rgba(124,58,237,0.5)' : 'none',
+              boxShadow: currentSlide === i ? '0 0 12px rgba(37, 99, 235, 0.5)' : 'none',
             }}
           />
         ))}
       </div>
 
-      {/* ─── Main content ─── */}
+      {/* ─── Main content: two-column on desktop, centered on mobile ─── */}
       <div
-        className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-36 sm:pt-32 sm:pb-40 lg:pt-0 lg:pb-32 flex flex-col items-center text-center"
+        className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-36 sm:pt-32 sm:pb-40 lg:pt-0 lg:pb-32"
         style={{ animation: 'heroFadeIn 1s ease-out forwards' }}
       >
-        {/* Trust badge pill */}
-        <div
-          className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full mb-8"
-          style={{
-            background: 'rgba(124,58,237,0.12)',
-            border: '1px solid rgba(124,58,237,0.25)',
-          }}
-        >
-          <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: '#34D399' }} />
-          <span className="text-sm font-medium" style={{ color: '#C4B5FD' }}>
-            Trusted by 150,000+ clients worldwide
-          </span>
-        </div>
+        <div className="lg:flex lg:items-center lg:gap-8">
+          {/* Left column: text content (60% on desktop) */}
+          <div className="lg:w-[60%] flex flex-col items-center lg:items-start text-center lg:text-left">
+            {/* Trust badge pill */}
+            <div
+              className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full mb-8"
+              style={{
+                background: 'rgba(37, 99, 235, 0.12)',
+                border: '1px solid rgba(37, 99, 235, 0.25)',
+              }}
+            >
+              <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: '#34D399' }} />
+              <span className="text-sm font-medium" style={{ color: '#93C5FD' }}>
+                Trusted by 150,000+ clients worldwide
+              </span>
+            </div>
 
-        {/* Main headline */}
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.08] max-w-5xl">
-          <span className="text-white">Banking Reimagined for the</span>
-          <br className="hidden sm:block" />
-          <span className="text-white sm:hidden"> </span>
-          <span
-            className="bg-clip-text text-transparent"
-            style={{
-              backgroundImage: 'linear-gradient(135deg, #A78BFA 0%, #7C3AED 35%, #C084FC 65%, #A78BFA 100%)',
-              backgroundSize: '200% 200%',
-              WebkitBackgroundClip: 'text',
-              animation: 'gradientShift 4s ease-in-out infinite',
-            }}
-          >
-            Modern World
-          </span>
-        </h1>
+            {/* Main headline */}
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.08] max-w-5xl lg:max-w-none">
+              <span className="text-white">Banking Reimagined for the</span>
+              <br className="hidden sm:block" />
+              <span className="text-white sm:hidden"> </span>
+              <span
+                className="bg-clip-text text-transparent"
+                style={{
+                  backgroundImage: 'linear-gradient(135deg, #60A5FA 0%, #2563EB 35%, #93C5FD 65%, #60A5FA 100%)',
+                  backgroundSize: '200% 200%',
+                  WebkitBackgroundClip: 'text',
+                  animation: 'gradientShift 4s ease-in-out infinite',
+                }}
+              >
+                Modern World
+              </span>
+            </h1>
 
-        {/* Subheadline */}
-        <p
-          className="mt-6 text-base sm:text-lg md:text-xl max-w-2xl leading-relaxed"
-          style={{ color: 'rgba(255,255,255,0.6)' }}
-        >
-          Experience seamless financial services with institutional-grade security, instant transfers, and 24/7 access to your wealth.
-        </p>
+            {/* Subheadline */}
+            <p
+              className="mt-6 text-base sm:text-lg md:text-xl max-w-2xl leading-relaxed"
+              style={{ color: 'rgba(255,255,255,0.6)' }}
+            >
+              Experience seamless financial services with institutional-grade security, instant transfers, and 24/7 access to your wealth.
+            </p>
 
-        {/* CTA Buttons */}
-        <div className="mt-10 flex flex-col sm:flex-row items-center gap-4">
-          <a
-            href="/register"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-white transition-all duration-300 hover:scale-[1.03] group"
-            style={{
-              background: 'linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%)',
-              boxShadow: '0 4px 24px rgba(124,58,237,0.4), 0 0 60px rgba(124,58,237,0.12)',
-            }}
-            onMouseEnter={(e) => {
-              (e.target as HTMLElement).style.boxShadow = '0 8px 36px rgba(124,58,237,0.55), 0 0 80px rgba(124,58,237,0.2)';
-            }}
-            onMouseLeave={(e) => {
-              (e.target as HTMLElement).style.boxShadow = '0 4px 24px rgba(124,58,237,0.4), 0 0 60px rgba(124,58,237,0.12)';
-            }}
-          >
-            Open Account
-            <span className="transition-transform group-hover:translate-x-1">
-              <ArrowRightIcon />
-            </span>
-          </a>
-          <button
-            onClick={scrollToServices}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold transition-all duration-300 hover:scale-[1.03]"
-            style={{
-              color: '#A78BFA',
-              border: '1.5px solid rgba(124,58,237,0.4)',
-              background: 'rgba(124,58,237,0.08)',
-            }}
-          >
-            Learn More
-            <span className="transition-transform">
-              <ChevronDownIcon />
-            </span>
-          </button>
-        </div>
+            {/* CTA Buttons */}
+            <div className="mt-10 flex flex-col sm:flex-row items-center lg:items-start gap-4">
+              <a
+                href="/register"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-white transition-all duration-300 hover:scale-[1.03] group"
+                style={{
+                  background: 'linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)',
+                  boxShadow: '0 4px 24px rgba(37, 99, 235, 0.4), 0 0 60px rgba(37, 99, 235, 0.12)',
+                }}
+                onMouseEnter={(e) => {
+                  (e.target as HTMLElement).style.boxShadow = '0 8px 36px rgba(37, 99, 235, 0.55), 0 0 80px rgba(37, 99, 235, 0.2)';
+                }}
+                onMouseLeave={(e) => {
+                  (e.target as HTMLElement).style.boxShadow = '0 4px 24px rgba(37, 99, 235, 0.4), 0 0 60px rgba(37, 99, 235, 0.12)';
+                }}
+              >
+                Open Account
+                <span className="transition-transform group-hover:translate-x-1">
+                  <ArrowRightIcon />
+                </span>
+              </a>
+              <button
+                onClick={scrollToServices}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold transition-all duration-300 hover:scale-[1.03]"
+                style={{
+                  color: '#60A5FA',
+                  border: '1.5px solid rgba(37, 99, 235, 0.4)',
+                  background: 'rgba(37, 99, 235, 0.08)',
+                }}
+              >
+                Learn More
+                <span className="transition-transform">
+                  <ChevronDownIcon />
+                </span>
+              </button>
+            </div>
 
-        {/* ─── Animated Stats Counter ─── */}
-        <div className="mt-16 sm:mt-20 w-full max-w-4xl">
-          <div
-            className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 p-3 sm:p-4 rounded-2xl"
-            style={{
-              background: 'rgba(124,58,237,0.06)',
-              border: '1px solid rgba(124,58,237,0.12)',
-              backdropFilter: 'blur(12px)',
-            }}
-          >
-            {STATS.map((stat, i) => (
-              <StatItem key={stat.label} stat={stat} delay={800 + i * 200} />
-            ))}
+            {/* ─── Animated Stats Counter ─── */}
+            <div className="mt-16 sm:mt-20 w-full max-w-4xl">
+              <div
+                className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 p-3 sm:p-4 rounded-2xl"
+                style={{
+                  background: 'rgba(37, 99, 235, 0.06)',
+                  border: '1px solid rgba(37, 99, 235, 0.12)',
+                  backdropFilter: 'blur(12px)',
+                }}
+              >
+                {STATS.map((stat, i) => (
+                  <StatItem key={stat.label} stat={stat} delay={800 + i * 200} />
+                ))}
+              </div>
+            </div>
+
+            {/* ─── Trust Bar ─── */}
+            <div className="mt-8 sm:mt-10 w-full max-w-4xl">
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 sm:gap-4">
+                {TRUST_ITEMS.map((item) => {
+                  const IconComp = TRUST_ICON_MAP[item.icon];
+                  return (
+                    <div
+                      key={item.label}
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300 hover:bg-white/[0.06]"
+                      style={{
+                        background: 'rgba(255,255,255,0.03)',
+                        border: '1px solid rgba(255,255,255,0.08)',
+                      }}
+                    >
+                      {IconComp && <span style={{ color: '#34D399' }}><IconComp /></span>}
+                      <span className="text-xs sm:text-sm font-medium" style={{ color: 'rgba(255,255,255,0.6)' }}>{item.label}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           </div>
-        </div>
 
-        {/* ─── Trust Bar ─── */}
-        <div className="mt-8 sm:mt-10 w-full max-w-4xl">
-          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
-            {TRUST_ITEMS.map((item) => {
-              const IconComp = TRUST_ICON_MAP[item.icon];
-              return (
-                <div
-                  key={item.label}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300 hover:bg-white/[0.06]"
-                  style={{
-                    background: 'rgba(255,255,255,0.03)',
-                    border: '1px solid rgba(255,255,255,0.08)',
-                  }}
-                >
-                  {IconComp && <span style={{ color: '#34D399' }}><IconComp /></span>}
-                  <span className="text-xs sm:text-sm font-medium" style={{ color: 'rgba(255,255,255,0.6)' }}>{item.label}</span>
-                </div>
-              );
-            })}
-          </div>
+          {/* Right column: spacer on desktop (globe is absolutely positioned) */}
+          <div className="hidden lg:block lg:w-[40%]" />
         </div>
       </div>
-
-      {/* ─── Gradient text animation keyframe ─── */}
-      <style>{`
-        @keyframes gradientShift {
-          0%, 100% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-        }
-      `}</style>
     </section>
   );
 }

@@ -24,8 +24,8 @@ class DashboardErrorBoundary extends Component<Props, State> {
       return (
         <div className="min-h-screen bg-background flex flex-col items-center justify-center px-4">
           <div className="w-full max-w-md text-center">
-            <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-[#7C3AED]/10 border border-[#7C3AED]/30 flex items-center justify-center">
-              <Shield size={28} className="text-[#7C3AED]" />
+            <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-[#2563EB]/10 border border-[#2563EB]/30 flex items-center justify-center">
+              <Shield size={28} className="text-[#2563EB]" />
             </div>
             <h2 className="text-foreground text-xl font-bold mb-2">Something went wrong</h2>
             <p className="text-muted-foreground text-sm mb-2">An unexpected error occurred on this page.</p>
@@ -180,7 +180,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
               <Link href="/notifications" className="relative text-muted-foreground hover:text-foreground transition-colors">
                 <Bell size={20} />
                 {unreadCount > 0 && (
-                  <span className="absolute -top-1.5 -right-1.5 min-w-[16px] h-4 bg-[#7C3AED] rounded-full flex items-center justify-center text-white text-[9px] font-bold px-1 animate-[pulse_2s_infinite]">
+                  <span className="absolute -top-1.5 -right-1.5 min-w-[16px] h-4 bg-[#2563EB] rounded-full flex items-center justify-center text-white text-[9px] font-bold px-1 animate-[pulse_2s_infinite]">
                     {unreadCount > 99 ? '99+' : unreadCount}
                   </span>
                 )}
@@ -192,7 +192,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
               >
                 {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
               </button>
-              <Link href="/profile" className="w-8 h-8 rounded-full bg-[#7C3AED] flex items-center justify-center text-white text-xs font-bold overflow-hidden shrink-0">
+              <Link href="/profile" className="w-8 h-8 rounded-full bg-[#2563EB] flex items-center justify-center text-white text-xs font-bold overflow-hidden shrink-0">
                 {userAvatarUrl ? (
                   <img src={userAvatarUrl} alt={userInitials} className="w-full h-full object-cover" />
                 ) : (
@@ -210,7 +210,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
               {sidebarLinks.map((item) => {
                 const active = pathname === item.href;
                 return (
-                  <Link key={item.href} href={item.href} className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${active ? 'bg-[#7C3AED]/10 text-[#7C3AED]' : 'text-muted-foreground hover:text-foreground hover:bg-muted'}`}>
+                  <Link key={item.href} href={item.href} className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${active ? 'bg-[#2563EB]/10 text-[#2563EB]' : 'text-muted-foreground hover:text-foreground hover:bg-muted'}`}>
                     {item.icon}
                     {item.label}
                   </Link>
@@ -220,7 +220,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
             <div className="mt-auto pt-4 border-t border-border">
               <div className="glass-card p-3 text-center">
                 <p className="text-[10px] text-muted-foreground mb-1">Need help?</p>
-                <Link href="/support" className="text-[#7C3AED] text-xs font-semibold hover:underline">Contact Support</Link>
+                <Link href="/support" className="text-[#2563EB] text-xs font-semibold hover:underline">Contact Support</Link>
               </div>
             </div>
           </aside>
@@ -240,7 +240,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                   {sidebarLinks.map((item) => {
                     const active = pathname === item.href;
                     return (
-                      <Link key={item.href} href={item.href} onClick={() => setSidebarOpen(false)} className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${active ? 'bg-[#7C3AED]/10 text-[#7C3AED]' : 'text-muted-foreground hover:text-foreground hover:bg-muted'}`}>
+                      <Link key={item.href} href={item.href} onClick={() => setSidebarOpen(false)} className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${active ? 'bg-[#2563EB]/10 text-[#2563EB]' : 'text-muted-foreground hover:text-foreground hover:bg-muted'}`}>
                         {item.icon}
                         {item.label}
                       </Link>
@@ -266,7 +266,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
             {bottomNav.map((item) => {
               const active = pathname === item.href;
               return (
-                <Link key={item.href} href={item.href} className={`flex flex-col items-center gap-0.5 py-1 px-2 transition-colors ${active ? 'text-[#7C3AED]' : 'text-muted-foreground'}`}>
+                <Link key={item.href} href={item.href} className={`flex flex-col items-center gap-0.5 py-1 px-2 transition-colors ${active ? 'text-[#2563EB]' : 'text-muted-foreground'}`}>
                   {item.icon}
                   <span className="text-[10px] font-medium">{item.label}</span>
                 </Link>
@@ -281,10 +281,10 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         {/* Toast Notification */}
         {toast && (
           <div className="fixed top-16 right-4 z-[200] max-w-sm w-full animate-slide-down pointer-events-auto">
-            <div className="bg-card border border-[#7C3AED]/30 rounded-xl p-4 shadow-2xl shadow-[#7C3AED]/10">
+            <div className="bg-card border border-[#2563EB]/30 rounded-xl p-4 shadow-2xl shadow-[#2563EB]/10">
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-full bg-[#7C3AED]/15 flex items-center justify-center shrink-0">
-                  <Bell size={16} className="text-[#7C3AED]" />
+                <div className="w-8 h-8 rounded-full bg-[#2563EB]/15 flex items-center justify-center shrink-0">
+                  <Bell size={16} className="text-[#2563EB]" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-foreground text-sm font-semibold">{toast.title}</p>
@@ -295,7 +295,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                 </button>
               </div>
               <div className="mt-2 pt-2 border-t border-border">
-                <Link href="/notifications" className="text-[#7C3AED] text-[10px] font-bold hover:underline">View all notifications</Link>
+                <Link href="/notifications" className="text-[#2563EB] text-[10px] font-bold hover:underline">View all notifications</Link>
               </div>
             </div>
           </div>

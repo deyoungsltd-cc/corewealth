@@ -107,7 +107,7 @@ export default function CardsPage() {
           <p className="text-gray-500 text-sm mt-0.5">Manage your virtual and physical cards</p>
         </div>
         <div className="flex gap-3">
-          <Link href="/cards/apply?type=virtual" className="flex items-center gap-2 bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition-colors">
+          <Link href="/cards/apply?type=virtual" className="flex items-center gap-2 bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition-colors">
             <Plus className="w-4 h-4" /> Virtual Card
           </Link>
           <Link href="/cards/apply?type=physical" className="flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition-colors">
@@ -124,7 +124,7 @@ export default function CardsPage() {
           onMouseLeave={handleMouseLeave}
           className="w-full max-w-[400px] aspect-[1.586/1] rounded-2xl relative overflow-hidden cursor-pointer select-none"
           style={{
-            background: 'linear-gradient(135deg, #7C3AED 0%, #6D28D9 40%, #4C1D95 100%)',
+            background: 'linear-gradient(135deg, #2563EB 0%, #1D4ED8 40%, #1E3A8A 100%)',
             transform: `perspective(800px) rotateX(${cardTilt.x}deg) rotateY(${cardTilt.y}deg)`,
             transition: 'transform 0.15s ease-out',
           }}
@@ -221,7 +221,7 @@ export default function CardsPage() {
             onClick={action.action}
             className={`bg-white/5 border border-white/10 backdrop-blur rounded-xl p-4 flex flex-col items-center gap-2 transition-all hover:bg-white/10 ${action.active ? 'border-blue-400/30' : ''} ${'danger' in action && action.danger ? 'hover:border-red-400/30 hover:text-red-400' : ''}`}
           >
-            <div className={`w-9 h-9 rounded-lg flex items-center justify-center ${action.active ? 'bg-blue-500/10 text-blue-400' : 'bg-[#7C3AED]/10 text-[#A78BFA]'}`}>
+            <div className={`w-9 h-9 rounded-lg flex items-center justify-center ${action.active ? 'bg-blue-500/10 text-blue-400' : 'bg-[#2563EB]/10 text-[#60A5FA]'}`}>
               {action.icon}
             </div>
             <span className="text-white text-xs font-medium">{action.label}</span>
@@ -243,15 +243,15 @@ export default function CardsPage() {
           { href: '/cards/manage', label: 'Manage Card', desc: 'Card settings and controls' },
           { href: '/cards/tracking', label: 'Card Tracking', desc: 'Track physical card delivery' },
         ].map(link => (
-          <Link key={link.href} href={link.href} className="bg-white/5 border border-white/10 backdrop-blur rounded-xl p-4 flex items-center gap-3 hover:bg-white/10 hover:border-[#7C3AED]/20 transition-all group">
-            <div className="w-9 h-9 rounded-lg bg-[#7C3AED]/10 flex items-center justify-center text-[#A78BFA] shrink-0">
+          <Link key={link.href} href={link.href} className="bg-white/5 border border-white/10 backdrop-blur rounded-xl p-4 flex items-center gap-3 hover:bg-white/10 hover:border-[#2563EB]/20 transition-all group">
+            <div className="w-9 h-9 rounded-lg bg-[#2563EB]/10 flex items-center justify-center text-[#60A5FA] shrink-0">
               <CreditCard className="w-4 h-4" />
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-white text-sm font-medium">{link.label}</p>
               <p className="text-gray-500 text-xs">{link.desc}</p>
             </div>
-            <ChevronRight className="w-4 h-4 text-gray-600 group-hover:text-[#A78BFA] transition-colors" />
+            <ChevronRight className="w-4 h-4 text-gray-600 group-hover:text-[#60A5FA] transition-colors" />
           </Link>
         ))}
       </div>
@@ -260,12 +260,12 @@ export default function CardsPage() {
       <div className="bg-white/5 border border-white/10 backdrop-blur rounded-xl overflow-hidden">
         <div className="flex items-center justify-between p-4 border-b border-white/5">
           <h3 className="text-white font-semibold text-sm">Recent Card Transactions</h3>
-          <Link href="/transactions" className="text-[#A78BFA] text-xs font-medium hover:underline">View All</Link>
+          <Link href="/transactions" className="text-[#60A5FA] text-xs font-medium hover:underline">View All</Link>
         </div>
         <div className="divide-y divide-white/5">
           {MOCK_TRANSACTIONS.map(tx => (
             <div key={tx.id} className="flex items-center gap-3 px-4 py-3 hover:bg-white/5 transition-colors">
-              <div className="w-9 h-9 rounded-full bg-[#7C3AED]/10 flex items-center justify-center text-[#A78BFA] text-xs font-bold shrink-0">
+              <div className="w-9 h-9 rounded-full bg-[#2563EB]/10 flex items-center justify-center text-[#60A5FA] text-xs font-bold shrink-0">
                 {tx.icon}
               </div>
               <div className="flex-1 min-w-0">
@@ -289,7 +289,7 @@ export default function CardsPage() {
           { icon: <Eye className="w-5 h-5" />, title: 'Virtual Cards', desc: 'Get a virtual card instantly for online purchases.' },
         ].map(f => (
           <div key={f.title} className="bg-white/5 border border-white/10 backdrop-blur rounded-xl p-4 flex gap-3">
-            <div className="w-10 h-10 rounded-lg bg-[#7C3AED]/10 flex items-center justify-center text-[#A78BFA] shrink-0">{f.icon}</div>
+            <div className="w-10 h-10 rounded-lg bg-[#2563EB]/10 flex items-center justify-center text-[#60A5FA] shrink-0">{f.icon}</div>
             <div>
               <p className="text-white font-semibold text-sm">{f.title}</p>
               <p className="text-gray-500 text-xs mt-0.5 leading-relaxed">{f.desc}</p>
@@ -341,7 +341,7 @@ export default function CardsPage() {
                 type="number"
                 value={spendingLimit}
                 onChange={e => setSpendingLimit(e.target.value)}
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white font-mono outline-none focus:border-[#7C3AED]/50 transition-colors"
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white font-mono outline-none focus:border-[#2563EB]/50 transition-colors"
               />
             </div>
             <div className="grid grid-cols-4 gap-2">
@@ -349,7 +349,7 @@ export default function CardsPage() {
                 <button
                   key={v}
                   onClick={() => setSpendingLimit(v)}
-                  className={`text-xs py-2 rounded-lg font-medium transition-colors ${spendingLimit === v ? 'bg-[#7C3AED] text-white' : 'bg-white/5 text-gray-400 hover:text-white'}`}
+                  className={`text-xs py-2 rounded-lg font-medium transition-colors ${spendingLimit === v ? 'bg-[#2563EB] text-white' : 'bg-white/5 text-gray-400 hover:text-white'}`}
                 >
                   ${Number(v).toLocaleString()}
                 </button>
@@ -357,7 +357,7 @@ export default function CardsPage() {
             </div>
             <button
               onClick={() => setLimitModal(false)}
-              className="w-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-semibold text-sm py-3 rounded-xl transition-colors"
+              className="w-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-semibold text-sm py-3 rounded-xl transition-colors"
             >
               Save Limit
             </button>

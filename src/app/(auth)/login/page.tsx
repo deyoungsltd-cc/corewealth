@@ -79,15 +79,15 @@ export default function LoginPage() {
   };
 
   const inputCls = (field: string) =>
-    `w-full bg-white/5 border ${fieldErrors[field] ? 'border-red-500/80' : 'border-white/10'} rounded-xl px-4 py-3.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#7C3AED]/60 focus:ring-1 focus:ring-[#7C3AED]/20 transition-all duration-200`;
+    `w-full bg-white/5 border ${fieldErrors[field] ? 'border-red-500/80' : 'border-white/10'} rounded-xl px-4 py-3.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#2563EB]/60 focus:ring-1 focus:ring-[#2563EB]/20 transition-all duration-200`;
 
   return (
     <div className="min-h-screen bg-[#060A13] flex">
       {/* Left panel — branding (hidden on mobile) */}
       <div className="hidden lg:flex lg:w-[55%] relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#7C3AED]/20 via-[#060A13] to-[#6D28D9]/10" />
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#7C3AED]/8 rounded-full blur-[120px]" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#A78BFA]/5 rounded-full blur-[100px]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#2563EB]/20 via-[#060A13] to-[#1D4ED8]/10" />
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#2563EB]/8 rounded-full blur-[120px]" />
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#60A5FA]/5 rounded-full blur-[100px]" />
         <div className="relative z-10 flex flex-col justify-between p-12 xl:p-16 w-full">
           <div>
             <CoreWealthLogo variant="wordmark" className="h-9" />
@@ -95,7 +95,7 @@ export default function LoginPage() {
           <div className="max-w-lg">
             <h2 className="text-4xl xl:text-5xl font-bold text-white leading-tight mb-6">
               Your finances,{' '}
-              <span className="bg-gradient-to-r from-[#7C3AED] to-[#A78BFA] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#2563EB] to-[#60A5FA] bg-clip-text text-transparent">
               elevated.
               </span>
             </h2>
@@ -123,7 +123,7 @@ export default function LoginPage() {
 
       {/* Right panel — form */}
       <div className="flex-1 flex items-center justify-center px-6 py-12 relative">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-[#7C3AED]/5 rounded-full blur-[150px] pointer-events-none lg:hidden" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-[#2563EB]/5 rounded-full blur-[150px] pointer-events-none lg:hidden" />
         <div className="w-full max-w-md relative z-10">
           {/* Mobile logo */}
           <div className="lg:hidden text-center mb-10">
@@ -158,7 +158,7 @@ export default function LoginPage() {
             <div>
               <div className="flex items-center justify-between mb-1.5">
                 <label className="block text-gray-300 text-sm font-medium">Password</label>
-                <Link href="/forgot-password" className="text-[#A78BFA] hover:text-[#7C3AED] text-xs font-medium transition-colors">Forgot password?</Link>
+                <Link href="/forgot-password" className="text-[#60A5FA] hover:text-[#2563EB] text-xs font-medium transition-colors">Forgot password?</Link>
               </div>
               <div className="relative">
                 <input
@@ -186,7 +186,7 @@ export default function LoginPage() {
             </div>
 
             <label className="flex items-center gap-2.5 cursor-pointer pt-1">
-              <input type="checkbox" checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} className="accent-[#7C3AED] w-4 h-4 rounded" />
+              <input type="checkbox" checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} className="accent-[#2563EB] w-4 h-4 rounded" />
               <span className="text-gray-400 text-sm">Keep me signed in</span>
             </label>
 
@@ -195,7 +195,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-[#7C3AED] to-[#6D28D9] hover:from-[#6D28D9] hover:to-[#5B21B6] disabled:opacity-50 text-white font-semibold py-3.5 rounded-xl transition-all duration-200 text-sm shadow-[0_4px_20px_rgba(124,58,237,0.3)] hover:shadow-[0_6px_30px_rgba(124,58,237,0.4)] hover:-translate-y-0.5 active:translate-y-0"
+              className="w-full bg-gradient-to-r from-[#2563EB] to-[#1D4ED8] hover:from-[#1D4ED8] hover:to-[#1E40AF] disabled:opacity-50 text-white font-semibold py-3.5 rounded-xl transition-all duration-200 text-sm shadow-[0_4px_20px_rgba(124,58,237,0.3)] hover:shadow-[0_6px_30px_rgba(124,58,237,0.4)] hover:-translate-y-0.5 active:translate-y-0"
             >
               {loading ? (
                 <span className="flex items-center justify-center gap-2">
@@ -215,7 +215,7 @@ export default function LoginPage() {
 
           <Link
             href="/register"
-            className="block w-full text-center bg-white/5 hover:bg-white/8 border border-white/10 hover:border-[#7C3AED]/30 text-white font-semibold py-3.5 rounded-xl transition-all duration-200 text-sm"
+            className="block w-full text-center bg-white/5 hover:bg-white/8 border border-white/10 hover:border-[#2563EB]/30 text-white font-semibold py-3.5 rounded-xl transition-all duration-200 text-sm"
           >
             Create Free Account
           </Link>

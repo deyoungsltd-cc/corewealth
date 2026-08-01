@@ -28,7 +28,7 @@ export default function GlobalError({
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', padding: '2rem' }}>
           <div style={{ maxWidth: '480px', textAlign: 'center' }}>
             <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>&#9889;</div>
-            <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '0.5rem', color: '#7C3AED' }}>Something went wrong</h1>
+            <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '0.5rem', color: '#2563EB' }}>Something went wrong</h1>
             <p style={{ color: '#9ca3af', marginBottom: '1rem', fontSize: '0.875rem' }}>
               An unexpected error occurred.
             </p>
@@ -68,7 +68,7 @@ export default function GlobalError({
                   } catch {}
                   reset();
                 }}
-                style={{ background: '#7C3AED', color: '#fff', border: 'none', padding: '0.625rem 1.5rem', borderRadius: '0.5rem', cursor: 'pointer', fontSize: '0.875rem', fontWeight: 600 }}
+                style={{ background: '#2563EB', color: '#fff', border: 'none', padding: '0.625rem 1.5rem', borderRadius: '0.5rem', cursor: 'pointer', fontSize: '0.875rem', fontWeight: 600 }}
               >
                 Clear Data &amp; Try Again
               </button>

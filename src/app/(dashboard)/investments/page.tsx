@@ -8,7 +8,7 @@ import ChatWidget from '@/components/ChatWidget';
 // disappear from the UI in real time.
 const FALLBACK_PLANS = [
   { id: 'basic',    name: 'Basic',    badge: 'STARTER',  badgeColor: 'bg-gray-600',   min: 200,   max: 4999,   daily: 0.5, duration: 30, model: 'Starter', image: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=600&h=400&fit=crop' },
-  { id: 'silver',   name: 'Silver',   badge: 'POPULAR',  badgeColor: 'bg-[#7C3AED]',  min: 5000,  max: 9999,   daily: 0.8, duration: 21, model: 'Platinum', image: 'https://images.unsplash.com/photo-1560472355-536de3962603?w=600&h=400&fit=crop' },
+  { id: 'silver',   name: 'Silver',   badge: 'POPULAR',  badgeColor: 'bg-[#2563EB]',  min: 5000,  max: 9999,   daily: 0.8, duration: 21, model: 'Platinum', image: 'https://images.unsplash.com/photo-1560472355-536de3962603?w=600&h=400&fit=crop' },
   { id: 'gold',     name: 'Gold',     badge: 'PREMIUM',  badgeColor: 'bg-amber-600',  min: 10000, max: 49999,  daily: 1.2, duration: 14, model: 'Silver', image: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&h=400&fit=crop' },
   { id: 'platinum', name: 'Platinum', badge: 'ELITE',    badgeColor: 'bg-purple-600', min: 50000, max: 100000, daily: 1.8, duration: 7,  model: 'Gold', image: 'https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=600&h=400&fit=crop' },
 ];
@@ -269,7 +269,7 @@ export default function InvestmentsPage() {
       {/* Market Overview Card */}
       <div className="bg-card border border-border rounded-xl p-4">
         <div className="flex items-center gap-2 mb-3">
-          <svg className="w-4 h-4 text-[#7C3AED]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <svg className="w-4 h-4 text-[#2563EB]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
           </svg>
           <h3 className="text-white font-semibold text-sm">Market Overview</h3>
@@ -302,7 +302,7 @@ export default function InvestmentsPage() {
       {/* Investment Plans Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {plans.map((plan, i) => (
-          <div key={i} className="bg-card border border-border rounded-xl overflow-hidden hover:border-[#7C3AED]/40 transition-colors">
+          <div key={i} className="bg-card border border-border rounded-xl overflow-hidden hover:border-[#2563EB]/40 transition-colors">
             <div className="relative h-32">
               <img src={plan.image} alt={plan.name} className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
@@ -311,12 +311,12 @@ export default function InvestmentsPage() {
             <div className="p-4">
               <div className="flex items-center justify-between mb-2">
                 <h3 className="text-white font-semibold">{plan.name} <span className="text-gray-500 text-xs font-normal">&middot; {plan.model}</span></h3>
-                <span className="text-[#7C3AED] font-bold">{plan.daily}%/day</span>
+                <span className="text-[#2563EB] font-bold">{plan.daily}%/day</span>
               </div>
               <p className="text-gray-500 text-xs mb-3">${plan.min.toLocaleString()} — ${plan.max.toLocaleString()} &middot; {plan.duration} days</p>
               <button
                 onClick={() => { setModal(i); setAmount(''); }}
-                className="w-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-sm font-semibold py-2.5 rounded-lg transition-colors"
+                className="w-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-sm font-semibold py-2.5 rounded-lg transition-colors"
               >
                 Invest Now
               </button>
@@ -352,7 +352,7 @@ export default function InvestmentsPage() {
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 placeholder={`$${selectedPlan.min} — $${selectedPlan.max}`}
-                className="w-full bg-[#1a1a1a] border border-border rounded-lg px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED] transition-colors"
+                className="w-full bg-[#1a1a1a] border border-border rounded-lg px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#2563EB] transition-colors"
               />
               {numAmount > 0 && numAmount >= selectedPlan.min && numAmount <= selectedPlan.max && (
                 <div className="mt-3 bg-[#1a1a1a] rounded-lg p-3 space-y-1.5 text-sm">
@@ -367,7 +367,7 @@ export default function InvestmentsPage() {
               <button
                 onClick={handleInvest}
                 disabled={loading || !amount || numAmount < selectedPlan.min || numAmount > selectedPlan.max}
-                className="w-full mt-5 bg-[#7C3AED] hover:bg-[#6D28D9] disabled:opacity-50 text-white font-semibold py-3 rounded-lg transition-colors text-sm"
+                className="w-full mt-5 bg-[#2563EB] hover:bg-[#1D4ED8] disabled:opacity-50 text-white font-semibold py-3 rounded-lg transition-colors text-sm"
               >
                 {loading ? 'Processing...' : `Invest $${(numAmount || 0).toLocaleString()}`}
               </button>

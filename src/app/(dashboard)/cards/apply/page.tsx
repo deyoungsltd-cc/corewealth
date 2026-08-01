@@ -7,7 +7,7 @@ import ChatWidget from '@/components/ChatWidget';
 import { CreditCard, ShoppingBag, Check, Truck, Zap, Shield, Globe } from 'lucide-react';
 
 const PHYSICAL_OPTIONS = [
-  { id: 'visa-standard', brand: 'Visa', name: 'Visa Standard', price: 0, color: 'from-[#7C3AED] to-[#6D28D9]', desc: 'No annual fee. Perfect for everyday purchases.' },
+  { id: 'visa-standard', brand: 'Visa', name: 'Visa Standard', price: 0, color: 'from-[#2563EB] to-[#1D4ED8]', desc: 'No annual fee. Perfect for everyday purchases.' },
   { id: 'visa-gold', brand: 'Visa', name: 'Visa Gold', price: 25, color: 'from-[#D4A843] to-[#B8860B]', desc: 'Higher limits, travel insurance, concierge access.' },
   { id: 'mastercard-platinum', brand: 'Mastercard', name: 'Mastercard Platinum', price: 50, color: 'from-[#1a1a2e] to-[#16213e]', desc: 'Premium perks, airport lounge access, purchase protection.' },
 ];
@@ -30,7 +30,7 @@ export default function ApplyForCardPage() {
     try {
       const res = await fetch('/api/cards', {
         method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-        body: JSON.stringify({ type: 'virtual', cardBrand: 'Visa', color: '#7C3AED' }),
+        body: JSON.stringify({ type: 'virtual', cardBrand: 'Visa', color: '#2563EB' }),
       });
       const d = await res.json();
       if (d.success) { setCardData(d.data); setSuccess(true); }
@@ -53,7 +53,7 @@ export default function ApplyForCardPage() {
   };
 
   const CardPreview = ({ color, brand, lastFour }: { color: string; brand: string; lastFour?: string }) => (
-    <div className="max-w-[360px] aspect-[1.586/1] rounded-2xl relative overflow-hidden mx-auto" style={{ background: `linear-gradient(135deg, ${color.includes('#') ? color : '#7C3AED'}, ${color.includes('from') ? '' : '#4C1D95'})` }}>
+    <div className="max-w-[360px] aspect-[1.586/1] rounded-2xl relative overflow-hidden mx-auto" style={{ background: `linear-gradient(135deg, ${color.includes('#') ? color : '#2563EB'}, ${color.includes('from') ? '' : '#1E3A8A'})` }}>
       {color.includes('from') ? <div className={`absolute inset-0 bg-gradient-to-br ${color}`} /> : null}
       <div className="absolute top-0 right-0 w-48 h-48 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/4" />
       <div className="absolute bottom-0 left-0 w-36 h-36 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/4" />
@@ -81,7 +81,7 @@ export default function ApplyForCardPage() {
           <h2 className="text-2xl font-bold text-white mb-2">Virtual Card Issued!</h2>
           <p className="text-gray-400 text-sm">Your card is ready to use immediately for online purchases.</p>
         </div>
-        <CardPreview color="from-[#7C3AED] to-[#4C1D95]" brand="Visa" lastFour={cardData.lastFour} />
+        <CardPreview color="from-[#2563EB] to-[#1E3A8A]" brand="Visa" lastFour={cardData.lastFour} />
         <div className="bg-card border border-border rounded-2xl p-5 space-y-3">
           <div className="flex justify-between text-sm"><span className="text-gray-500">Card Number</span><span className="text-white font-mono">{cardData.cardNumber || `•••• •••• •••• ${cardData.lastFour}`}</span></div>
           <div className="flex justify-between text-sm"><span className="text-gray-500">CVV</span><span className="text-white font-mono">{cardData.cvv || '•••'}</span></div>
@@ -89,7 +89,7 @@ export default function ApplyForCardPage() {
           <div className="flex justify-between text-sm"><span className="text-gray-500">Status</span><span className="text-green-400">Active</span></div>
         </div>
         <div className="flex gap-3">
-          <Link href="/cards/manage" className="flex-1 bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-sm font-semibold py-3 rounded-xl text-center transition-colors">Manage Card</Link>
+          <Link href="/cards/manage" className="flex-1 bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-sm font-semibold py-3 rounded-xl text-center transition-colors">Manage Card</Link>
           <Link href="/cards" className="flex-1 bg-white/5 border border-white/10 text-white text-sm font-semibold py-3 rounded-xl text-center transition-colors">Back to Cards</Link>
         </div>
         <ChatWidget />
@@ -105,7 +105,7 @@ export default function ApplyForCardPage() {
         <p className="text-gray-400 text-sm">Your {selectedPlan.name} is being prepared and will ship within 2-3 business days. Estimated delivery: 7-10 business days.</p>
         <CardPreview color={selectedPlan.color} brand={selectedPlan.brand} />
         <div className="flex gap-3">
-          <Link href="/cards/tracking" className="flex-1 bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-sm font-semibold py-3 rounded-xl text-center transition-colors flex items-center justify-center gap-2"><Truck className="w-4 h-4" /> Track Delivery</Link>
+          <Link href="/cards/tracking" className="flex-1 bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-sm font-semibold py-3 rounded-xl text-center transition-colors flex items-center justify-center gap-2"><Truck className="w-4 h-4" /> Track Delivery</Link>
           <Link href="/cards" className="flex-1 bg-white/5 border border-white/10 text-white text-sm font-semibold py-3 rounded-xl text-center transition-colors">Back to Cards</Link>
         </div>
         <ChatWidget />
@@ -119,10 +119,10 @@ export default function ApplyForCardPage() {
 
       {/* Tab Switcher */}
       <div className="flex bg-[#111] rounded-xl p-1">
-        <button onClick={() => setTab('virtual')} className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-medium transition-all ${tab === 'virtual' ? 'bg-[#7C3AED] text-white shadow-lg' : 'text-gray-400 hover:text-white'}`}>
+        <button onClick={() => setTab('virtual')} className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-medium transition-all ${tab === 'virtual' ? 'bg-[#2563EB] text-white shadow-lg' : 'text-gray-400 hover:text-white'}`}>
           <Zap className="w-4 h-4" /> Virtual Card
         </button>
-        <button onClick={() => setTab('physical')} className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-medium transition-all ${tab === 'physical' ? 'bg-[#7C3AED] text-white shadow-lg' : 'text-gray-400 hover:text-white'}`}>
+        <button onClick={() => setTab('physical')} className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-medium transition-all ${tab === 'physical' ? 'bg-[#2563EB] text-white shadow-lg' : 'text-gray-400 hover:text-white'}`}>
           <ShoppingBag className="w-4 h-4" /> Physical Card
         </button>
       </div>
@@ -131,13 +131,13 @@ export default function ApplyForCardPage() {
 
       {tab === 'virtual' ? (
         <div className="space-y-6">
-          <CardPreview color="from-[#7C3AED] to-[#4C1D95]" brand="Visa" />
+          <CardPreview color="from-[#2563EB] to-[#1E3A8A]" brand="Visa" />
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {[{ icon: <Zap className="w-5 h-5" />, t: 'Instant Issuance', d: 'Get your card number immediately' }, { icon: <Shield className="w-5 h-5" />, t: 'Secure Online', d: 'Perfect for safe online shopping' }, { icon: <Globe className="w-5 h-5" />, t: 'Global Acceptance', d: 'Use anywhere Visa is accepted' }].map(f => (
-              <div key={f.t} className="bg-card border border-border rounded-xl p-4 text-center"><div className="w-10 h-10 mx-auto mb-2 rounded-lg bg-[#7C3AED]/10 flex items-center justify-center text-[#A78BFA]">{f.icon}</div><p className="text-white text-sm font-semibold">{f.t}</p><p className="text-gray-500 text-xs mt-1">{f.d}</p></div>
+              <div key={f.t} className="bg-card border border-border rounded-xl p-4 text-center"><div className="w-10 h-10 mx-auto mb-2 rounded-lg bg-[#2563EB]/10 flex items-center justify-center text-[#60A5FA]">{f.icon}</div><p className="text-white text-sm font-semibold">{f.t}</p><p className="text-gray-500 text-xs mt-1">{f.d}</p></div>
             ))}
           </div>
-          <button onClick={applyVirtual} disabled={loading} className="w-full bg-[#7C3AED] hover:bg-[#6D28D9] disabled:opacity-50 text-white font-semibold py-3.5 rounded-xl transition-colors text-sm">
+          <button onClick={applyVirtual} disabled={loading} className="w-full bg-[#2563EB] hover:bg-[#1D4ED8] disabled:opacity-50 text-white font-semibold py-3.5 rounded-xl transition-colors text-sm">
             {loading ? 'Issuing Card...' : 'Request Virtual Card — Free'}
           </button>
         </div>
@@ -147,7 +147,7 @@ export default function ApplyForCardPage() {
             <h3 className="text-white font-semibold">Choose Your Card</h3>
             <div className="space-y-3">
               {PHYSICAL_OPTIONS.map(opt => (
-                <button key={opt.id} onClick={() => setSelectedPlan(opt)} className={`w-full text-left rounded-2xl border-2 p-4 transition-all ${selectedPlan.id === opt.id ? 'border-[#7C3AED] bg-[#7C3AED]/5' : 'border-border bg-card hover:border-white/20'}`}>
+                <button key={opt.id} onClick={() => setSelectedPlan(opt)} className={`w-full text-left rounded-2xl border-2 p-4 transition-all ${selectedPlan.id === opt.id ? 'border-[#2563EB] bg-[#2563EB]/5' : 'border-border bg-card hover:border-white/20'}`}>
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-3">
                       <div className={`w-12 h-8 rounded-lg bg-gradient-to-br ${opt.color} flex items-center justify-center`}><CreditCard className="w-5 h-5 text-white" /></div>
@@ -168,7 +168,7 @@ export default function ApplyForCardPage() {
                 { key: 'line1', label: 'Address Line 1', placeholder: '123 Main Street', req: true },
                 { key: 'line2', label: 'Address Line 2', placeholder: 'Apt 4B' },
               ].map(f => (
-                <div key={f.key}><label className="block text-gray-300 text-sm font-medium mb-1.5">{f.label}</label><input type="text" value={address[f.key as keyof typeof address]} onChange={e => setAddress(p => ({ ...p, [f.key]: e.target.value }))} placeholder={f.placeholder} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#7C3AED]/60 transition-all" /></div>
+                <div key={f.key}><label className="block text-gray-300 text-sm font-medium mb-1.5">{f.label}</label><input type="text" value={address[f.key as keyof typeof address]} onChange={e => setAddress(p => ({ ...p, [f.key]: e.target.value }))} placeholder={f.placeholder} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#2563EB]/60 transition-all" /></div>
               ))}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {[
@@ -177,7 +177,7 @@ export default function ApplyForCardPage() {
                   { key: 'zip', label: 'ZIP Code', placeholder: '10001' },
                   { key: 'country', label: 'Country', placeholder: 'US' },
                 ].map(f => (
-                  <div key={f.key}><label className="block text-gray-300 text-sm font-medium mb-1.5">{f.label}</label><input type="text" value={address[f.key as keyof typeof address]} onChange={e => setAddress(p => ({ ...p, [f.key]: e.target.value }))} placeholder={f.placeholder} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#7C3AED]/60 transition-all" /></div>
+                  <div key={f.key}><label className="block text-gray-300 text-sm font-medium mb-1.5">{f.label}</label><input type="text" value={address[f.key as keyof typeof address]} onChange={e => setAddress(p => ({ ...p, [f.key]: e.target.value }))} placeholder={f.placeholder} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#2563EB]/60 transition-all" /></div>
                 ))}
               </div>
             </div>
@@ -186,7 +186,7 @@ export default function ApplyForCardPage() {
             <span className="text-gray-400 text-sm">One-time card fee</span>
             <span className="text-white font-bold text-lg">{selectedPlan.price === 0 ? 'Free' : `$${selectedPlan.price}.00`}</span>
           </div>
-          <button onClick={applyPhysical} disabled={loading} className="w-full bg-[#7C3AED] hover:bg-[#6D28D9] disabled:opacity-50 text-white font-semibold py-3.5 rounded-xl transition-colors text-sm">
+          <button onClick={applyPhysical} disabled={loading} className="w-full bg-[#2563EB] hover:bg-[#1D4ED8] disabled:opacity-50 text-white font-semibold py-3.5 rounded-xl transition-colors text-sm">
             {loading ? 'Processing...' : `Order ${selectedPlan.name}${selectedPlan.price > 0 ? ` — $${selectedPlan.price}.00` : ''}`}
           </button>
         </div>

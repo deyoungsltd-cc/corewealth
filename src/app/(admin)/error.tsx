@@ -31,7 +31,7 @@ export default function AdminError({
         </p>
         <button
           onClick={() => router.push('/admin/login')}
-          className="bg-[#7C3AED] text-white px-6 py-2 rounded-xl text-sm font-bold"
+          className="bg-[#2563EB] text-white px-6 py-2 rounded-xl text-sm font-bold"
         >
           Sign In Again
         </button>

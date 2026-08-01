@@ -7,8 +7,8 @@ import { useRouter } from 'next/navigation';
 
 function AdminLogo({ className = 'w-7 h-7' }: { className?: string }) {
   return (
-    <div className={`w-8 h-8 rounded-lg bg-[#7C3AED]/10 border border-[#7C3AED]/20 flex items-center justify-center ${className}`}>
-      <svg viewBox="0 0 24 24" className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#7C3AED" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <div className={`w-8 h-8 rounded-lg bg-[#2563EB]/10 border border-[#2563EB]/20 flex items-center justify-center ${className}`}>
+      <svg viewBox="0 0 24 24" className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#2563EB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M3 21h18"/><path d="M3 7v1a3 3 0 0 0 6 0V7"/><path d="M9 7v1a3 3 0 0 0 6 0V7"/><path d="M15 7v1a3 3 0 0 0 6 0V7"/><path d="M3 7h18l-1.5-4H4.5L3 7z"/>
       </svg>
     </div>
@@ -397,7 +397,7 @@ export default function AdminPage() {
   if (authChecking || !authed) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-[#7C3AED]/30 border-t-[#7C3AED] rounded-full animate-spin" />
+        <div className="w-8 h-8 border-2 border-[#2563EB]/30 border-t-[#2563EB] rounded-full animate-spin" />
       </div>
     );
   }
@@ -427,14 +427,14 @@ export default function AdminPage() {
               onChange={e => setDialogMessage(e.target.value)}
               placeholder={messageDialog.action === 'reject' ? 'Rejection reason / billing message...' : 'Optional message to the user (e.g. billing details, instructions)...'}
               rows={4}
-              className="w-full bg-[#111] border border-border rounded-xl px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED] transition-colors resize-none mb-3"
+              className="w-full bg-[#111] border border-border rounded-xl px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#2563EB] transition-colors resize-none mb-3"
             />
             <input
               type="text"
               value={dialogAttachment}
               onChange={e => setDialogAttachment(e.target.value)}
               placeholder="Attachment URL (optional — document, receipt, invoice...)"
-              className="w-full bg-[#111] border border-border rounded-xl px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED] transition-colors mb-5"
+              className="w-full bg-[#111] border border-border rounded-xl px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#2563EB] transition-colors mb-5"
             />
             <div className="flex gap-3 justify-end">
               <button onClick={() => setMessageDialog(null)} className="px-5 py-2.5 text-sm text-gray-400 hover:text-white border border-border rounded-xl transition-colors">Cancel</button>
@@ -453,7 +453,7 @@ export default function AdminPage() {
           <div className="bg-[#1a1a1a] border border-border rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl" onClick={e => e.stopPropagation()}>
             {userDetailLoading ? (
               <div className="p-10 text-center">
-                <svg className="animate-spin h-8 w-8 mx-auto text-[#7C3AED] mb-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" strokeOpacity="0.25"/><path d="M12 2a10 10 0 0 1 10 10"/></svg>
+                <svg className="animate-spin h-8 w-8 mx-auto text-[#2563EB] mb-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" strokeOpacity="0.25"/><path d="M12 2a10 10 0 0 1 10 10"/></svg>
                 <p className="text-gray-400 text-sm">Loading user details...</p>
               </div>
             ) : userDetail ? (
@@ -500,7 +500,7 @@ export default function AdminPage() {
                 {/* Wallet Balances & Fund Management */}
                 <div className="space-y-4">
                   <h4 className="text-white font-semibold text-sm flex items-center gap-2">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="1.5"><rect x="2" y="7" width="20" height="14" rx="2" /><path d="M16 7V5a4 4 0 0 0-8 0v2" /></svg>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="1.5"><rect x="2" y="7" width="20" height="14" rx="2" /><path d="M16 7V5a4 4 0 0 0-8 0v2" /></svg>
                     Wallet Balances &amp; Fund Management
                   </h4>
 
@@ -508,7 +508,7 @@ export default function AdminPage() {
                   {userDetail.wallets && userDetail.wallets.length > 0 ? (
                     <div className="space-y-3">
                       {userDetail.wallets.map((wallet: any) => (
-                        <div key={wallet.id} className={`border rounded-xl p-4 transition-all ${fundEditWalletType === wallet.type ? 'border-[#7C3AED]/50 bg-[#7C3AED]/5' : 'border-border bg-[#111]'}`}>
+                        <div key={wallet.id} className={`border rounded-xl p-4 transition-all ${fundEditWalletType === wallet.type ? 'border-[#2563EB]/50 bg-[#2563EB]/5' : 'border-border bg-[#111]'}`}>
                           <div className="flex items-center justify-between mb-3">
                             <div className="flex items-center gap-2">
                               <span className={`text-xs font-bold px-2 py-0.5 rounded ${wallet.type === 'live' ? 'bg-green-600/15 text-green-400' : 'bg-blue-600/15 text-blue-400'}`}>
@@ -517,7 +517,7 @@ export default function AdminPage() {
                             </div>
                             <button
                               onClick={() => { setFundEditWalletType(wallet.type); setFundEditAmount(''); }}
-                              className={`text-xs font-medium px-3 py-1 rounded-lg transition-colors ${fundEditWalletType === wallet.type ? 'bg-[#7C3AED] text-white' : 'bg-white/5 text-gray-400 hover:text-white border border-border'}`}
+                              className={`text-xs font-medium px-3 py-1 rounded-lg transition-colors ${fundEditWalletType === wallet.type ? 'bg-[#2563EB] text-white' : 'bg-white/5 text-gray-400 hover:text-white border border-border'}`}
                             >
                               {fundEditWalletType === wallet.type ? 'Editing' : 'Edit'}
                             </button>
@@ -554,13 +554,13 @@ export default function AdminPage() {
                       <div className="flex gap-2">
                         <button
                           onClick={() => { setFundEditMode('adjust'); setFundEditAmount(''); }}
-                          className={`flex-1 py-2.5 px-4 rounded-lg text-sm font-medium transition-all border ${fundEditMode === 'adjust' ? 'bg-[#7C3AED]/10 border-[#7C3AED]/30 text-[#7C3AED]' : 'bg-white/5 border-border text-gray-500 hover:border-gray-600'}`}
+                          className={`flex-1 py-2.5 px-4 rounded-lg text-sm font-medium transition-all border ${fundEditMode === 'adjust' ? 'bg-[#2563EB]/10 border-[#2563EB]/30 text-[#2563EB]' : 'bg-white/5 border-border text-gray-500 hover:border-gray-600'}`}
                         >
                           Adjust (+/-)
                         </button>
                         <button
                           onClick={() => { setFundEditMode('set'); setFundEditAmount(''); }}
-                          className={`flex-1 py-2.5 px-4 rounded-lg text-sm font-medium transition-all border ${fundEditMode === 'set' ? 'bg-[#7C3AED]/10 border-[#7C3AED]/30 text-[#7C3AED]' : 'bg-white/5 border-border text-gray-500 hover:border-gray-600'}`}
+                          className={`flex-1 py-2.5 px-4 rounded-lg text-sm font-medium transition-all border ${fundEditMode === 'set' ? 'bg-[#2563EB]/10 border-[#2563EB]/30 text-[#2563EB]' : 'bg-white/5 border-border text-gray-500 hover:border-gray-600'}`}
                         >
                           Set Exact Amount
                         </button>
@@ -577,7 +577,7 @@ export default function AdminPage() {
                             value={fundEditAmount}
                             onChange={(e) => setFundEditAmount(e.target.value)}
                             placeholder={fundEditMode === 'adjust' ? 'e.g. 500 or -200' : 'e.g. 10000'}
-                            className="w-full bg-[#1a1a1a] border border-border rounded-lg pl-7 pr-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED] transition-colors"
+                            className="w-full bg-[#1a1a1a] border border-border rounded-lg pl-7 pr-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#2563EB] transition-colors"
                           />
                         </div>
                       </div>
@@ -717,7 +717,7 @@ export default function AdminPage() {
               key={item.key}
               onClick={() => { setActiveTab(item.key); setSidebarOpen(false); }}
               className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                activeTab === item.key ? 'bg-[#7C3AED]/10 text-[#7C3AED]' : 'text-gray-400 hover:text-white hover:bg-[#2a2a2a]'
+                activeTab === item.key ? 'bg-[#2563EB]/10 text-[#2563EB]' : 'text-gray-400 hover:text-white hover:bg-[#2a2a2a]'
               }`}
             >
               {item.icon}
@@ -792,7 +792,7 @@ export default function AdminPage() {
               <div className="bg-card border border-border rounded-xl p-5">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-white font-semibold text-sm">Recent Users</h3>
-                  <button onClick={() => setActiveTab('users')} className="text-[#7C3AED] text-xs hover:underline">View All</button>
+                  <button onClick={() => setActiveTab('users')} className="text-[#2563EB] text-xs hover:underline">View All</button>
                 </div>
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
@@ -830,7 +830,7 @@ export default function AdminPage() {
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   placeholder="Search by name or email..."
-                  className="flex-1 bg-card border border-border rounded-lg px-4 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED]"
+                  className="flex-1 bg-card border border-border rounded-lg px-4 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#2563EB]"
                 />
                 <button type="submit" className="bg-card border border-border hover:border-gray-500 px-4 py-2.5 rounded-lg text-sm transition-colors">Search</button>
                 <button type="button" onClick={() => { setSearchTerm(''); fetchUsers(''); }} className="bg-card border border-border hover:border-gray-500 px-4 py-2.5 rounded-lg text-sm transition-colors">Clear</button>
@@ -880,7 +880,7 @@ export default function AdminPage() {
             <div className="space-y-4">
               <div className="flex flex-wrap gap-2">
                 {['', 'pending', 'pending_verification', 'confirmed', 'rejected'].map((s) => (
-                  <button key={s} onClick={() => setDepositFilter(s)} className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${depositFilter === s ? 'border-[#7C3AED] text-[#7C3AED]' : 'border-border text-gray-400 hover:text-white'}`}>
+                  <button key={s} onClick={() => setDepositFilter(s)} className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${depositFilter === s ? 'border-[#2563EB] text-[#2563EB]' : 'border-border text-gray-400 hover:text-white'}`}>
                     {s || 'All'}
                   </button>
                 ))}
@@ -930,7 +930,7 @@ export default function AdminPage() {
             <div className="space-y-4">
               <div className="flex flex-wrap gap-2">
                 {['', 'pending', 'processing', 'completed', 'rejected'].map((s) => (
-                  <button key={s} onClick={() => setWithdrawalFilter(s)} className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${withdrawalFilter === s ? 'border-[#7C3AED] text-[#7C3AED]' : 'border-border text-gray-400 hover:text-white'}`}>
+                  <button key={s} onClick={() => setWithdrawalFilter(s)} className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${withdrawalFilter === s ? 'border-[#2563EB] text-[#2563EB]' : 'border-border text-gray-400 hover:text-white'}`}>
                     {s || 'All'}
                   </button>
                 ))}
@@ -1021,7 +1021,7 @@ export default function AdminPage() {
             <div className="space-y-6">
               <div className="bg-card border border-border rounded-xl p-6">
                 <h3 className="text-white font-semibold mb-1 flex items-center gap-2">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="1.5"><path d="M22 2L11 13"/><path d="M22 2L15 22L11 13L2 9L22 2Z"/></svg>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="1.5"><path d="M22 2L11 13"/><path d="M22 2L15 22L11 13L2 9L22 2Z"/></svg>
                   Send Message to Clients
                 </h3>
                 <p className="text-gray-500 text-xs mb-5">Broadcast announcements, billing notices, or custom messages. Messages appear as in-app notifications and optionally as emails.</p>
@@ -1030,10 +1030,10 @@ export default function AdminPage() {
                 <div className="mb-5">
                   <label className="block text-gray-400 text-xs font-medium mb-2">Recipients</label>
                   <div className="flex gap-3">
-                    <button onClick={() => setMsgBroadcast(true)} className={`flex-1 py-2.5 px-4 rounded-lg text-sm font-medium transition-all border ${msgBroadcast ? 'bg-[#7C3AED]/10 border-[#7C3AED]/30 text-[#7C3AED]' : 'bg-white/5 border-border text-gray-500 hover:border-gray-600'}`}>
+                    <button onClick={() => setMsgBroadcast(true)} className={`flex-1 py-2.5 px-4 rounded-lg text-sm font-medium transition-all border ${msgBroadcast ? 'bg-[#2563EB]/10 border-[#2563EB]/30 text-[#2563EB]' : 'bg-white/5 border-border text-gray-500 hover:border-gray-600'}`}>
                       All Users (Broadcast)
                     </button>
-                    <button onClick={() => setMsgBroadcast(false)} className={`flex-1 py-2.5 px-4 rounded-lg text-sm font-medium transition-all border ${!msgBroadcast ? 'bg-[#7C3AED]/10 border-[#7C3AED]/30 text-[#7C3AED]' : 'bg-white/5 border-border text-gray-500 hover:border-gray-600'}`}>
+                    <button onClick={() => setMsgBroadcast(false)} className={`flex-1 py-2.5 px-4 rounded-lg text-sm font-medium transition-all border ${!msgBroadcast ? 'bg-[#2563EB]/10 border-[#2563EB]/30 text-[#2563EB]' : 'bg-white/5 border-border text-gray-500 hover:border-gray-600'}`}>
                       Selected Users
                     </button>
                   </div>
@@ -1052,7 +1052,7 @@ export default function AdminPage() {
                             <input type="checkbox" checked={msgSelectedUsers.includes(u.id)} onChange={(e) => {
                               if (e.target.checked) setMsgSelectedUsers([...msgSelectedUsers, u.id]);
                               else setMsgSelectedUsers(msgSelectedUsers.filter(id => id !== u.id));
-                            }} className="accent-[#7C3AED] w-4 h-4" />
+                            }} className="accent-[#2563EB] w-4 h-4" />
                             <span className="text-sm text-gray-300">{u.email}</span>
                             <span className="ml-auto text-[10px] text-gray-600 capitalize">{u.status}</span>
                           </label>
@@ -1072,7 +1072,7 @@ export default function AdminPage() {
                       { value: 'billing', label: 'Billing', desc: 'Payment notice' },
                       { value: 'announcement', label: 'Announcement', desc: 'Platform update' },
                     ].map(t => (
-                      <button key={t.value} onClick={() => setMsgType(t.value)} className={`py-3 px-3 rounded-lg text-center transition-all border ${msgType === t.value ? 'bg-[#7C3AED]/10 border-[#7C3AED]/30 text-[#7C3AED]' : 'bg-white/5 border-border text-gray-500 hover:border-gray-600'}`}>
+                      <button key={t.value} onClick={() => setMsgType(t.value)} className={`py-3 px-3 rounded-lg text-center transition-all border ${msgType === t.value ? 'bg-[#2563EB]/10 border-[#2563EB]/30 text-[#2563EB]' : 'bg-white/5 border-border text-gray-500 hover:border-gray-600'}`}>
                         <p className="text-sm font-medium">{t.label}</p>
                         <p className="text-[10px] text-gray-600 mt-0.5">{t.desc}</p>
                       </button>
@@ -1083,13 +1083,13 @@ export default function AdminPage() {
                 {/* Subject */}
                 <div className="mb-5">
                   <label className="block text-gray-400 text-xs font-medium mb-2">Subject</label>
-                  <input type="text" value={msgSubject} onChange={e => setMsgSubject(e.target.value)} placeholder="Enter message subject..." className="w-full bg-[#111] border border-border rounded-lg px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED] transition-colors" />
+                  <input type="text" value={msgSubject} onChange={e => setMsgSubject(e.target.value)} placeholder="Enter message subject..." className="w-full bg-[#111] border border-border rounded-lg px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#2563EB] transition-colors" />
                 </div>
 
                 {/* Message body */}
                 <div className="mb-5">
                   <label className="block text-gray-400 text-xs font-medium mb-2">Message</label>
-                  <textarea value={msgBody} onChange={e => setMsgBody(e.target.value)} placeholder="Type your message to clients... Include billing details, payment instructions, announcements, or any important information." rows={6} className="w-full bg-[#111] border border-border rounded-lg px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED] transition-colors resize-none" />
+                  <textarea value={msgBody} onChange={e => setMsgBody(e.target.value)} placeholder="Type your message to clients... Include billing details, payment instructions, announcements, or any important information." rows={6} className="w-full bg-[#111] border border-border rounded-lg px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#2563EB] transition-colors resize-none" />
                 </div>
 
                 {/* Email toggle */}
@@ -1099,7 +1099,7 @@ export default function AdminPage() {
                     <span className="text-sm text-gray-400">Also send as email</span>
                     <span className="text-xs text-gray-600">(requires email configuration)</span>
                   </div>
-                  <button onClick={() => setMsgSendEmail(!msgSendEmail)} className={`w-11 h-6 rounded-full transition-all relative ${msgSendEmail ? 'bg-[#7C3AED]' : 'bg-gray-700'}`}>
+                  <button onClick={() => setMsgSendEmail(!msgSendEmail)} className={`w-11 h-6 rounded-full transition-all relative ${msgSendEmail ? 'bg-[#2563EB]' : 'bg-gray-700'}`}>
                     <div className={`absolute top-1 w-4 h-4 rounded-full bg-white shadow transition-all ${msgSendEmail ? 'left-6' : 'left-1'}`} />
                   </button>
                 </div>
@@ -1129,7 +1129,7 @@ export default function AdminPage() {
                     setMsgSending(false);
                   }}
                   disabled={msgSending}
-                  className="w-full bg-[#7C3AED] hover:bg-[#ff1a1a] disabled:opacity-50 text-white font-semibold py-3 rounded-xl transition-colors text-sm flex items-center justify-center gap-2"
+                  className="w-full bg-[#2563EB] hover:bg-[#ff1a1a] disabled:opacity-50 text-white font-semibold py-3 rounded-xl transition-colors text-sm flex items-center justify-center gap-2"
                 >
                   {msgSending ? (
                     <>
@@ -1265,7 +1265,7 @@ export default function AdminPage() {
                     )}
                   </div>
                   <div className="flex flex-col gap-3 flex-1">
-                    <label className="cursor-pointer inline-flex items-center gap-2 bg-[#7C3AED] hover:bg-[#ff1a1a] text-white text-sm font-medium px-5 py-2.5 rounded-lg transition-colors">
+                    <label className="cursor-pointer inline-flex items-center gap-2 bg-[#2563EB] hover:bg-[#ff1a1a] text-white text-sm font-medium px-5 py-2.5 rounded-lg transition-colors">
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="17 8 12 3 7 8" /><line x1="12" y1="3" x2="12" y2="15" /></svg>
                       {settingsLoading ? 'Uploading...' : 'Upload Photo'}
                       <input
@@ -1291,7 +1291,7 @@ export default function AdminPage() {
                         }}
                       />
                     </label>
-                    <input type="text" placeholder="Or paste an image URL..." className="bg-[#1a1a1a] border border-border rounded-lg px-4 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED] transition-colors" defaultValue={settingsPhotoUrl || ''} id="aboutUrlInput"
+                    <input type="text" placeholder="Or paste an image URL..." className="bg-[#1a1a1a] border border-border rounded-lg px-4 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#2563EB] transition-colors" defaultValue={settingsPhotoUrl || ''} id="aboutUrlInput"
                       onKeyDown={async (e) => { if (e.key === 'Enter') { const url = (e.target as HTMLInputElement).value.trim(); if (!url) return; setSettingsLoading(true); try { const token = localStorage.getItem('adminToken'); const res = await fetch('/api/admin/settings', { method: 'PUT', headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) }, body: JSON.stringify({ aboutPhotoUrl: url }) }); const data = await res.json(); if (data.success) { setSettingsPhotoUrl(data.data.aboutPhotoUrl); showToast('Photo URL updated!'); } else showToast(data.error?.message || 'Update failed'); } catch { showToast('Update failed'); } setSettingsLoading(false); } }}
                     />
                     <button onClick={async () => { const url = (document.getElementById('aboutUrlInput') as HTMLInputElement)?.value.trim(); if (!url) return; setSettingsLoading(true); try { const token = localStorage.getItem('adminToken'); const res = await fetch('/api/admin/settings', { method: 'PUT', headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) }, body: JSON.stringify({ aboutPhotoUrl: url }) }); const data = await res.json(); if (data.success) { setSettingsPhotoUrl(data.data.aboutPhotoUrl); showToast('Photo URL updated!'); } else showToast(data.error?.message || 'Update failed'); } catch { showToast('Update failed'); } setSettingsLoading(false); }} className="bg-white/5 hover:bg-white/10 text-white text-xs font-medium px-4 py-2 rounded-lg border border-border transition-colors self-start">Save URL</button>
@@ -1305,7 +1305,7 @@ export default function AdminPage() {
                   <h4 className="text-white font-medium">Bank Account Details</h4>
                   <button
                     onClick={() => { setEditingBank(null); setBankForm({ label: '', bankName: '', accountNumber: '', routingNumber: '', accountType: 'Checking', isActive: true }); setShowAddBank(true); }}
-                    className="inline-flex items-center gap-1.5 bg-[#7C3AED] hover:bg-[#ff1a1a] text-white text-xs font-medium px-3 py-1.5 rounded-lg transition-colors"
+                    className="inline-flex items-center gap-1.5 bg-[#2563EB] hover:bg-[#ff1a1a] text-white text-xs font-medium px-3 py-1.5 rounded-lg transition-colors"
                   >
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
                     Add Account
@@ -1324,7 +1324,7 @@ export default function AdminPage() {
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-1">
                             <span className="text-white text-sm font-medium">{acct.label}</span>
-                            <span className="text-xs font-bold px-1.5 py-0.5 rounded bg-[#7C3AED]/10 text-[#7C3AED]">{acct.accountType}</span>
+                            <span className="text-xs font-bold px-1.5 py-0.5 rounded bg-[#2563EB]/10 text-[#2563EB]">{acct.accountType}</span>
                             {!acct.isActive && <span className="text-[10px] text-gray-500 bg-gray-800 px-1.5 py-0.5 rounded">Inactive</span>}
                           </div>
                           <div className="text-gray-400 text-xs">{acct.bankName} — ****{acct.accountNumber?.slice(-4)}</div>
@@ -1385,31 +1385,31 @@ export default function AdminPage() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
                         <label className="block text-gray-400 text-xs font-medium mb-1">Label</label>
-                        <input type="text" value={bankForm.label} onChange={e => setBankForm({ ...bankForm, label: e.target.value })} placeholder="e.g. Primary Business Account" className="w-full bg-[#1a1a1a] border border-border rounded-lg px-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED] transition-colors" />
+                        <input type="text" value={bankForm.label} onChange={e => setBankForm({ ...bankForm, label: e.target.value })} placeholder="e.g. Primary Business Account" className="w-full bg-[#1a1a1a] border border-border rounded-lg px-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#2563EB] transition-colors" />
                       </div>
                       <div>
                         <label className="block text-gray-400 text-xs font-medium mb-1">Bank Name</label>
-                        <input type="text" value={bankForm.bankName} onChange={e => setBankForm({ ...bankForm, bankName: e.target.value })} placeholder="e.g. JPMorgan Chase" className="w-full bg-[#1a1a1a] border border-border rounded-lg px-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED] transition-colors" />
+                        <input type="text" value={bankForm.bankName} onChange={e => setBankForm({ ...bankForm, bankName: e.target.value })} placeholder="e.g. JPMorgan Chase" className="w-full bg-[#1a1a1a] border border-border rounded-lg px-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#2563EB] transition-colors" />
                       </div>
                       <div>
                         <label className="block text-gray-400 text-xs font-medium mb-1">Account Number</label>
-                        <input type="text" value={bankForm.accountNumber} onChange={e => setBankForm({ ...bankForm, accountNumber: e.target.value })} placeholder="Enter account number" className="w-full bg-[#1a1a1a] border border-border rounded-lg px-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED] transition-colors" />
+                        <input type="text" value={bankForm.accountNumber} onChange={e => setBankForm({ ...bankForm, accountNumber: e.target.value })} placeholder="Enter account number" className="w-full bg-[#1a1a1a] border border-border rounded-lg px-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#2563EB] transition-colors" />
                       </div>
                       <div>
                         <label className="block text-gray-400 text-xs font-medium mb-1">Routing Number / SWIFT</label>
-                        <input type="text" value={bankForm.routingNumber} onChange={e => setBankForm({ ...bankForm, routingNumber: e.target.value })} placeholder="e.g. 021000021 or CHASUS33" className="w-full bg-[#1a1a1a] border border-border rounded-lg px-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED] transition-colors" />
+                        <input type="text" value={bankForm.routingNumber} onChange={e => setBankForm({ ...bankForm, routingNumber: e.target.value })} placeholder="e.g. 021000021 or CHASUS33" className="w-full bg-[#1a1a1a] border border-border rounded-lg px-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#2563EB] transition-colors" />
                       </div>
                     </div>
                     <div>
                       <label className="block text-gray-400 text-xs font-medium mb-1">Account Type</label>
-                      <select value={bankForm.accountType} onChange={e => setBankForm({ ...bankForm, accountType: e.target.value })} className="w-full bg-[#1a1a1a] border border-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-[#7C3AED] transition-colors">
+                      <select value={bankForm.accountType} onChange={e => setBankForm({ ...bankForm, accountType: e.target.value })} className="w-full bg-[#1a1a1a] border border-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-[#2563EB] transition-colors">
                         <option value="Checking">Checking</option>
                         <option value="Savings">Savings</option>
                         <option value="Wire">Wire</option>
                       </select>
                     </div>
                     <div className="flex items-center gap-2">
-                      <input type="checkbox" id="bankActive" checked={bankForm.isActive} onChange={e => setBankForm({ ...bankForm, isActive: e.target.checked })} className="accent-[#7C3AED]" />
+                      <input type="checkbox" id="bankActive" checked={bankForm.isActive} onChange={e => setBankForm({ ...bankForm, isActive: e.target.checked })} className="accent-[#2563EB]" />
                       <label htmlFor="bankActive" className="text-gray-300 text-sm">Active (visible to users)</label>
                     </div>
                     <div className="flex items-center gap-2 pt-1">
@@ -1434,7 +1434,7 @@ export default function AdminPage() {
                           setBankAccountsLoading(false);
                         }}
                         disabled={bankAccountsLoading}
-                        className="bg-[#7C3AED] hover:bg-[#ff1a1a] disabled:opacity-50 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
+                        className="bg-[#2563EB] hover:bg-[#ff1a1a] disabled:opacity-50 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
                       >
                         {bankAccountsLoading ? 'Saving...' : editingBank ? 'Update Account' : 'Create Account'}
                       </button>
@@ -1450,7 +1450,7 @@ export default function AdminPage() {
                 <p className="text-gray-500 text-xs mb-5">Upload a photo displayed on the homepage hero section. This appears as a circular portrait. Max 5MB.</p>
 
                 <div className="flex flex-col sm:flex-row items-start gap-6">
-                  <div className="w-40 h-40 rounded-full overflow-hidden border-4 border-[#7C3AED]/30 bg-[#1a1a1a] shrink-0">
+                  <div className="w-40 h-40 rounded-full overflow-hidden border-4 border-[#2563EB]/30 bg-[#1a1a1a] shrink-0">
                     {managementPhotoUrl ? (
                       <img src={managementPhotoUrl} alt="Current Management Photo" className="w-full h-full object-cover" />
                     ) : (
@@ -1458,7 +1458,7 @@ export default function AdminPage() {
                     )}
                   </div>
                   <div className="flex flex-col gap-3 flex-1">
-                    <label className="cursor-pointer inline-flex items-center gap-2 bg-[#7C3AED] hover:bg-[#ff1a1a] text-white text-sm font-medium px-5 py-2.5 rounded-lg transition-colors">
+                    <label className="cursor-pointer inline-flex items-center gap-2 bg-[#2563EB] hover:bg-[#ff1a1a] text-white text-sm font-medium px-5 py-2.5 rounded-lg transition-colors">
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="17 8 12 3 7 8" /><line x1="12" y1="3" x2="12" y2="15" /></svg>
                       {settingsLoading ? 'Uploading...' : 'Upload Management Photo'}
                       <input
@@ -1484,7 +1484,7 @@ export default function AdminPage() {
                         }}
                       />
                     </label>
-                    <input type="text" placeholder="Or paste management photo URL..." className="bg-[#1a1a1a] border border-border rounded-lg px-4 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED] transition-colors" defaultValue={managementPhotoUrl || ''} id="managementUrlInput"
+                    <input type="text" placeholder="Or paste management photo URL..." className="bg-[#1a1a1a] border border-border rounded-lg px-4 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#2563EB] transition-colors" defaultValue={managementPhotoUrl || ''} id="managementUrlInput"
                       onKeyDown={(e) => { if (e.key === 'Enter') { saveCEOUrl((e.target as HTMLInputElement).value.trim()); } }}
                     />
                     <button onClick={() => saveCEOUrl()} className="bg-white/5 hover:bg-white/10 text-white text-xs font-medium px-4 py-2 rounded-lg border border-border transition-colors self-start">Save URL</button>

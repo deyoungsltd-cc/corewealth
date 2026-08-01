@@ -69,11 +69,11 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
                 <Link href={href} scroll={true} onClick={(e) => handleNav(label, href)}>
                   <span
                     className={`relative inline-block px-4 py-2 text-sm font-medium transition-colors duration-200 cursor-pointer ${
-                      active ? 'text-[#7C3AED]' : 'text-gray-400 hover:text-white'
+                      active ? 'text-[#2563EB]' : 'text-gray-400 hover:text-white'
                     }`}
                   >
                     {label}
-                    {active && <span className="absolute inset-x-2 -bottom-[9px] h-0.5 rounded-full bg-[#7C3AED]" />}
+                    {active && <span className="absolute inset-x-2 -bottom-[9px] h-0.5 rounded-full bg-[#2563EB]" />}
                   </span>
                 </Link>
               </li>
@@ -84,7 +84,7 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
         {/* Desktop right actions */}
         <div className="hidden md:flex items-center gap-3">
           <Link href="/login"><Button variant="ghost" className="h-9 px-4 text-sm text-gray-300 hover:text-white hover:bg-white/5">Sign In</Button></Link>
-          <Link href="/register"><Button className="h-9 px-5 text-sm bg-[#7C3AED] hover:bg-[#6D28D9] text-white">Open Account</Button></Link>
+          <Link href="/register"><Button className="h-9 px-5 text-sm bg-[#2563EB] hover:bg-[#1D4ED8] text-white">Open Account</Button></Link>
         </div>
 
         {/* Mobile hamburger */}
@@ -106,11 +106,11 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
                     <Link href={href} scroll={true} onClick={(e) => handleNav(label, href)}>
                       <span
                         className={`flex items-center rounded-lg px-4 py-3 text-sm font-medium transition-colors duration-200 cursor-pointer ${
-                          active ? 'bg-[#7C3AED]/10 text-[#7C3AED]' : 'text-gray-400 hover:bg-white/5 hover:text-white'
+                          active ? 'bg-[#2563EB]/10 text-[#2563EB]' : 'text-gray-400 hover:bg-white/5 hover:text-white'
                         }`}
                       >
                         {label}
-                        {active && <span className="ml-auto h-1.5 w-1.5 rounded-full bg-[#7C3AED]" />}
+                        {active && <span className="ml-auto h-1.5 w-1.5 rounded-full bg-[#2563EB]" />}
                       </span>
                     </Link>
                   </SheetClose>
@@ -119,7 +119,7 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
             </div>
             <div className="border-t border-white/10 flex flex-col gap-3 px-6 py-5">
               <SheetClose asChild><Link href="/login"><Button variant="ghost" className="w-full h-11 text-sm text-gray-300 hover:text-white hover:bg-white/5">Sign In</Button></Link></SheetClose>
-              <SheetClose asChild><Link href="/register"><Button className="w-full h-11 text-sm bg-[#7C3AED] hover:bg-[#6D28D9] text-white">Open Account</Button></Link></SheetClose>
+              <SheetClose asChild><Link href="/register"><Button className="w-full h-11 text-sm bg-[#2563EB] hover:bg-[#1D4ED8] text-white">Open Account</Button></Link></SheetClose>
             </div>
           </SheetContent>
         </Sheet>

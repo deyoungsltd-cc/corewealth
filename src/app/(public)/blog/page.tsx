@@ -33,8 +33,8 @@ export default function BlogPage() {
         <div className="float-orb float-orb-sm" style={{ bottom: '10%', left: '-3%' }} />
         <FadeIn>
           <div className="text-center relative z-10">
-            <div className="inline-flex items-center gap-2 bg-[#7C3AED]/10 border border-[#7C3AED]/20 rounded-full px-4 py-1.5 mb-6">
-              <span className="text-[#7C3AED] text-sm font-medium">Knowledge Hub</span>
+            <div className="inline-flex items-center gap-2 bg-[#2563EB]/10 border border-[#2563EB]/20 rounded-full px-4 py-1.5 mb-6">
+              <span className="text-[#2563EB] text-sm font-medium">Knowledge Hub</span>
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black mb-6 heading-gradient">Investment Insights</h1>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed">Market analysis, trading strategies, and financial education from our expert research team.</p>
@@ -48,7 +48,7 @@ export default function BlogPage() {
       <section className="px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto py-12">
         <div className="flex flex-wrap gap-3 justify-center">
           {categories.map((cat) => (
-            <button key={cat} onClick={() => setActiveCat(cat)} className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 cursor-pointer ${activeCat === cat ? 'bg-[#7C3AED] text-white shadow-[0_0_20px_rgba(204,0,0,0.3)]' : 'bg-card border border-border text-gray-400 hover:text-white hover:border-[#7C3AED]/50'}`}>
+            <button key={cat} onClick={() => setActiveCat(cat)} className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 cursor-pointer ${activeCat === cat ? 'bg-[#2563EB] text-white shadow-[0_0_20px_rgba(204,0,0,0.3)]' : 'bg-card border border-border text-gray-400 hover:text-white hover:border-[#2563EB]/50'}`}>
               {cat}
             </button>
           ))}
@@ -61,16 +61,16 @@ export default function BlogPage() {
           <Link href={`/blog/${blogPosts[0].slug}`} className="block group">
             <div className="glass-card overflow-hidden">
               <div className="grid md:grid-cols-2">
-                <div className="h-56 md:h-auto bg-gradient-to-br from-[#7C3AED]/20 via-[#7C3AED]/10 to-card flex items-center justify-center relative overflow-hidden">
-                  <span className="text-[#7C3AED]/20 text-9xl font-black select-none">MARKETS</span>
+                <div className="h-56 md:h-auto bg-gradient-to-br from-[#2563EB]/20 via-[#2563EB]/10 to-card flex items-center justify-center relative overflow-hidden">
+                  <span className="text-[#2563EB]/20 text-9xl font-black select-none">MARKETS</span>
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent to-card/50 hidden md:block" />
                 </div>
                 <div className="p-8 md:p-10 flex flex-col justify-center">
                   <div className="flex items-center gap-3 mb-4">
-                    <span className="bg-[#7C3AED]/10 text-[#7C3AED] text-xs font-bold px-3 py-1 rounded-full border border-[#7C3AED]/20">FEATURED</span>
+                    <span className="bg-[#2563EB]/10 text-[#2563EB] text-xs font-bold px-3 py-1 rounded-full border border-[#2563EB]/20">FEATURED</span>
                     <span className="text-gray-500 text-xs">{blogPosts[0].readTime} min read</span>
                   </div>
-                  <h2 className="text-2xl md:text-3xl font-bold text-white mb-4 group-hover:text-[#7C3AED] transition-colors">{blogPosts[0].title}</h2>
+                  <h2 className="text-2xl md:text-3xl font-bold text-white mb-4 group-hover:text-[#2563EB] transition-colors">{blogPosts[0].title}</h2>
                   <p className="text-gray-400 text-sm leading-relaxed mb-6">{blogPosts[0].excerpt}</p>
                   <div className="flex items-center gap-2 text-xs text-gray-500">
                     <span>{blogPosts[0].author}</span>
@@ -91,16 +91,16 @@ export default function BlogPage() {
             <FadeIn key={post.slug} delay={i * 100}>
               <Link href={`/blog/${post.slug}`} className="group block h-full">
                 <div className="dash-card card-shine noise-overlay h-full flex flex-col overflow-hidden">
-                  <div className="h-44 bg-gradient-to-br from-[#7C3AED]/10 to-card flex items-center justify-center relative overflow-hidden">
-                    <span className="text-[#7C3AED]/15 text-6xl font-black select-none">{post.category.charAt(0)}</span>
+                  <div className="h-44 bg-gradient-to-br from-[#2563EB]/10 to-card flex items-center justify-center relative overflow-hidden">
+                    <span className="text-[#2563EB]/15 text-6xl font-black select-none">{post.category.charAt(0)}</span>
                   </div>
                   <div className="p-6 flex-1 flex flex-col">
                     <div className="flex items-center gap-2 mb-3">
-                      <span className="text-[#7C3AED] text-xs font-semibold">{post.category}</span>
+                      <span className="text-[#2563EB] text-xs font-semibold">{post.category}</span>
                       <span className="text-gray-600">&middot;</span>
                       <span className="text-gray-500 text-xs">{post.readTime} min</span>
                     </div>
-                    <h3 className="text-white font-bold text-base mb-3 group-hover:text-[#7C3AED] transition-colors line-clamp-2">{post.title}</h3>
+                    <h3 className="text-white font-bold text-base mb-3 group-hover:text-[#2563EB] transition-colors line-clamp-2">{post.title}</h3>
                     <p className="text-gray-400 text-sm leading-relaxed line-clamp-3 mb-4 flex-1">{post.excerpt}</p>
                     <div className="pt-4 border-t border-border flex items-center justify-between">
                       <span className="text-gray-500 text-xs">{new Date(post.publishedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>

@@ -1,6 +1,6 @@
 /**
  * Branded HTML Email Template Helper
- * CoreWealth Bank — CoreWealth red (#7C3AED) / dark (#0a0a0f) theme
+ * CoreWealth Bank — CoreWealth red (#2563EB) / dark (#0a0a0f) theme
  * Inline CSS only — email clients don't support external stylesheets
  * Responsive with max-width: 600px
  */
@@ -14,7 +14,7 @@ export function renderBrandedEmail(
   const ctaHtml = ctaText && ctaUrl
     ? `
     <div style="text-align:center;margin:32px 0">
-      <a href="${ctaUrl}" target="_blank" style="display:inline-block;background-color:#7C3AED;color:#ffffff;padding:14px 40px;border-radius:4px;text-decoration:none;font-weight:700;font-size:13px;letter-spacing:2px;text-transform:uppercase;font-family:'Helvetica Neue',Arial,sans-serif">${ctaText}</a>
+      <a href="${ctaUrl}" target="_blank" style="display:inline-block;background-color:#2563EB;color:#ffffff;padding:14px 40px;border-radius:4px;text-decoration:none;font-weight:700;font-size:13px;letter-spacing:2px;text-transform:uppercase;font-family:'Helvetica Neue',Arial,sans-serif">${ctaText}</a>
     </div>`
     : '';
 
@@ -33,14 +33,14 @@ export function renderBrandedEmail(
       <td align="center" style="padding:32px 16px">
         <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background-color:#0a0a0f;border-radius:8px;overflow:hidden;border:1px solid #1a1a1a">
           <tr>
-            <td style="background-color:#0a0a0f;padding:40px 32px 28px;text-align:center;border-bottom:1px solid #7C3AED">
+            <td style="background-color:#0a0a0f;padding:40px 32px 28px;text-align:center;border-bottom:1px solid #2563EB">
               <table role="presentation" cellpadding="0" cellspacing="0" align="center" style="margin:0 auto 16px">
                 <tr>
-                  <td style="width:56px;height:56px;background-color:#000;border:1.5px solid #7C3AED;border-radius:12px;text-align:center;vertical-align:middle;line-height:56px;font-size:32px;font-weight:900;color:#7C3AED;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:-2px">T</td>
+                  <td style="width:56px;height:56px;background-color:#000;border:1.5px solid #2563EB;border-radius:12px;text-align:center;vertical-align:middle;line-height:56px;font-size:32px;font-weight:900;color:#2563EB;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:-2px">T</td>
                 </tr>
               </table>
               <h1 style="color:#fff;margin:0;font-size:16px;font-weight:700;letter-spacing:4px;font-family:'Helvetica Neue',Arial,sans-serif">COREWEALTH BANK</h1>
-              <p style="color:#7C3AED;margin:8px 0 0;font-size:8px;letter-spacing:4px;text-transform:uppercase;font-weight:600;font-family:'Helvetica Neue',Arial,sans-serif">Premium Investment Platform</p>
+              <p style="color:#2563EB;margin:8px 0 0;font-size:8px;letter-spacing:4px;text-transform:uppercase;font-weight:600;font-family:'Helvetica Neue',Arial,sans-serif">Premium Investment Platform</p>
             </td>
           </tr>
           <tr>
@@ -57,7 +57,7 @@ export function renderBrandedEmail(
           <tr>
             <td style="padding:32px 32px 24px;text-align:center;border-top:1px solid #1a1a1a">
               <p style="color:#666;font-size:10px;margin:0 0 8px;font-weight:700;letter-spacing:3px;font-family:'Helvetica Neue',Arial,sans-serif">COREWEALTH BANK</p>
-              <div style="width:24px;height:1px;background-color:#7C3AED;margin:0 auto 12px"></div>
+              <div style="width:24px;height:1px;background-color:#2563EB;margin:0 auto 12px"></div>
               <p style="color:#444;font-size:10px;margin:0 0 12px;line-height:1.7;letter-spacing:0.5px">Professionally managed investment platform. Daily returns up to 1.8%.</p>
               <p style="color:#333;font-size:9px;margin:0;line-height:1.6;letter-spacing:0.5px">&copy; ${year} CoreWealth Bank. All rights reserved.<br>This is an automated message — please do not reply to this email.</p>
             </td>

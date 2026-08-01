@@ -38,8 +38,8 @@ export default function AMLPolicyPage() {
         <div className="float-orb float-orb-md" style={{ top: '5%', right: '-8%' }} />
         <FadeIn>
           <div className="text-center relative z-10">
-            <div className="inline-flex items-center gap-2 bg-[#7C3AED]/10 border border-[#7C3AED]/20 rounded-full px-4 py-1.5 mb-6">
-              <span className="text-[#7C3AED] text-sm font-medium">Legal Document</span>
+            <div className="inline-flex items-center gap-2 bg-[#2563EB]/10 border border-[#2563EB]/20 rounded-full px-4 py-1.5 mb-6">
+              <span className="text-[#2563EB] text-sm font-medium">Legal Document</span>
             </div>
             <h1 className="text-4xl sm:text-5xl font-black mb-4 heading-gradient">Anti-Money Laundering Policy</h1>
             <p className="text-gray-500 text-sm">Last updated: July 2026</p>

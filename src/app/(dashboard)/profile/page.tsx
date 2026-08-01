@@ -100,7 +100,7 @@ export default function ProfilePage() {
         <button
           type="button"
           onClick={handleAvatarClick}
-          className="w-16 h-16 rounded-full bg-[#7C3AED] flex items-center justify-center text-white text-xl font-bold shrink-0 relative overflow-hidden cursor-pointer hover:ring-2 hover:ring-[#7C3AED]/50 transition-all"
+          className="w-16 h-16 rounded-full bg-[#2563EB] flex items-center justify-center text-white text-xl font-bold shrink-0 relative overflow-hidden cursor-pointer hover:ring-2 hover:ring-[#2563EB]/50 transition-all"
           disabled={isUploading}
         >
           {isUploading ? (
@@ -121,7 +121,7 @@ export default function ProfilePage() {
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
             <h2 className="text-white font-bold text-lg">{fullName}</h2>
-            <span className="bg-[#7C3AED]/15 text-[#7C3AED] text-[10px] font-bold px-2 py-0.5 rounded-full capitalize">{activeMode === 'live' ? 'Investor' : 'Demo'}</span>
+            <span className="bg-[#2563EB]/15 text-[#2563EB] text-[10px] font-bold px-2 py-0.5 rounded-full capitalize">{activeMode === 'live' ? 'Investor' : 'Demo'}</span>
             <span className={`${kycBadgeStyle(kycLevel)} text-[10px] font-bold px-2 py-0.5 rounded-full`}>{kycLabel(kycLevel)}</span>
           </div>
           <p className="text-gray-500 text-sm mt-0.5 truncate">{email}</p>
@@ -157,7 +157,7 @@ export default function ProfilePage() {
 
       {/* Action Buttons */}
       <div className="grid grid-cols-2 gap-3">
-        <Link href="/deposit" className="bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-sm font-semibold py-3 rounded-xl text-center transition-colors">
+        <Link href="/deposit" className="bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-sm font-semibold py-3 rounded-xl text-center transition-colors">
           Deposit
         </Link>
         <Link href="/withdraw" className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold py-3 rounded-xl text-center transition-colors">

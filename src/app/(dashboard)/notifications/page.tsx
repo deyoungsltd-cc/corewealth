@@ -137,7 +137,7 @@ export default function NotificationsPage() {
           <button
             onClick={markAllAsRead}
             disabled={markingAll}
-            className="text-[#7C3AED] text-xs font-semibold hover:underline disabled:opacity-50"
+            className="text-[#2563EB] text-xs font-semibold hover:underline disabled:opacity-50"
           >
             {markingAll ? 'Marking...' : `Mark all read (${unreadCount})`}
           </button>
@@ -152,13 +152,13 @@ export default function NotificationsPage() {
             onClick={() => setFilter(f)}
             className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-colors ${
               filter === f
-                ? 'bg-[#7C3AED] text-white'
+                ? 'bg-[#2563EB] text-white'
                 : 'bg-[#1a1a1a] text-gray-400 hover:text-white border border-border'
             }`}
           >
             {f === 'all' ? 'All' : 'Unread'}
             {f === 'unread' && unreadCount > 0 && (
-              <span className="ml-1.5 bg-[#7C3AED]/20 text-[#7C3AED] px-1.5 py-0.5 rounded-full text-[10px]">{unreadCount}</span>
+              <span className="ml-1.5 bg-[#2563EB]/20 text-[#2563EB] px-1.5 py-0.5 rounded-full text-[10px]">{unreadCount}</span>
             )}
           </button>
         ))}
@@ -199,7 +199,7 @@ export default function NotificationsPage() {
             <div
               key={n.id}
               onClick={() => !n.isRead && markAsRead(n.id)}
-              className={`bg-card border rounded-xl p-4 transition-colors cursor-pointer ${!n.isRead ? 'border-[#7C3AED]/30' : 'border-border'}`}
+              className={`bg-card border rounded-xl p-4 transition-colors cursor-pointer ${!n.isRead ? 'border-[#2563EB]/30' : 'border-border'}`}
             >
               <div className="flex items-start gap-3">
                 <TypeIcon type={n.type} isRead={n.isRead} />

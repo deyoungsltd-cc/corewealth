@@ -129,7 +129,7 @@ export default function SupportPage() {
       {/* Page Header */}
       <div>
         <div className="flex items-center gap-3 mb-1">
-          <HelpCircle className="w-6 h-6 text-[#7C3AED]" />
+          <HelpCircle className="w-6 h-6 text-[#2563EB]" />
           <h2 className="text-foreground font-bold text-xl">Help and Support</h2>
         </div>
         <p className="text-muted-foreground text-sm">
@@ -148,12 +148,12 @@ export default function SupportPage() {
                 key={method.title}
                 className="glass-card rounded-xl p-5 flex flex-col items-center text-center gap-3 cursor-default"
               >
-                <div className="w-12 h-12 rounded-full bg-[#7C3AED]/10 flex items-center justify-center">
-                  <Icon className="w-5 h-5 text-[#7C3AED]" />
+                <div className="w-12 h-12 rounded-full bg-[#2563EB]/10 flex items-center justify-center">
+                  <Icon className="w-5 h-5 text-[#2563EB]" />
                 </div>
                 <div>
                   <p className="text-foreground font-semibold text-sm">{method.title}</p>
-                  <p className="text-[#7C3AED] font-medium text-sm mt-0.5">{method.detail}</p>
+                  <p className="text-[#2563EB] font-medium text-sm mt-0.5">{method.detail}</p>
                   <p className="text-muted-foreground text-xs mt-1">{method.description}</p>
                 </div>
               </div>
@@ -176,7 +176,7 @@ export default function SupportPage() {
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
               placeholder="Brief description of your issue"
-              className="w-full bg-background border border-border rounded-lg px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-[#7C3AED] focus:ring-1 focus:ring-[#7C3AED] transition-colors"
+              className="w-full bg-background border border-border rounded-lg px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] transition-colors"
             />
           </div>
           <div>
@@ -189,7 +189,7 @@ export default function SupportPage() {
               onChange={(e) => setMessage(e.target.value)}
               placeholder="Describe your issue in detail so we can assist you as quickly as possible..."
               rows={5}
-              className="w-full bg-background border border-border rounded-lg px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-[#7C3AED] focus:ring-1 focus:ring-[#7C3AED] transition-colors resize-none"
+              className="w-full bg-background border border-border rounded-lg px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] transition-colors resize-none"
             />
           </div>
           {success && (
@@ -200,7 +200,7 @@ export default function SupportPage() {
           <button
             onClick={handleSubmit}
             disabled={loading || !subject.trim() || !message.trim()}
-            className="w-full bg-[#7C3AED] hover:bg-[#6D28D9] disabled:opacity-50 text-white font-semibold py-3 rounded-lg transition-colors text-sm flex items-center justify-center gap-2"
+            className="w-full bg-[#2563EB] hover:bg-[#1D4ED8] disabled:opacity-50 text-white font-semibold py-3 rounded-lg transition-colors text-sm flex items-center justify-center gap-2"
           >
             <Send className="w-4 h-4" />
             {loading ? 'Submitting...' : 'Submit Ticket'}
@@ -219,11 +219,11 @@ export default function SupportPage() {
               <div key={index} className="glass-card rounded-xl overflow-hidden">
                 <button
                   onClick={() => toggleFaq(index)}
-                  className="flex items-center gap-3 w-full px-5 py-4 text-left cursor-pointer transition-colors hover:bg-[#7C3AED]/5"
+                  className="flex items-center gap-3 w-full px-5 py-4 text-left cursor-pointer transition-colors hover:bg-[#2563EB]/5"
                   aria-expanded={isOpen}
                 >
-                  <div className="w-9 h-9 rounded-lg bg-[#7C3AED]/10 flex items-center justify-center shrink-0">
-                    <Icon className="w-4 h-4 text-[#7C3AED]" />
+                  <div className="w-9 h-9 rounded-lg bg-[#2563EB]/10 flex items-center justify-center shrink-0">
+                    <Icon className="w-4 h-4 text-[#2563EB]" />
                   </div>
                   <span className="text-foreground text-sm font-medium flex-1">{faq.question}</span>
                   <ChevronDown

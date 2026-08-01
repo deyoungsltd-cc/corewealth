@@ -68,7 +68,7 @@ export default function ManageCardPage() {
       <div><h2 className="text-white font-bold text-lg">Card Management</h2><p className="text-gray-500 text-sm mt-0.5">Manage your {card.cardBrand || 'Visa'} {card.type} card</p></div>
 
       {/* Card Display */}
-      <div className="max-w-[380px] aspect-[1.586/1] rounded-2xl relative overflow-hidden mx-auto group transition-transform duration-500 hover:[transform:perspective(1000px)_rotateY(-6deg)_rotateX(4deg)_translateZ(12px)]" style={{ background: 'linear-gradient(135deg, #7C3AED 0%, #6D28D9 40%, #4C1D95 100%)' }}>
+      <div className="max-w-[380px] aspect-[1.586/1] rounded-2xl relative overflow-hidden mx-auto group transition-transform duration-500 hover:[transform:perspective(1000px)_rotateY(-6deg)_rotateX(4deg)_translateZ(12px)]" style={{ background: 'linear-gradient(135deg, #2563EB 0%, #1D4ED8 40%, #1E3A8A 100%)' }}>
         <div className="absolute top-0 right-0 w-48 h-48 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/4" />
         <div className="absolute bottom-0 left-0 w-36 h-36 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/4" />
         <div className="relative z-10 flex flex-col justify-between h-full p-7">
@@ -91,11 +91,11 @@ export default function ManageCardPage() {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {[
           { icon: card.frozen ? <Snowflake className="w-5 h-5" /> : <Snowflake className="w-5 h-5" />, label: card.frozen ? 'Unfreeze Card' : 'Freeze Card', color: 'text-blue-400 bg-blue-400/10', onClick: toggleFreeze },
-          { icon: <DollarSign className="w-5 h-5" />, label: 'Set Limit', color: 'text-[#A78BFA] bg-[#7C3AED]/10', onClick: () => setLimitModal(true) },
+          { icon: <DollarSign className="w-5 h-5" />, label: 'Set Limit', color: 'text-[#60A5FA] bg-[#2563EB]/10', onClick: () => setLimitModal(true) },
           { icon: <Eye className="w-5 h-5" />, label: showFullNumber ? 'Hide Number' : 'Show Number', color: 'text-green-400 bg-green-400/10', onClick: () => setShowFullNumber(!showFullNumber) },
           { icon: <Settings className="w-5 h-5" />, label: 'Card Details', color: 'text-gray-400 bg-white/5', onClick: () => {} },
         ].map((btn) => (
-          <button key={btn.label} onClick={btn.onClick} className={`flex flex-col items-center gap-2 p-4 rounded-xl border border-border bg-card hover:border-[#7C3AED]/30 transition-colors`}>
+          <button key={btn.label} onClick={btn.onClick} className={`flex flex-col items-center gap-2 p-4 rounded-xl border border-border bg-card hover:border-[#2563EB]/30 transition-colors`}>
             <div className={`w-10 h-10 rounded-lg ${btn.color} flex items-center justify-center`}>{btn.icon}</div>
             <span className="text-gray-300 text-xs font-medium">{btn.label}</span>
           </button>
@@ -119,7 +119,7 @@ export default function ManageCardPage() {
             <div className="flex items-center gap-2">
               <span className="text-white text-sm font-medium font-mono">{row.value}</span>
               {row.label === 'CVV' && <button onClick={() => setShowCvv(!showCvv)} className="text-gray-500 hover:text-white">{showCvv ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}</button>}
-              {row.copyable && <button onClick={() => copyToClipboard(row.value, row.label)} className="text-gray-500 hover:text-[#7C3AED]">{copied === row.label ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}</button>}
+              {row.copyable && <button onClick={() => copyToClipboard(row.value, row.label)} className="text-gray-500 hover:text-[#2563EB]">{copied === row.label ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}</button>}
             </div>
           </div>
         ))}
@@ -131,10 +131,10 @@ export default function ManageCardPage() {
           <div className="bg-[#111] border border-white/10 rounded-2xl p-6 max-w-sm w-full" onClick={e => e.stopPropagation()}>
             <h3 className="text-white font-bold text-lg mb-1">Set Spending Limit</h3>
             <p className="text-gray-500 text-sm mb-5">Enter your monthly spending limit in USD.</p>
-            <input type="number" value={newLimit} onChange={e => setNewLimit(e.target.value)} placeholder="5000" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#7C3AED]/60 transition-all mb-4" />
+            <input type="number" value={newLimit} onChange={e => setNewLimit(e.target.value)} placeholder="5000" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#2563EB]/60 transition-all mb-4" />
             <div className="flex gap-3">
               <button onClick={() => setLimitModal(false)} className="flex-1 bg-white/5 text-white text-sm font-medium py-2.5 rounded-xl transition-colors">Cancel</button>
-              <button onClick={saveLimit} className="flex-1 bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-sm font-semibold py-2.5 rounded-xl transition-colors">Save Limit</button>
+              <button onClick={saveLimit} className="flex-1 bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-sm font-semibold py-2.5 rounded-xl transition-colors">Save Limit</button>
             </div>
           </div>
         </div>
@@ -147,7 +147,7 @@ export default function ManageCardPage() {
           <div className="space-y-2">{transactions.slice(0, 5).map((tx: any) => (
             <div key={tx.id} className="flex items-center justify-between py-2.5 border-b border-border/50 last:border-0">
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-lg bg-[#7C3AED]/10 flex items-center justify-center"><CreditCard className="w-4 h-4 text-[#A78BFA]" /></div>
+                <div className="w-9 h-9 rounded-lg bg-[#2563EB]/10 flex items-center justify-center"><CreditCard className="w-4 h-4 text-[#60A5FA]" /></div>
                 <div><p className="text-white text-sm">{tx.description || tx.type || 'Transaction'}</p><p className="text-gray-500 text-xs">{new Date(tx.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</p></div>
               </div>
               <span className={`text-sm font-medium ${tx.type === 'credit' || tx.type === 'deposit' ? 'text-green-400' : 'text-white'}`}>{tx.type === 'credit' || tx.type === 'deposit' ? '+' : '-'}${Number(tx.amount || 0).toLocaleString('en-US', { minimumFractionDigits: 2 })}</span>

@@ -55,7 +55,7 @@ export default function SecurityPage() {
   // Score: email verified (35) + email 2FA (40) + KYC (25) = 100
   const securityScore = (isEmailVerified ? 35 : 0) + (email2faEnabled ? 40 : 0) + (hasKyc ? 25 : 0);
   const scoreLabel = securityScore >= 80 ? 'High' : securityScore >= 50 ? 'Good' : 'Medium';
-  const scoreColor = securityScore >= 80 ? '#22c55e' : securityScore >= 50 ? '#f59e0b' : '#7C3AED';
+  const scoreColor = securityScore >= 80 ? '#22c55e' : securityScore >= 50 ? '#f59e0b' : '#2563EB';
   const scoreDashArray = `${securityScore}, 100`;
 
   // ── Email OTP 2FA handlers ──
@@ -188,8 +188,8 @@ export default function SecurityPage() {
       <div className="bg-card border border-border rounded-xl p-5 space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${email2faEnabled ? 'bg-green-500/10' : 'bg-[#7C3AED]/10'}`}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={email2faEnabled ? '#22c55e' : '#7C3AED'} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${email2faEnabled ? 'bg-green-500/10' : 'bg-[#2563EB]/10'}`}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={email2faEnabled ? '#22c55e' : '#2563EB'} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="2" y="4" width="20" height="16" rx="2" />
                 <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
               </svg>
@@ -204,7 +204,7 @@ export default function SecurityPage() {
           <button
             onClick={handleToggleEmail2fa}
             disabled={email2faLoading}
-            className={`text-sm font-medium px-4 py-2 rounded-lg transition-colors disabled:opacity-50 ${email2faEnabled ? 'bg-red-500/10 text-red-400 hover:bg-red-500/20' : 'bg-[#7C3AED] text-white hover:bg-[#6D28D9]'}`}
+            className={`text-sm font-medium px-4 py-2 rounded-lg transition-colors disabled:opacity-50 ${email2faEnabled ? 'bg-red-500/10 text-red-400 hover:bg-red-500/20' : 'bg-[#2563EB] text-white hover:bg-[#1D4ED8]'}`}
           >
             {email2faLoading ? (
               <span className="flex items-center gap-2">
@@ -281,7 +281,7 @@ export default function SecurityPage() {
           <button
             onClick={handleTogglePush}
             disabled={pushLoading}
-            className={`text-sm font-medium px-4 py-2 rounded-lg transition-colors disabled:opacity-50 ${pushEnabled ? 'bg-red-500/10 text-red-400 hover:bg-red-500/20' : 'bg-[#7C3AED] text-white hover:bg-[#6D28D9]'}`}
+            className={`text-sm font-medium px-4 py-2 rounded-lg transition-colors disabled:opacity-50 ${pushEnabled ? 'bg-red-500/10 text-red-400 hover:bg-red-500/20' : 'bg-[#2563EB] text-white hover:bg-[#1D4ED8]'}`}
           >
             {pushLoading ? (
               <span className="flex items-center gap-2">
@@ -326,7 +326,7 @@ export default function SecurityPage() {
               setTimeout(() => setSettingsToast(false), 2000);
               setTimeout(() => setMerchantMessage(null), 3000);
             }}
-            className={`text-sm font-medium px-4 py-2 rounded-lg transition-colors ${merchantAlerts ? 'bg-red-500/10 text-red-400 hover:bg-red-500/20' : 'bg-[#7C3AED] text-white hover:bg-[#6D28D9]'}`}
+            className={`text-sm font-medium px-4 py-2 rounded-lg transition-colors ${merchantAlerts ? 'bg-red-500/10 text-red-400 hover:bg-red-500/20' : 'bg-[#2563EB] text-white hover:bg-[#1D4ED8]'}`}
           >
             {merchantAlerts ? 'Disable' : 'Enable'}
           </button>
@@ -339,7 +339,7 @@ export default function SecurityPage() {
 
         {/* Sub-toggles */}
         {merchantAlerts && (
-          <div className="space-y-3 pl-2 border-l-2 border-[#7C3AED]/20">
+          <div className="space-y-3 pl-2 border-l-2 border-[#2563EB]/20">
             {([
               { key: 'cardPurchases' as const, label: 'Alert on card purchases', desc: 'Get notified for in-store and point-of-sale transactions', defaultOn: true },
               { key: 'onlineTransactions' as const, label: 'Alert on online transactions', desc: 'Receive alerts for all online and e-commerce purchases', defaultOn: true },
@@ -359,7 +359,7 @@ export default function SecurityPage() {
                     setSettingsToast(true);
                     setTimeout(() => setSettingsToast(false), 2000);
                   }}
-                  className={`relative w-10 h-5.5 rounded-full transition-colors ${merchantSubToggles[sub.key] ? 'bg-[#7C3AED]' : 'bg-gray-600'}`}
+                  className={`relative w-10 h-5.5 rounded-full transition-colors ${merchantSubToggles[sub.key] ? 'bg-[#2563EB]' : 'bg-gray-600'}`}
                   style={{ width: 40, height: 22, borderRadius: 11 }}
                 >
                   <span className={`absolute top-0.5 left-0.5 w-4.5 h-4.5 bg-white rounded-full transition-transform shadow-sm ${merchantSubToggles[sub.key] ? 'translate-x-[18px]' : 'translate-x-0'}`} style={{ width: 18, height: 18, top: 2, left: 2 }} />

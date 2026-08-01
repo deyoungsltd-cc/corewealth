@@ -6,8 +6,8 @@ interface CoreWealthLogoProps {
 }
 
 export default function CoreWealthLogo({ className = 'h-8', variant = 'full' }: CoreWealthLogoProps) {
-  const primaryColor = '#7C3AED';
-  const secondaryColor = '#A78BFA';
+  const primaryColor = '#2563EB';
+  const secondaryColor = '#60A5FA';
 
   // Shield SVG path for CoreWealth
   const shieldPath = 'M12 2L3 7v5c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z';

@@ -44,24 +44,24 @@ export default function AboutPage() {
         <FadeIn>
           <div className="glass-card noise-overlay relative overflow-hidden">
             <div className="absolute inset-0 opacity-10">
-              <div className="absolute top-0 right-0 w-72 h-72 bg-[#7C3AED] rounded-full blur-[120px]" />
-              <div className="absolute bottom-0 left-0 w-56 h-56 bg-[#7C3AED] rounded-full blur-[100px]" />
+              <div className="absolute top-0 right-0 w-72 h-72 bg-[#2563EB] rounded-full blur-[120px]" />
+              <div className="absolute bottom-0 left-0 w-56 h-56 bg-[#2563EB] rounded-full blur-[100px]" />
             </div>
             <div className="relative p-8 sm:p-12">
               <div className="flex flex-col sm:flex-row items-center gap-8">
-                <div className="w-36 h-36 rounded-2xl overflow-hidden border-2 border-[#7C3AED]/30 shrink-0 bg-card shadow-[0_0_40px_rgba(124,58,237,0.15)] relative">
+                <div className="w-36 h-36 rounded-2xl overflow-hidden border-2 border-[#2563EB]/30 shrink-0 bg-card shadow-[0_0_40px_rgba(124,58,237,0.15)] relative">
                   {aboutPhotoUrl ? (
                     <img src={aboutPhotoUrl} alt="CoreWealth Leadership" className="w-full h-full object-cover" />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center bg-[#111]">
-                      <svg viewBox="0 0 24 24" className="w-10 h-10" fill="none" stroke="#7C3AED" strokeWidth="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                      <svg viewBox="0 0 24 24" className="w-10 h-10" fill="none" stroke="#2563EB" strokeWidth="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                     </div>
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a]/30 to-transparent pointer-events-none" />
                 </div>
                 <div className="text-center sm:text-left">
-                  <div className="inline-flex items-center gap-2 bg-[#7C3AED]/10 border border-[#7C3AED]/20 rounded-full px-4 py-1.5 mb-4">
-                    <span className="text-[#7C3AED] text-xs font-bold tracking-wider">LEADERSHIP</span>
+                  <div className="inline-flex items-center gap-2 bg-[#2563EB]/10 border border-[#2563EB]/20 rounded-full px-4 py-1.5 mb-4">
+                    <span className="text-[#2563EB] text-xs font-bold tracking-wider">LEADERSHIP</span>
                   </div>
                   <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-3">About <span className="gradient-text-animated">CoreWealth Bank</span></h1>
                   <p className="text-gray-400 leading-relaxed max-w-xl text-base">Pioneering the future of investment management through technology, transparency, and sustainable wealth creation for investors worldwide.</p>
@@ -79,8 +79,8 @@ export default function AboutPage() {
         <div className="float-orb float-orb-sm" style={{ top: '5%', left: '-3%' }} />
         <FadeIn>
           <div className="relative z-10">
-            <div className="inline-flex items-center gap-2 bg-[#7C3AED]/10 border border-[#7C3AED]/20 rounded-full px-4 py-1.5 mb-6">
-              <span className="text-[#7C3AED] text-xs font-bold tracking-wider">OUR STORY</span>
+            <div className="inline-flex items-center gap-2 bg-[#2563EB]/10 border border-[#2563EB]/20 rounded-full px-4 py-1.5 mb-6">
+              <span className="text-[#2563EB] text-xs font-bold tracking-wider">OUR STORY</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-black mb-8 heading-gradient">Built on Vision, Driven by Results</h2>
             <div className="space-y-5 text-gray-400 text-base leading-relaxed">
@@ -100,17 +100,17 @@ export default function AboutPage() {
         <FadeIn>
           <div className="max-w-5xl mx-auto relative z-10 grid grid-cols-1 sm:grid-cols-2 gap-8">
             <div className="dash-card card-shine noise-overlay p-8 group relative overflow-hidden">
-              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#7C3AED]/0 to-transparent group-hover:via-[#7C3AED]/60 transition-all duration-500" />
-              <div className="w-14 h-14 bg-[#7C3AED]/10 rounded-2xl flex items-center justify-center mb-5 group-hover:bg-[#7C3AED]/20 transition-colors duration-300">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#2563EB]/0 to-transparent group-hover:via-[#2563EB]/60 transition-all duration-500" />
+              <div className="w-14 h-14 bg-[#2563EB]/10 rounded-2xl flex items-center justify-center mb-5 group-hover:bg-[#2563EB]/20 transition-colors duration-300">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
               </div>
               <h3 className="text-white font-bold text-xl mb-3">Our Mission</h3>
               <p className="text-gray-400 text-sm leading-relaxed">To provide accessible, transparent, and high-yielding investment opportunities that empower individuals worldwide to achieve their financial goals through professionally managed portfolios and cutting-edge technology.</p>
             </div>
             <div className="dash-card card-shine noise-overlay p-8 group relative overflow-hidden">
-              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#7C3AED]/0 to-transparent group-hover:via-[#7C3AED]/60 transition-all duration-500" />
-              <div className="w-14 h-14 bg-[#7C3AED]/10 rounded-2xl flex items-center justify-center mb-5 group-hover:bg-[#7C3AED]/20 transition-colors duration-300">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="1.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#2563EB]/0 to-transparent group-hover:via-[#2563EB]/60 transition-all duration-500" />
+              <div className="w-14 h-14 bg-[#2563EB]/10 rounded-2xl flex items-center justify-center mb-5 group-hover:bg-[#2563EB]/20 transition-colors duration-300">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="1.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
               </div>
               <h3 className="text-white font-bold text-xl mb-3">Our Vision</h3>
               <p className="text-gray-400 text-sm leading-relaxed">To become the world&apos;s most trusted and innovative investment platform, where every individual has the tools and support to build lasting wealth through intelligent, diversified investing.</p>
@@ -138,7 +138,7 @@ export default function AboutPage() {
               ].map((v, i) => (
                 <FadeIn key={v.title} delay={i * 80}>
                   <div className="dash-card card-shine noise-overlay p-6 group tilt-card relative overflow-hidden">
-                    <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#7C3AED]/0 to-transparent group-hover:via-[#7C3AED]/60 transition-all duration-500" />
+                    <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#2563EB]/0 to-transparent group-hover:via-[#2563EB]/60 transition-all duration-500" />
                     <h3 className="text-white font-bold text-lg mb-2">{v.title}</h3>
                     <p className="text-gray-400 text-sm leading-relaxed">{v.desc}</p>
                   </div>
@@ -168,7 +168,7 @@ export default function AboutPage() {
                 { value: '0', label: 'Security Breaches' },
               ].map((m) => (
                 <div key={m.label} className="dash-card card-shine p-6 text-center group hover:scale-[1.03] transition-transform duration-300">
-                  <p className="text-white text-2xl font-black group-hover:text-[#7C3AED] transition-colors duration-300">{m.value}</p>
+                  <p className="text-white text-2xl font-black group-hover:text-[#2563EB] transition-colors duration-300">{m.value}</p>
                   <p className="text-gray-500 text-xs mt-2 font-medium">{m.label}</p>
                 </div>
               ))}
@@ -203,8 +203,8 @@ export default function AboutPage() {
           <div className="relative z-10">
             <div className="animated-border">
               <div className="relative overflow-hidden rounded-3xl">
-                <div className="absolute inset-0 bg-gradient-to-br from-[#7C3AED]/15 via-[#7C3AED]/5 to-transparent rounded-3xl" />
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-[#7C3AED]/8 rounded-full blur-[120px]" />
+                <div className="absolute inset-0 bg-gradient-to-br from-[#2563EB]/15 via-[#2563EB]/5 to-transparent rounded-3xl" />
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-[#2563EB]/8 rounded-full blur-[120px]" />
                 <div className="relative bg-background/90 rounded-3xl p-10 sm:p-14 text-center noise-overlay">
                   <h2 className="text-3xl sm:text-4xl font-black mb-5 relative">Ready to Start <span className="gradient-text-animated">Investing</span>?</h2>
                   <p className="text-gray-400 max-w-lg mx-auto mb-10 relative text-base leading-relaxed">Join 45,000+ investors worldwide. Stay updated with our latest insights and investment opportunities.</p>
@@ -215,7 +215,7 @@ export default function AboutPage() {
                     </div>
                   ) : (
                     <div className="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-md mx-auto relative">
-                      <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your email address" className="w-full sm:flex-1 bg-white/5 border border-border rounded-xl px-5 py-3.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#7C3AED]/50 focus:shadow-[0_0_20px_rgba(124,58,237,0.1)] transition-all duration-300" />
+                      <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your email address" className="w-full sm:flex-1 bg-white/5 border border-border rounded-xl px-5 py-3.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#2563EB]/50 focus:shadow-[0_0_20px_rgba(124,58,237,0.1)] transition-all duration-300" />
                       <button onClick={() => { if (email) setSubscribed(true); }} className="btn-red text-sm whitespace-nowrap pulse-ring !rounded-xl">Subscribe</button>
                     </div>
                   )}

@@ -110,12 +110,12 @@ export default function KycCodeGate() {
           </div>
         ) : (
           /* Code entry form */
-          <div className="bg-[#1a1a1a] border border-[#7C3AED]/30 rounded-2xl p-8 shadow-2xl shadow-[#7C3AED]/5">
+          <div className="bg-[#1a1a1a] border border-[#2563EB]/30 rounded-2xl p-8 shadow-2xl shadow-[#2563EB]/5">
             {/* CoreWealth logo area */}
             <div className="text-center mb-6">
-              <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-[#7C3AED]/10 border border-[#7C3AED]/20 flex items-center justify-center">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-[#2563EB]/10 border border-[#2563EB]/20 flex items-center justify-center">
                 <svg viewBox="0 0 24 24" className="w-8 h-8" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 2L3 7v5c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z" fill="#7C3AED"/>
+                  <path d="M12 2L3 7v5c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z" fill="#2563EB"/>
                   <path d="M9 12l2 2 4-4" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
@@ -153,7 +153,7 @@ export default function KycCodeGate() {
                   placeholder="e.g. KYC-ABC123"
                   autoFocus
                   autoComplete="off"
-                  className="w-full bg-[#111] border border-border rounded-xl px-5 py-4 text-lg text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED] font-mono tracking-[0.2em] text-center transition-colors"
+                  className="w-full bg-[#111] border border-border rounded-xl px-5 py-4 text-lg text-white placeholder-gray-600 focus:outline-none focus:border-[#2563EB] font-mono tracking-[0.2em] text-center transition-colors"
                 />
               </div>
 
@@ -166,7 +166,7 @@ export default function KycCodeGate() {
               <button
                 type="submit"
                 disabled={!code.trim() || loading}
-                className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-[#7C3AED] hover:bg-[#6D28D9] disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold rounded-xl transition-colors text-sm"
+                className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-[#2563EB] hover:bg-[#1D4ED8] disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold rounded-xl transition-colors text-sm"
               >
                 {loading ? (
                   <>

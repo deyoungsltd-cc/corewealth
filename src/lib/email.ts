@@ -280,7 +280,7 @@ function logoHtml(): string {
   //
   // This is the same approach major brands (Apple, Stripe, Linear) use in
   // transactional emails — pure HTML/CSS logo marks are 100% reliable.
-  return `<table role="presentation" cellpadding="0" cellspacing="0" align="center" style="margin:0 auto 20px"><tr><td style="width:72px;height:72px;background-color:#000000;border:1.5px solid #B91C1C;border-radius:16px;position:relative;overflow:hidden;text-align:center;vertical-align:middle;line-height:72px;font-size:42px;font-weight:900;color:#7C3AED;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:-2px">T</td></tr></table>`;
+  return `<table role="presentation" cellpadding="0" cellspacing="0" align="center" style="margin:0 auto 20px"><tr><td style="width:72px;height:72px;background-color:#000000;border:1.5px solid #B91C1C;border-radius:16px;position:relative;overflow:hidden;text-align:center;vertical-align:middle;line-height:72px;font-size:42px;font-weight:900;color:#2563EB;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:-2px">T</td></tr></table>`;
 }
 
 function headerBlock(): string {
@@ -452,7 +452,7 @@ export async function sendAdminNotificationEmail(to: string, name: string, optio
     withdrawal_approved: { color: '#22C55E', bgColor: '#0a1f0f', icon: '&#10003;', label: 'APPROVED' },
     withdrawal_rejected: { color: '#EF4444', bgColor: '#1f0a0a', icon: '&#10007;', label: 'REJECTED' },
   };
-  const cfg = typeConfig[type] || { color: '#7C3AED', bgColor: '#1f0a0a', icon: '&#9733;', label: 'NOTICE' };
+  const cfg = typeConfig[type] || { color: '#2563EB', bgColor: '#1f0a0a', icon: '&#9733;', label: 'NOTICE' };
 
   const body = contentArea(`
     <p style="color:#ffffff;font-size:14px;margin:0 0 24px;font-weight:500;letter-spacing:0.5px">${greeting},</p>
@@ -490,17 +490,17 @@ export async function sendKycCodeRequiredEmail(to: string, name: string, options
   const body = contentArea(`
     <p style="color:#ffffff;font-size:14px;margin:0 0 24px;font-weight:500;letter-spacing:0.5px">${greeting},</p>
     <div style="text-align:center;margin:0 0 24px">
-      <div style="display:inline-block;width:56px;height:56px;border-radius:50%;background:#1f0a0a;border:1px solid #7C3AED;text-align:center;line-height:54px;font-size:24px;color:#7C3AED;box-shadow:0 0 0 4px rgba(204,0,0,0.05)">&#9733;</div>
+      <div style="display:inline-block;width:56px;height:56px;border-radius:50%;background:#1f0a0a;border:1px solid #2563EB;text-align:center;line-height:54px;font-size:24px;color:#2563EB;box-shadow:0 0 0 4px rgba(204,0,0,0.05)">&#9733;</div>
     </div>
     <div style="text-align:center;margin:0 0 24px">
-      <span style="display:inline-block;color:#7C3AED;font-size:9px;font-weight:700;letter-spacing:3px;padding:6px 14px;border:1px solid #7C3AED;border-radius:3px;text-transform:uppercase;font-family:'Helvetica Neue',Arial,sans-serif">ACTION REQUIRED</span>
+      <span style="display:inline-block;color:#2563EB;font-size:9px;font-weight:700;letter-spacing:3px;padding:6px 14px;border:1px solid #2563EB;border-radius:3px;text-transform:uppercase;font-family:'Helvetica Neue',Arial,sans-serif">ACTION REQUIRED</span>
     </div>
     <h2 style="color:#ffffff;text-align:center;font-size:18px;margin:0 0 16px;font-weight:700;letter-spacing:0.5px;font-family:'Helvetica Neue',Arial,sans-serif">KYC Verification Code Required</h2>
     <p style="color:#888888;font-size:13px;margin:0 0 24px;line-height:1.8;text-align:center;letter-spacing:0.3px">
       To proceed with your KYC verification, you are required to obtain a KYC Verification Code from our administration team.
     </p>
-    <div style="background:#0a0a0a;border:1px solid #1a1a1a;border-left:3px solid #7C3AED;border-radius:8px;padding:24px;margin:0 0 24px">
-      <p style="color:#7C3AED;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:2px;margin:0 0 12px;font-family:'Helvetica Neue',Arial,sans-serif">How to Get Your Code</p>
+    <div style="background:#0a0a0a;border:1px solid #1a1a1a;border-left:3px solid #2563EB;border-radius:8px;padding:24px;margin:0 0 24px">
+      <p style="color:#2563EB;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:2px;margin:0 0 12px;font-family:'Helvetica Neue',Arial,sans-serif">How to Get Your Code</p>
       <p style="color:#cccccc;font-size:13px;margin:0 0 12px;line-height:1.8;letter-spacing:0.3px">
         Contact our support team through either of the following channels:
       </p>
@@ -559,8 +559,8 @@ export async function sendKycCodeDeliveredEmail(to: string, name: string, option
         <li>Submit your documents for review</li>
       </ol>
     </div>
-    ${adminMessage ? `<div style="background:#0a0a0a;border:1px solid #1a1a1a;border-left:3px solid #7C3AED;border-radius:8px;padding:20px 24px;margin:0 0 24px">
-      <p style="color:#7C3AED;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:2px;margin:0 0 10px;font-family:'Helvetica Neue',Arial,sans-serif">Message from Admin</p>
+    ${adminMessage ? `<div style="background:#0a0a0a;border:1px solid #1a1a1a;border-left:3px solid #2563EB;border-radius:8px;padding:20px 24px;margin:0 0 24px">
+      <p style="color:#2563EB;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:2px;margin:0 0 10px;font-family:'Helvetica Neue',Arial,sans-serif">Message from Admin</p>
       <p style="color:#cccccc;font-size:13px;margin:0;line-height:1.8;letter-spacing:0.3px">${adminMessage}</p>
     </div>` : ''}
     <div style="background:#0a0a0a;border:1px solid #1a1a1a;border-left:3px solid #F59E0B;border-radius:8px;padding:20px 24px;margin:0 0 24px">

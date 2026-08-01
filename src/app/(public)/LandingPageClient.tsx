@@ -140,7 +140,7 @@ function PurpleSlider({
         [&::-moz-range-thumb]:shadow-[0_0_10px_rgba(124,58,237,0.5)]
         [&::-moz-range-thumb]:cursor-pointer"
       style={{
-        background: `linear-gradient(to right, #7C3AED 0%, #7C3AED ${pct}%, var(--muted) ${pct}%, var(--muted) 100%)`,
+        background: `linear-gradient(to right, #2563EB 0%, #2563EB ${pct}%, var(--muted) ${pct}%, var(--muted) 100%)`,
       }}
     />
   );

@@ -50,12 +50,12 @@ export default function ContactPage() {
         <FadeIn delay={100}>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>, title: 'Email Support', detail: 'support@corewealthbank.com', sub: 'Response within 2 hours' },
-              { icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>, title: 'Live Chat', detail: 'Available on platform', sub: '24/7 instant response' },
-              { icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>, title: 'Business Hours', detail: '24/7/365', sub: 'Always available' },
+              { icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>, title: 'Email Support', detail: 'support@corewealthbank.com', sub: 'Response within 2 hours' },
+              { icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>, title: 'Live Chat', detail: 'Available on platform', sub: '24/7 instant response' },
+              { icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>, title: 'Business Hours', detail: '24/7/365', sub: 'Always available' },
             ].map((item) => (
-              <div key={item.title} className="tilt-card dash-card card-shine noise-overlay bg-card border border-border rounded-2xl p-6 text-center hover:border-[#7C3AED]/30 transition-all duration-500">
-                <div className="w-14 h-14 bg-[#7C3AED]/10 rounded-xl flex items-center justify-center mx-auto mb-4 border border-[#7C3AED]/10">
+              <div key={item.title} className="tilt-card dash-card card-shine noise-overlay bg-card border border-border rounded-2xl p-6 text-center hover:border-[#2563EB]/30 transition-all duration-500">
+                <div className="w-14 h-14 bg-[#2563EB]/10 rounded-xl flex items-center justify-center mx-auto mb-4 border border-[#2563EB]/10">
                   {item.icon}
                 </div>
                 <h3 className="text-white font-bold mb-1">{item.title}</h3>
@@ -81,20 +81,20 @@ export default function ContactPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
                   <label className="block text-gray-300 text-sm font-medium mb-2">Full Name</label>
-                  <input type="text" placeholder="John Doe" className="w-full bg-[#1a1a1a] border border-border rounded-xl px-4 py-3.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED]/50 focus:ring-1 focus:ring-[#7C3AED]/20 transition-all duration-300" />
+                  <input type="text" placeholder="John Doe" className="w-full bg-[#1a1a1a] border border-border rounded-xl px-4 py-3.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#2563EB]/50 focus:ring-1 focus:ring-[#2563EB]/20 transition-all duration-300" />
                 </div>
                 <div>
                   <label className="block text-gray-300 text-sm font-medium mb-2">Email Address</label>
-                  <input type="email" placeholder="you@example.com" className="w-full bg-[#1a1a1a] border border-border rounded-xl px-4 py-3.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED]/50 focus:ring-1 focus:ring-[#7C3AED]/20 transition-all duration-300" />
+                  <input type="email" placeholder="you@example.com" className="w-full bg-[#1a1a1a] border border-border rounded-xl px-4 py-3.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#2563EB]/50 focus:ring-1 focus:ring-[#2563EB]/20 transition-all duration-300" />
                 </div>
               </div>
               <div>
                 <label className="block text-gray-300 text-sm font-medium mb-2">Account Email (if different)</label>
-                <input type="email" placeholder="Optional" className="w-full bg-[#1a1a1a] border border-border rounded-xl px-4 py-3.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED]/50 focus:ring-1 focus:ring-[#7C3AED]/20 transition-all duration-300" />
+                <input type="email" placeholder="Optional" className="w-full bg-[#1a1a1a] border border-border rounded-xl px-4 py-3.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#2563EB]/50 focus:ring-1 focus:ring-[#2563EB]/20 transition-all duration-300" />
               </div>
               <div>
                 <label className="block text-gray-300 text-sm font-medium mb-2">Subject</label>
-                <select className="w-full bg-[#1a1a1a] border border-border rounded-xl px-4 py-3.5 text-sm text-gray-400 focus:outline-none focus:border-[#7C3AED]/50 focus:ring-1 focus:ring-[#7C3AED]/20 transition-all duration-300">
+                <select className="w-full bg-[#1a1a1a] border border-border rounded-xl px-4 py-3.5 text-sm text-gray-400 focus:outline-none focus:border-[#2563EB]/50 focus:ring-1 focus:ring-[#2563EB]/20 transition-all duration-300">
                   <option>General Inquiry</option>
                   <option>Deposit Issue</option>
                   <option>Withdrawal Issue</option>
@@ -107,9 +107,9 @@ export default function ContactPage() {
               </div>
               <div>
                 <label className="block text-gray-300 text-sm font-medium mb-2">Message</label>
-                <textarea rows={5} placeholder="Describe your issue or question in detail..." className="w-full bg-[#1a1a1a] border border-border rounded-xl px-4 py-3.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED]/50 focus:ring-1 focus:ring-[#7C3AED]/20 transition-all duration-300 resize-none" />
+                <textarea rows={5} placeholder="Describe your issue or question in detail..." className="w-full bg-[#1a1a1a] border border-border rounded-xl px-4 py-3.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#2563EB]/50 focus:ring-1 focus:ring-[#2563EB]/20 transition-all duration-300 resize-none" />
               </div>
-              <button className="btn-red pulse-ring magnetic-hover bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-semibold px-8 py-3.5 rounded-xl text-sm transition-all duration-300">
+              <button className="btn-red pulse-ring magnetic-hover bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-semibold px-8 py-3.5 rounded-xl text-sm transition-all duration-300">
                 Send Message
               </button>
             </div>
@@ -130,14 +130,14 @@ export default function ContactPage() {
               {quickAnswers.map((item, idx) => {
                 const isOpen = openQA === idx;
                 return (
-                  <div key={item.q} className={`bg-[#1a1a1a] border rounded-xl overflow-hidden transition-all duration-300 ${isOpen ? 'border-[#7C3AED]/40 shadow-[0_0_20px_rgba(204,0,0,0.08)]' : 'border-border'}`}>
+                  <div key={item.q} className={`bg-[#1a1a1a] border rounded-xl overflow-hidden transition-all duration-300 ${isOpen ? 'border-[#2563EB]/40 shadow-[0_0_20px_rgba(204,0,0,0.08)]' : 'border-border'}`}>
                     <button
                       onClick={() => setOpenQA(isOpen ? null : idx)}
                       className="w-full flex items-center justify-between p-5 text-left cursor-pointer hover:bg-white/[0.02] transition-colors"
                     >
                       <span className="text-white text-sm font-medium pr-4">{item.q}</span>
                       <svg
-                        className={`w-5 h-5 shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180 text-[#7C3AED]' : 'text-gray-500'}`}
+                        className={`w-5 h-5 shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180 text-[#2563EB]' : 'text-gray-500'}`}
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
                       >
                         <polyline points="6 9 12 15 18 9" />

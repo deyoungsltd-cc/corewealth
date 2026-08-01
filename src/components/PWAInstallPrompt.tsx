@@ -49,12 +49,12 @@ export default function PWAInstallPrompt({ className = '' }: { className?: strin
 
   return (
     <div className={`fixed bottom-16 left-2 right-2 z-50 max-w-lg mx-auto animate-slide-up ${className}`}>
-      <div className="bg-[#1a1a1a]/95 backdrop-blur-md border border-[#7C3AED]/30 rounded-xl p-4 shadow-2xl shadow-[#7C3AED]/10">
+      <div className="bg-[#1a1a1a]/95 backdrop-blur-md border border-[#2563EB]/30 rounded-xl p-4 shadow-2xl shadow-[#2563EB]/10">
         <div className="flex items-center gap-3">
           {/* Icon */}
-          <div className="w-10 h-10 rounded-xl bg-[#7C3AED]/10 border border-[#7C3AED]/20 flex items-center justify-center shrink-0">
+          <div className="w-10 h-10 rounded-xl bg-[#2563EB]/10 border border-[#2563EB]/20 flex items-center justify-center shrink-0">
             <svg viewBox="0 0 24 24" className="w-5 h-5" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 5.362l2.475-3.026s4.245.09 8.471 2.054c-1.082 1.636-3.231 2.438-3.231 2.438-.146-1.439-1.154-1.79-4.354-1.79L12 24 8.619 5.034c-3.18 0-4.188.354-4.335 1.792 0 0-2.146-.795-3.229-2.43C5.28 2.431 9.525 2.34 9.525 2.34L12 5.362z" fill="#7C3AED"/>
+              <path d="M12 5.362l2.475-3.026s4.245.09 8.471 2.054c-1.082 1.636-3.231 2.438-3.231 2.438-.146-1.439-1.154-1.79-4.354-1.79L12 24 8.619 5.034c-3.18 0-4.188.354-4.335 1.792 0 0-2.146-.795-3.229-2.43C5.28 2.431 9.525 2.34 9.525 2.34L12 5.362z" fill="#2563EB"/>
             </svg>
           </div>
 
@@ -74,7 +74,7 @@ export default function PWAInstallPrompt({ className = '' }: { className?: strin
             </button>
             <button
               onClick={handleInstall}
-              className="bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-xs font-bold px-4 py-1.5 rounded-lg transition-colors"
+              className="bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-bold px-4 py-1.5 rounded-lg transition-colors"
             >
               Install
             </button>

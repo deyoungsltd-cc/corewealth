@@ -100,7 +100,7 @@ const getTransactionIcon = (type: string) => {
     case 'withdrawal':
       return <ArrowUpRight size={16} className="text-red-400" />;
     case 'investment':
-      return <TrendingUp size={16} className="text-[#A78BFA]" />;
+      return <TrendingUp size={16} className="text-[#60A5FA]" />;
     case 'investment_return':
       return <DollarSign size={16} className="text-emerald-400" />;
     case 'referral_bonus':
@@ -346,8 +346,8 @@ export default function DashboardPage() {
       title: 'Checking Account',
       maskedNumber: '•••• 4829',
       balance: checkingBalance,
-      gradient: 'from-[#7C3AED] via-[#6D28D9] to-[#4C1D95]',
-      accentColor: '#A78BFA',
+      gradient: 'from-[#2563EB] via-[#1D4ED8] to-[#1E3A8A]',
+      accentColor: '#60A5FA',
       trend: { value: '+2.4%', positive: true, label: 'vs last month' },
       icon: <Landmark size={18} className="text-white/70" />,
     },
@@ -434,7 +434,7 @@ export default function DashboardPage() {
       {/* ═══════════════════════════════════════════ */}
       {/* 1. WELCOME BANNER                             */}
       {/* ═══════════════════════════════════════════ */}
-      <section className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#7C3AED] via-[#6D28D9] to-[#5B21B6] p-5 sm:p-6">
+      <section className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#2563EB] via-[#1D4ED8] to-[#1E40AF] p-5 sm:p-6">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute -top-10 -right-10 w-72 h-72 bg-white rounded-full blur-[120px]" />
           <div className="absolute bottom-0 left-0 w-48 h-48 bg-purple-300 rounded-full blur-[100px]" />
@@ -575,7 +575,7 @@ export default function DashboardPage() {
               onClick={() => scrollToCard(idx)}
               className={`h-2 rounded-full transition-all duration-300 ${
                 idx === activeCard
-                  ? 'w-6 bg-[#7C3AED]'
+                  ? 'w-6 bg-[#2563EB]'
                   : 'w-2 bg-white/20 hover:bg-white/30'
               }`}
               aria-label={`Go to ${balanceCards[idx].title}`}
@@ -625,7 +625,7 @@ export default function DashboardPage() {
               href={action.href}
               className="flex flex-col items-center gap-2.5 group"
             >
-              <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm flex items-center justify-center text-[#A78BFA] shadow-lg shadow-black/10 group-hover:bg-[#7C3AED]/20 group-hover:border-[#7C3AED]/30 group-hover:text-white group-hover:scale-105 group-hover:shadow-[#7C3AED]/20 transition-all duration-300">
+              <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm flex items-center justify-center text-[#60A5FA] shadow-lg shadow-black/10 group-hover:bg-[#2563EB]/20 group-hover:border-[#2563EB]/30 group-hover:text-white group-hover:scale-105 group-hover:shadow-[#2563EB]/20 transition-all duration-300">
                 {action.icon}
               </div>
               <span className="text-muted-foreground text-xs font-medium group-hover:text-foreground transition-colors">
@@ -644,7 +644,7 @@ export default function DashboardPage() {
           <h3 className="text-foreground font-semibold text-sm">Recent Transactions</h3>
           <Link
             href="/transactions"
-            className="flex items-center gap-0.5 text-[#A78BFA] text-xs font-medium hover:text-[#7C3AED] transition-colors"
+            className="flex items-center gap-0.5 text-[#60A5FA] text-xs font-medium hover:text-[#2563EB] transition-colors"
           >
             View All <ChevronRight size={14} />
           </Link>
@@ -712,8 +712,8 @@ export default function DashboardPage() {
         <div className="bg-white/5 border border-white/10 backdrop-blur-sm rounded-2xl p-5">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-[#7C3AED]/15 flex items-center justify-center">
-                <TrendingUp size={17} className="text-[#7C3AED]" />
+              <div className="w-9 h-9 rounded-xl bg-[#2563EB]/15 flex items-center justify-center">
+                <TrendingUp size={17} className="text-[#2563EB]" />
               </div>
               <div>
                 <p className="text-foreground text-sm font-semibold">Investment Overview</p>
@@ -726,7 +726,7 @@ export default function DashboardPage() {
             </div>
             <Link
               href="/investments"
-              className="flex items-center gap-0.5 text-[#A78BFA] text-xs font-medium hover:text-[#7C3AED] transition-colors"
+              className="flex items-center gap-0.5 text-[#60A5FA] text-xs font-medium hover:text-[#2563EB] transition-colors"
             >
               View <ChevronRight size={14} />
             </Link>
@@ -734,8 +734,8 @@ export default function DashboardPage() {
 
           <div className="grid grid-cols-3 gap-3">
             <div className="bg-white/5 rounded-xl p-3 text-center border border-white/5">
-              <div className="w-7 h-7 mx-auto mb-1.5 rounded-lg bg-[#7C3AED]/10 flex items-center justify-center">
-                <DollarSign size={14} className="text-[#A78BFA]" />
+              <div className="w-7 h-7 mx-auto mb-1.5 rounded-lg bg-[#2563EB]/10 flex items-center justify-center">
+                <DollarSign size={14} className="text-[#60A5FA]" />
               </div>
               <p className="text-foreground text-[10px] sm:text-xs font-semibold">Total Invested</p>
               <p className="text-foreground text-sm sm:text-base font-bold mt-0.5">
@@ -791,7 +791,7 @@ export default function DashboardPage() {
                 {investments.length > 3 && (
                   <Link
                     href="/investments"
-                    className="block text-center text-[#A78BFA] text-[10px] font-medium pt-1 hover:text-[#7C3AED] transition-colors"
+                    className="block text-center text-[#60A5FA] text-[10px] font-medium pt-1 hover:text-[#2563EB] transition-colors"
                   >
                     +{investments.length - 3} more
                     plan{investments.length - 3 !== 1 ? 's' : ''}

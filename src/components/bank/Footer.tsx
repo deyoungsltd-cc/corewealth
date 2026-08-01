@@ -109,14 +109,14 @@ function FooterLink({ href, children }: { href: string; children: React.ReactNod
           href={href}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-sm text-gray-500 hover:text-[#A78BFA] transition-colors duration-200"
+          className="text-sm text-gray-500 hover:text-[#60A5FA] transition-colors duration-200"
         >
           {children}
         </a>
       ) : (
         <Link
           href={href}
-          className="text-sm text-gray-500 hover:text-[#A78BFA] transition-colors duration-200"
+          className="text-sm text-gray-500 hover:text-[#60A5FA] transition-colors duration-200"
         >
           {children}
         </Link>
@@ -129,7 +129,7 @@ export default function Footer() {
   return (
     <footer className="mt-auto relative bg-[#060A13] border-t border-white/[0.06]">
       {/* Subtle gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#7C3AED]/[0.03] to-transparent pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#2563EB]/[0.03] to-transparent pointer-events-none" />
 
       <div className="relative mx-auto max-w-7xl px-6 pt-14 pb-8">
         {/* Branding section */}
@@ -147,7 +147,7 @@ export default function Footer() {
               key={badge.label}
               className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs text-gray-400"
             >
-              <span className="text-[#A78BFA]">{badge.icon}</span>
+              <span className="text-[#60A5FA]">{badge.icon}</span>
               {badge.label}
             </div>
           ))}
@@ -199,7 +199,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={s.label}
-                  className="flex items-center justify-center w-9 h-9 rounded-lg bg-white/[0.04] border border-white/[0.08] text-gray-500 hover:text-[#A78BFA] hover:bg-white/[0.08] hover:border-[#7C3AED]/30 transition-all duration-200"
+                  className="flex items-center justify-center w-9 h-9 rounded-lg bg-white/[0.04] border border-white/[0.08] text-gray-500 hover:text-[#60A5FA] hover:bg-white/[0.08] hover:border-[#2563EB]/30 transition-all duration-200"
                 >
                   {s.icon}
                 </a>
