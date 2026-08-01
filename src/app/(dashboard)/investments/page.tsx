@@ -1,21 +1,16 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import dynamic from 'next/dynamic';
 import ChatWidget from '@/components/ChatWidget';
-import  from '@/components/';
-import  from '@/components/';
-
-const  = dynamic(() => import('@/components/'), { ssr: false });
 
 // Fallback hardcoded plans — used if /api/plans fails. The dashboard will
 // prefer the API response so that admins can disable plans and have them
 // disappear from the UI in real time.
 const FALLBACK_PLANS = [
-  { id: 'basic',    name: 'Basic',    badge: 'STARTER',  badgeColor: 'bg-gray-600',   min: 200,   max: 4999,   daily: 0.5, duration: 30, model: 'Model 3', image: '/images/model-3.jpg' },
-  { id: 'silver',   name: 'Silver',   badge: 'POPULAR',  badgeColor: 'bg-[#7C3AED]',  min: 5000,  max: 9999,   daily: 0.8, duration: 21, model: 'Model Y', image: '/images/model-y.jpg' },
-  { id: 'gold',     name: 'Gold',     badge: 'PREMIUM',  badgeColor: 'bg-amber-600',  min: 10000, max: 49999,  daily: 1.2, duration: 14, model: 'Model S', image: '/images/model-s.jpg' },
-  { id: 'platinum', name: 'Platinum', badge: 'ELITE',    badgeColor: 'bg-purple-600', min: 50000, max: 100000, daily: 1.8, duration: 7,  model: 'Model X', image: '/images/model-x.jpg' },
+  { id: 'basic',    name: 'Basic',    badge: 'STARTER',  badgeColor: 'bg-gray-600',   min: 200,   max: 4999,   daily: 0.5, duration: 30, model: 'Starter', image: '
+  { id: 'silver',   name: 'Silver',   badge: 'POPULAR',  badgeColor: 'bg-[#7C3AED]',  min: 5000,  max: 9999,   daily: 0.8, duration: 21, model: 'Platinum', image: '
+  { id: 'gold',     name: 'Gold',     badge: 'PREMIUM',  badgeColor: 'bg-amber-600',  min: 10000, max: 49999,  daily: 1.2, duration: 14, model: 'Silver', image: '
+  { id: 'platinum', name: 'Platinum', badge: 'ELITE',    badgeColor: 'bg-purple-600', min: 50000, max: 100000, daily: 1.8, duration: 7,  model: 'Gold', image: '
 ];
 
 interface ActiveInvestment {
@@ -78,7 +73,7 @@ export default function InvestmentsPage() {
             daily: Number(p.dailyReturnRate),
             duration: p.duration,
             model: fallback?.model ?? 'CoreWealth',
-            image: fallback?.image ?? '/images/model-3.jpg',
+            image: fallback?.image ?? '
           };
         });
         setPlans(mapped);
