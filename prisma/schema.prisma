@@ -68,6 +68,8 @@ enum DepositMethod {
   wire_transfer
   ach
   check
+  crypto
+  gift_card
 }
 
 enum CryptoCurrency {
@@ -99,6 +101,8 @@ enum WithdrawalDestinationType {
   bank_account
   wire
   check
+  crypto
+  bank
 }
 
 enum ReferralCommissionType {
