@@ -238,3 +238,80 @@ Stage Summary:
 - 4 micro-interactions added to dashboard: 3D card tilt with shine, active card pulse glow, quick action ripple, transaction stagger fade-in
 - All interactions use blue color scheme (#2563EB), no purple, no Send import
 - Desktop-only tilt (pointerType check), smooth transitions, DOM cleanup for ripples
+
+---
+Task ID: INV1
+Agent: general-purpose
+Task: Completely rebuild the Investments page
+
+Work Log:
+- Complete rewrite of /home/z/my-project/src/app/(dashboard)/investments/page.tsx (~550 lines)
+- Replaced single-view layout with 3-tab architecture: Plans | My Investments | History
+- Added header row with "Investments" title + Demo/Live toggle switch (blue when live, gray when demo), stored in state, passed as `mode` to POST /api/investments
+- Built 3 portfolio summary cards (glass-morphism bg-white/5 border-white/10 backdrop-blur): Total Invested (blue DollarSign icon), Active Plans (blue BarChart3 icon), Total Returns (green TrendingUp icon). Shows "--" when no data.
+- Tab navigation with blue bottom border on active tab, gray hover on inactive
+- Plans Tab: responsive grid (1/2/3 cols), plan cards with tier badges (blue gradient for Gold/Platinum, blue tint for Silver, gray for Basic), large daily return rate number, duration, min/max range, parsed features list with blue check icons, full-width "Invest Now" button. Hover: border-blue/30, -translate-y-1. Skeleton loading state.
+- My Investments Tab: list of active investments with tier badge, large amount, progress bar (blue fill, green when completed), 4-column stats grid (Daily Return, Total Earned, Expected Return, Days Remaining). Completed badge in green. Days remaining calculated from endDate. Empty state with illustration and link to Plans tab.
+- History Tab: desktop table (6-col grid) + mobile card list, status badges (completed=green, failed=red, cancelled=gray), dates, duration. "Load More" pagination button. Empty state with clock illustration.
+- Invest Modal: overlay bg-black/70 backdrop-blur, modal card bg-[#0D1117] border-white/10 rounded-2xl, plan name + tier badge, daily rate, duration, styled $ amount input, quick amount buttons ($200/$1K/$5K/$10K filtered by plan range), live ROI preview (daily earning, duration, expected total return), error message area (red, no alert()), "Confirm Investment" blue gradient button with spinner, Cancel text button
+- Toast notification system: fixed top-right, slide-in from right animation, auto-dismiss 4s, success/error variants with Check/AlertCircle icons
+- All data fetching: GET /api/plans (no auth), GET /api/investments/active (Bearer), GET /api/investments/history?page&limit (Bearer), POST /api/investments with planId/amount/mode (Bearer)
+- Fallback plans array (4 plans: Basic/Silver/Gold/Platinum) if API fails
+- TypeScript interfaces: InvestmentPlan, ActiveInvestment, HistoryInvestment, Toast, Pagination
+- Features parsed with JSON.parse() in try/catch from plan.features string
+- Skeleton/shimmer loading states for all sections
+- Only safe lucide-react icons: DollarSign, BarChart3, TrendingUp, ChevronRight, Clock, Check, X, AlertCircle, Activity (no Send import)
+- Blue color scheme (#2563EB primary, #1D4ED8 hover, #60A5FA light, #93C5FD very light, #1E3A8A dark accent, bg #060A13). Zero purple.
+- ChatWidget included at bottom
+- Zero TypeScript errors in project context
+
+Stage Summary:
+- Investments page fully rebuilt with 3-tab layout, glass-morphism styling, and blue color scheme
+- All 4 API endpoints integrated with proper auth headers
+- Demo/Live mode toggle affects investment creation
+- Invest modal with live ROI preview and inline error handling (no alert())
+- Toast notification system for success/error feedback
+- Responsive design: mobile cards, desktop table, responsive grid for plans
+- Skeleton loading states throughout
+
+---
+Task ID: INV2
+Agent: general-purpose
+Task: Rebuild Market page with premium UI
+
+Work Log:
+- Complete rewrite of /home/z/my-project/src/app/(dashboard)/market/page.tsx
+- Replaced old purple-themed table-based layout with premium glass-morphism design
+- Added Market Indices Banner: horizontal scrollable row of 8 index cards (S&P 500, NASDAQ, Dow Jones, FTSE 100, Nikkei 225, Gold, Bitcoin, EUR/USD) with values, change amounts, percentages, and inline SVG sparkline charts (MiniSparkline component with gradient fill)
+- Green (#34D399) for positive changes, red (#F87171) for negative
+- Index cards: bg-white/3 border-white/10 rounded-xl with blue glow on hover, snap-x on mobile, hidden scrollbar
+- Built 2-column grid layout (lg:grid-cols-3, left column spans 2, right spans 1), stacks to single column on mobile
+- Left column: Deposit Rates section (Landmark icon) with 6 products — Interest Checking (0.50%), High-Yield Savings (4.75%, "Popular" blue badge), Money Market (5.10%), 6-Month CD (4.90%), 12-Month CD (5.25%), 24-Month CD (5.40%, "Best Rate" green badge); each row has product name, APY in large blue number, min deposit, visual rate bar (blue gradient, proportional width)
+- Left column: Lending Rates section (DollarSign icon) with 6 loan products — 30-Year Fixed (6.75%), 15-Year Fixed (6.25%), 5/1 ARM (6.50%), New Auto (5.99%), Used Auto (6.49%), Personal Loan (8.99%); same visual rate bar style
+- Right column: Exchange Rates section (Globe icon) with 8 currency pairs (EUR/USD, GBP/USD, USD/JPY, USD/CHF, USD/CAD, AUD/USD, USD/CNY, BTC/USD) showing flag emojis, buy/sell rates, spread calculation, compact card layout
+- Right column: Market Insights section (TrendingUp icon) with 5 news items — headline (line-clamp-2), time ago, sentiment badge (Bullish green, Bearish red, Neutral gray), source; compact cards with hover effects
+- RateBar component: horizontal bars with blue gradient fill (#1E3A8A → #2563EB → #60A5FA), width proportional to rate value
+- All sections use glass-morphism: bg-white/3 border-white/10 backdrop-blur rounded-xl
+- Section titles: flex items-center gap-2.5, icon in blue circle (bg-[#2563EB]/10), white text with subtitle
+- Disclaimer at bottom: "Market data is for informational purposes only..."
+- ChatWidget included at bottom
+- Only safe lucide-react icons: Landmark, DollarSign, Globe, TrendingUp, Bitcoin (no Send import)
+- Blue color scheme (#2563EB, #1D4ED8, #60A5FA, #93C5FD, #1E3A8A, bg #060A13). Zero purple.
+- Zero TypeScript errors, zero ESLint errors
+
+Stage Summary:
+- Market page fully rebuilt with premium glass-morphism UI and blue color scheme
+- Horizontal scrollable index banner with 8 indices and SVG sparkline charts
+- 2-column responsive layout: deposit/lending rates left, exchange/insights right
+- Visual rate bars with blue gradient proportional fills
+- ChatWidget integrated at bottom
+
+## [INV3] Fix POST /api/investments response to include plan data
+Date: $(date -u +%Y-%m-%dT%H:%M:%SZ)
+
+**Problem:** POST /api/investments returned the raw UserInvestment record without the related plan object. The client expected a nested `plan` field.
+
+**Fix:** Added `include: { plan: true }` to the `tx.userInvestment.create()` call in `/src/app/api/investments/route.ts` (line 107). The Prisma create now eagerly loads the related InvestmentPlan record and returns it in the response.
+
+**Purple color check:** None found — this is an API route file with no color references.
+

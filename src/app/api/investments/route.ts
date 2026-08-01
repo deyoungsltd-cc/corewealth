@@ -104,6 +104,7 @@ async function handler(request: NextRequest, _context: any, user: any) {
           startDate,
           endDate,
         },
+        include: { plan: true },
       });
 
       await tx.transaction.create({
