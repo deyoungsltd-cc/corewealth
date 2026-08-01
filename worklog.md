@@ -181,3 +181,60 @@ Work Log:
 Stage Summary:
 - New component: Globe3D.tsx — lightweight canvas 3D wireframe globe with auto-rotation, parallax, and connection arcs
 - Updated: HeroSection.tsx — visible banking photos, two-column desktop layout with globe, all-blue color scheme
+
+---
+Task ID: R1+R2
+Agent: general-purpose
+Task: Build rate ticker + app download section
+
+Work Log:
+- Created RateTicker.tsx: Thin h-10 bar with bg-[#0A0E1A] and border-white/5 bottom border, placed above navbar. CSS @keyframes ticker-scroll animation scrolling right-to-left seamlessly (duplicated items). 12 currency pairs (USD/EUR, USD/GBP, USD/JPY, USD/CHF, USD/CAD, USD/AUD, EUR/GBP, EUR/JPY, GBP/JPY, BTC/USD, ETH/USD, XAU/USD) with realistic 2026 rates. Green (#34D399) for positive, red (#F87171) for negative changes. Gradient fade masks on left/right edges. On mobile (<640px), change percentage is hidden. Pauses on hover.
+- Created AppDownloadSection.tsx: Two-column layout (phone mockup left, content right). Phone mockup built with pure CSS: rounded-[2.5rem] frame, notch, status bar (time/signal/battery), CoreWealth logo, blue gradient balance card ($12,450.00), 4 quick action icons, 3-item transactions list. Blue glow behind phone, 3D tilt on hover via CSS perspective transform. Right side: glass-morphism card (bg-white/3, border-white/5, backdrop-blur), "Mobile Banking" label, "Your Bank in Your Pocket" headline, description, 4 blue-check features, QR code (QRCodeSVG from qrcode.react) in white card, App Store + Google Play buttons with inline SVG logos. IntersectionObserver fade-in animation. id="app-download" for anchor linking.
+- Integrated RateTicker above Navbar in LandingPageClient.tsx (before ScrollProgress)
+- Integrated AppDownloadSection after TestimonialsSection (before CTASection) in home page flow
+- Added "Download App" link to Footer Products column linking to /#app-download
+- Zero TypeScript errors, zero ESLint errors
+
+Stage Summary:
+- RateTicker: Premium scrolling exchange rate bar at top of page with 12 pairs, CSS-only animation, gradient fade edges, responsive
+- AppDownloadSection: Full phone mockup with dashboard UI, QR code, store buttons, glass-morphism content card, scroll-triggered animation
+- Both components integrated into landing page and footer
+- Blue color scheme maintained (#2563EB primary), no purple, no Send import
+
+---
+Task ID: R3+R5
+Agent: general-purpose
+Task: Build video testimonials section + animated onboarding walkthrough
+
+Work Log:
+- Created VideoTestimonialsSection.tsx: Premium video testimonial section with heading "What Our Clients Say" + subtitle, 3-column responsive grid (1 on mobile, 3 on desktop). Each card has: fake video player UI with dark gradient background (from-[#0A0E1A] to-[#111827]), 16:9 aspect ratio, centered blue play button (w-16 h-16, bg-[#2563EB], white triangle, hover scale), click toggles to animated waveform visualization (8 bars with CSS keyframe animation). Below video: blue avatar circle with initials, client name/title, 5-star gold rating (inline SVG stars with drop-shadow glow), quote text, location with map pin SVG. Cards: bg-white/3, border-white/5, rounded-2xl, hover translateY(-4px) + blue border glow. IntersectionObserver scroll-triggered fade-in with staggered delays. Bottom decorative row: 4 client avatars + "Join 150,000+ satisfied clients worldwide".
+- Created OnboardingWalkthrough.tsx: 3-screen post-login onboarding overlay, localStorage check for 'corewealth_onboarded' key (shows only on first login). Screen 0 (Welcome): Blue shield+check SVG in gradient circle, geometric shapes background, headline + subtitle. Screen 1 (Key Features): 2x2 grid with 4 feature icons from lucide-react (ArrowRightLeft, CreditCard, Bitcoin, QrCode) in blue gradient circles, headline + subtitle. Screen 2 (Get Started): Large checkmark circle, headline + subtitle, "Complete Verification" button (routes to /kyc) + "Skip for Now" ghost button. Navigation: dot indicators (active dot wider, blue), Next/Back buttons on screens 0-1, Skip link top-right on screens 0-1. Full-screen overlay (bg-black/80, backdrop-blur-sm), glass-morphism card (rounded-3xl, border-white/10, bg-[#0B1120]/95, backdrop-blur-xl), smooth 300ms slide/fade transitions.
+- Integrated VideoTestimonialsSection into LandingPageClient.tsx after AppDownloadSection (before CTASection) on home page.
+- Integrated OnboardingWalkthrough into dashboard layout.tsx after PWAInstallPrompt (inside DashboardErrorBoundary wrapper).
+- Zero TypeScript errors, zero ESLint errors
+- Blue color scheme (#2563EB primary, #1D4ED8 hover, #60A5FA light, #1E3A8A dark, bg #060A13), no purple, no Send import
+
+Stage Summary:
+- VideoTestimonialsSection: 3 video testimonial cards with fake player UI, waveform animation, gold star ratings, scroll-triggered fade-in, hover lift effect
+- OnboardingWalkthrough: 3-screen onboarding overlay with localStorage persistence, lucide-react feature icons, slide transitions, dot navigation, KYC CTA
+- Both components integrated into their respective layouts (landing page + dashboard)
+
+---
+Task ID: R4
+Agent: general-purpose
+Task: Add micro-interactions to dashboard cards
+
+Work Log:
+- Added 3D tilt effect to swipeable balance cards: mouse-tracking perspective(800px) rotateX/rotateY transform (max 6°), shine/glare radial gradient overlay following cursor, smooth 0.1s ease-out transition during tilt and 0.4s on leave for flat reset, pointerType==='mouse' guard for desktop-only activation
+- Added pulse glow animation to active/selected balance card: CSS @keyframes cw-pulse-glow pulses box-shadow between rgba(37,99,235,0.2) and rgba(37,99,235,0.4) over 3s infinite ease-in-out, only when card is active and not being tilted
+- Added ripple effect to all 6 quick action icon buttons: onClick creates expanding circle span (scale 0→4, opacity 0.5→0) with rgba(37,99,235,0.3) color, 0.6s CSS animation, DOM cleanup after 650ms, overflow-hidden on icon containers
+- Added staggered fade-in+slide-up animation to recent transaction rows: each row fades in with 50ms delay after previous (cw-fade-slide-up keyframe, opacity 0→1, translateY 10px→0), triggered 150ms after transactions load via useEffect + setTimeout
+- Added `<style>` tag with 3 @keyframes (cw-ripple-anim, cw-fade-slide-up, cw-pulse-glow)
+- Removed purple hover shadow from balance cards (replaced with inline blue glow on active card)
+- Scroll-snap behavior, existing data fetching, show/hide balance toggle, and all other features preserved
+- Zero TypeScript errors
+
+Stage Summary:
+- 4 micro-interactions added to dashboard: 3D card tilt with shine, active card pulse glow, quick action ripple, transaction stagger fade-in
+- All interactions use blue color scheme (#2563EB), no purple, no Send import
+- Desktop-only tilt (pointerType check), smooth transitions, DOM cleanup for ripples
