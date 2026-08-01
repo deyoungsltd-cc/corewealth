@@ -7,10 +7,10 @@ import ChatWidget from '@/components/ChatWidget';
 // prefer the API response so that admins can disable plans and have them
 // disappear from the UI in real time.
 const FALLBACK_PLANS = [
-  { id: 'basic',    name: 'Basic',    badge: 'STARTER',  badgeColor: 'bg-gray-600',   min: 200,   max: 4999,   daily: 0.5, duration: 30, model: 'Starter', image: '
-  { id: 'silver',   name: 'Silver',   badge: 'POPULAR',  badgeColor: 'bg-[#7C3AED]',  min: 5000,  max: 9999,   daily: 0.8, duration: 21, model: 'Platinum', image: '
-  { id: 'gold',     name: 'Gold',     badge: 'PREMIUM',  badgeColor: 'bg-amber-600',  min: 10000, max: 49999,  daily: 1.2, duration: 14, model: 'Silver', image: '
-  { id: 'platinum', name: 'Platinum', badge: 'ELITE',    badgeColor: 'bg-purple-600', min: 50000, max: 100000, daily: 1.8, duration: 7,  model: 'Gold', image: '
+  { id: 'basic',    name: 'Basic',    badge: 'STARTER',  badgeColor: 'bg-gray-600',   min: 200,   max: 4999,   daily: 0.5, duration: 30, model: 'Starter', image: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=600&h=400&fit=crop' },
+  { id: 'silver',   name: 'Silver',   badge: 'POPULAR',  badgeColor: 'bg-[#7C3AED]',  min: 5000,  max: 9999,   daily: 0.8, duration: 21, model: 'Platinum', image: 'https://images.unsplash.com/photo-1560472355-536de3962603?w=600&h=400&fit=crop' },
+  { id: 'gold',     name: 'Gold',     badge: 'PREMIUM',  badgeColor: 'bg-amber-600',  min: 10000, max: 49999,  daily: 1.2, duration: 14, model: 'Silver', image: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&h=400&fit=crop' },
+  { id: 'platinum', name: 'Platinum', badge: 'ELITE',    badgeColor: 'bg-purple-600', min: 50000, max: 100000, daily: 1.8, duration: 7,  model: 'Gold', image: 'https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=600&h=400&fit=crop' },
 ];
 
 interface ActiveInvestment {
@@ -73,7 +73,7 @@ export default function InvestmentsPage() {
             daily: Number(p.dailyReturnRate),
             duration: p.duration,
             model: fallback?.model ?? 'CoreWealth',
-            image: fallback?.image ?? '
+            image: fallback?.image ?? 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=600&h=400&fit=crop',
           };
         });
         setPlans(mapped);
@@ -128,12 +128,32 @@ export default function InvestmentsPage() {
     }
   };
 
+  const totalInvested = activeInvestments.reduce((sum, inv) => sum + Number(inv.amount || 0), 0);
+
   return (
     <div className="space-y-5">
       <div>
         <h2 className="text-white font-bold text-lg">Investment Plans</h2>
         <p className="text-gray-500 text-sm mt-0.5">Choose a plan and start earning daily returns</p>
       </div>
+
+      {/* Portfolio Summary */}
+      {totalInvested > 0 && (
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          <div className="bg-card border border-border rounded-xl p-4">
+            <p className="text-gray-500 text-xs">Total Invested</p>
+            <p className="text-white font-bold text-lg mt-1">${totalInvested.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+          </div>
+          <div className="bg-card border border-border rounded-xl p-4">
+            <p className="text-gray-500 text-xs">Active Plans</p>
+            <p className="text-white font-bold text-lg mt-1">{activeInvestments.length}</p>
+          </div>
+          <div className="bg-card border border-border rounded-xl p-4 col-span-2 sm:col-span-1">
+            <p className="text-gray-500 text-xs">Total Returns</p>
+            <p className="text-green-400 font-bold text-lg mt-1">+${activeInvestments.reduce((s, i) => s + Number(i.totalReturn || 0), 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+          </div>
+        </div>
+      )}
 
       {/* Active Investments Section */}
       <div className="bg-card border border-border rounded-xl p-4 sm:p-5">
@@ -246,28 +266,40 @@ export default function InvestmentsPage() {
         )}
       </div>
 
-      {/* Active Trade Chart (Live indicator) */}
-      <
-        investedAmount={activeInvestments.reduce((sum, inv) => sum + Number(inv.amount || 0), 0)}
-      />
-
-      <div className="bg-card border border-border rounded-xl overflow-hidden !p-0">
-        <div className="px-4 py-2.5 border-b border-border flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-            <span className="text-white font-bold text-sm">BINANCE:BTCUSDT</span>
-            <span className="text-gray-500 text-xs">Live</span>
+      {/* Market Overview Card */}
+      <div className="bg-card border border-border rounded-xl p-4">
+        <div className="flex items-center gap-2 mb-3">
+          <svg className="w-4 h-4 text-[#7C3AED]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+          </svg>
+          <h3 className="text-white font-semibold text-sm">Market Overview</h3>
+          <span className="text-gray-500 text-xs ml-auto">Updated daily</span>
+        </div>
+        <div className="grid grid-cols-2 gap-3">
+          <div className="bg-[#1a1a1a] rounded-lg p-3">
+            <p className="text-gray-500 text-[10px]">S&P 500</p>
+            <p className="text-white font-bold text-sm">5,432.18</p>
+            <p className="text-green-400 text-[10px]">+1.24%</p>
+          </div>
+          <div className="bg-[#1a1a1a] rounded-lg p-3">
+            <p className="text-gray-500 text-[10px]">US 10Y Treasury</p>
+            <p className="text-white font-bold text-sm">4.28%</p>
+            <p className="text-red-400 text-[10px]">-0.03</p>
+          </div>
+          <div className="bg-[#1a1a1a] rounded-lg p-3">
+            <p className="text-gray-500 text-[10px]">Gold (XAU)</p>
+            <p className="text-white font-bold text-sm">$2,384.50</p>
+            <p className="text-green-400 text-[10px]">+0.67%</p>
+          </div>
+          <div className="bg-[#1a1a1a] rounded-lg p-3">
+            <p className="text-gray-500 text-[10px]">EUR/USD</p>
+            <p className="text-white font-bold text-sm">1.0847</p>
+            <p className="text-gray-400 text-[10px]">+0.01%</p>
           </div>
         </div>
-        {/* removed */}
       </div>
 
-      {/* Investment Correlation Chart */}
-      < />
-
-      {/* How to Invest 3D Slideshow */}
-      < />
-
+      {/* Investment Plans Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {plans.map((plan, i) => (
           <div key={i} className="bg-card border border-border rounded-xl overflow-hidden hover:border-[#7C3AED]/40 transition-colors">
