@@ -1,187 +1,167 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import Link from 'next/link'
-import { useAuthStore } from '@/store/useAuthStore'
+import { useState, useEffect } from 'react';
+import ChatWidget from '@/components/ChatWidget';
 
-interface AccountCard {
-  id: string
-  label: string
-  number: string
-  balance: number
-  gradientFrom: string
-  gradientTo: string
-}
+interface Wallet { id: string; type: string; balance: number; availableBalance: number; }
+interface Beneficiary { id: string; name: string; bankName: string; accountNumber: string; country: string; };
 
-const accounts: AccountCard[] = [
-  {
-    id: 'checking',
-    label: 'From',
-    number: 'Checking ****7890',
-    balance: 280645.0,
-    gradientFrom: '#3B82F6',
-    gradientTo: '#60A5FA',
-  },
-  {
-    id: 'savings',
-    label: 'To',
-    number: 'Savings ****4521',
-    balance: 45230.5,
-    gradientFrom: '#3B82F6',
-    gradientTo: '#60A5FA',
-  },
-]
+const TABS = ['Internal', 'Local', 'International'] as const;
+type Tab = typeof TABS[number];
 
-export default function InternalTransferPage() {
-  const user = useAuthStore((state) => state.user)
-  const [selectedFrom, setSelectedFrom] = useState('checking')
-  const [selectedTo, setSelectedTo] = useState('savings')
-  const [amount, setAmount] = useState('')
+const CURRENCIES = ['USD', 'EUR', 'GBP', 'CAD', 'AUD', 'CHF', 'JPY'];
+const PURPOSES = ['Family Support', 'Business Payment', 'Education', 'Medical', 'Investment', 'Gift', 'Other'];
 
-  const toggleFromTo = () => {
-    const tempFrom = selectedFrom
-    const tempTo = selectedTo
-    setSelectedFrom(tempTo)
-    setSelectedTo(tempFrom)
-  }
+export default function TransferPage() {
+  const [tab, setTab] = useState<Tab>('Internal');
+  const [wallets, setWallets] = useState<Wallet[]>([]);
+  const [beneficiaries, setBeneficiaries] = useState<Beneficiary[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState('');
+  const [error, setError] = useState('');
+
+  // Internal transfer state
+  const [fromWallet, setFromWallet] = useState('');
+  const [toWallet, setToWallet] = useState('');
+  const [intAmount, setIntAmount] = useState('');
+
+  // Local transfer state
+  const [localBeneficiary, setLocalBeneficiary] = useState('');
+  const [localAmount, setLocalAmount] = useState('');
+  const [localNote, setLocalNote] = useState('');
+
+  // International transfer state
+  const [intnlBeneficiary, setIntnlBeneficiary] = useState('');
+  const [intnlAmount, setIntnlAmount] = useState('');
+  const [intnlCurrency, setIntnlCurrency] = useState('USD');
+  const [intnlPurpose, setIntnlPurpose] = useState('');
+  const [intnlSwift, setIntnlSwift] = useState('');
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+    fetch('/api/wallet', { headers: { Authorization: `Bearer ${token}` } })
+      .then(r => r.json()).then(d => { if (d.success) setWallets(d.data?.wallets || []); }).catch(() => {});
+    fetch('/api/beneficiaries', { headers: { Authorization: `Bearer ${token}` } })
+      .then(r => r.json()).then(d => { if (d.success) setBeneficiaries(d.data || []); }).catch(() => {});
+  }, []);
+
+  const submitInternal = async () => {
+    setError(''); setSuccess('');
+    if (!fromWallet || !toWallet || !intAmount || parseFloat(intAmount) <= 0) { setError('Fill all fields'); return; }
+    if (fromWallet === toWallet) { setError('Source and destination must differ'); return; }
+    setLoading(true);
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch('/api/transfers', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify({ fromWalletId: fromWallet, toWalletId: toWallet, amount: parseFloat(intAmount), type: 'internal' }) });
+      const data = await res.json();
+      if (data.success) { setSuccess('Transfer completed successfully!'); setIntAmount(''); }
+      else setError(data.error?.message || 'Transfer failed');
+    } catch { setError('Network error'); } finally { setLoading(false); }
+  };
+
+  const submitLocal = async () => {
+    setError(''); setSuccess('');
+    if (!localBeneficiary || !localAmount || parseFloat(localAmount) <= 0) { setError('Select beneficiary and enter amount'); return; }
+    setLoading(true);
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch('/api/transfers', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify({ beneficiaryId: localBeneficiary, amount: parseFloat(localAmount), note: localNote, type: 'local' }) });
+      const data = await res.json();
+      if (data.success) { setSuccess('Local transfer initiated!'); setLocalAmount(''); setLocalNote(''); }
+      else setError(data.error?.message || 'Transfer failed');
+    } catch { setError('Network error'); } finally { setLoading(false); }
+  };
+
+  const submitInternational = async () => {
+    setError(''); setSuccess('');
+    if (!intnlBeneficiary || !intnlAmount || !intnlPurpose || !intnlSwift) { setError('Fill all required fields'); return; }
+    setLoading(true);
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch('/api/transfers', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify({ beneficiaryId: intnlBeneficiary, amount: parseFloat(intnlAmount), currency: intnlCurrency, purpose: intnlPurpose, swiftCode: intnlSwift, type: 'international' }) });
+      const data = await res.json();
+      if (data.success) { setSuccess('International transfer submitted!'); setIntnlAmount(''); setIntnlSwift(''); setIntnlPurpose(''); }
+      else setError(data.error?.message || 'Transfer failed');
+    } catch { setError('Network error'); } finally { setLoading(false); }
+  };
+
+  const inputCls = 'w-full bg-[#1a1a1a] border border-border rounded-lg px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED] transition-colors';
+  const selectCls = 'w-full bg-[#1a1a1a] border border-border rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-[#7C3AED] transition-colors appearance-none';
 
   return (
-    <div className="min-h-screen bg-[#0F0F1A] px-4 py-6 pb-24">
-      {/* Header */}
-      <div className="flex items-center gap-3 mb-2">
-        <Link
-          href="/dashboard"
-          className="flex items-center justify-center w-10 h-10 rounded-xl bg-[#16162A] border border-white/[0.04] hover:border-white/[0.08] transition-colors"
-        >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F1F5F9" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
-        </Link>
-        <h1 className="text-[#F1F5F9] text-xl font-bold">Internal Transfer</h1>
+    <div className="space-y-5">
+      {/* Tabs */}
+      <div className="flex gap-1 p-1 bg-white/5 rounded-xl">
+        {TABS.map(t => (
+          <button key={t} onClick={() => { setTab(t); setError(''); setSuccess(''); }} className={`flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all ${tab === t ? 'bg-[#7C3AED] text-white shadow-[0_2px_12px_rgba(124,58,237,0.4)]' : 'text-gray-400 hover:text-white'}`}>{t}</button>
+        ))}
       </div>
 
-      {/* Subtitle */}
-      <p className="text-[#9CA3AF] text-sm mb-6 ml-[52px]">
-        Transfer between your accounts
-      </p>
+      {error && <div className="bg-red-900/30 border border-red-800/50 text-red-400 text-sm rounded-lg px-4 py-3">{error}</div>}
+      {success && <div className="bg-green-900/30 border border-green-800/50 text-green-400 text-sm rounded-lg px-4 py-3">{success}</div>}
 
-      {/* Account Selector Cards */}
-      <div className="space-y-3 mb-6">
-        {accounts.map((account) => {
-          const isSelected =
-            account.id === selectedFrom || account.id === selectedTo
-          const role = account.id === selectedFrom ? 'From' : 'To'
-
-          return (
-            <div
-              key={account.id}
-              onClick={() => {
-                // Toggle selection logic
-                if (account.id === selectedFrom) return
-                setSelectedFrom(account.id)
-                setSelectedTo(selectedFrom)
-              }}
-              className={`bg-[#16162A] rounded-xl p-4 cursor-pointer border-2 transition-all duration-200 ${
-                isSelected
-                  ? account.id === 'checking'
-                    ? 'border-[#3B82F6]/60'
-                    : 'border-[#3B82F6]/60'
-                  : 'border-transparent hover:border-white/[0.1]'
-              }`}
-              style={{
-                borderLeft: `4px solid`,
-                borderLeftColor: account.gradientFrom,
-              }}
-            >
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
-                    style={{
-                      background: `linear-gradient(135deg, ${account.gradientFrom}20, ${account.gradientTo}20)`,
-                    }}
-                  >
-                    {account.id === 'checking' ? (
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={account.gradientFrom} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <rect x="2" y="5" width="20" height="14" rx="2" />
-                        <line x1="2" y1="10" x2="22" y2="10" />
-                      </svg>
-                    ) : (
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={account.gradientFrom} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-                        <circle cx="12" cy="7" r="4" />
-                        <line x1="12" y1="11" x2="12" y2="17" />
-                        <line x1="9" y1="14" x2="15" y2="14" />
-                      </svg>
-                    )}
-                  </div>
-                  <div>
-                    <p className="text-[#6B7280] text-xs font-medium">{role}</p>
-                    <p className="text-[#F1F5F9] text-sm font-bold">{account.number}</p>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <p className="text-[#F1F5F9] text-sm font-bold">
-                    ${account.balance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                  </p>
-                  {isSelected && (
-                    <div className="flex items-center justify-end gap-1 mt-0.5">
-                      <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: account.gradientFrom }} />
-                      <span className="text-[10px] font-medium" style={{ color: account.gradientFrom }}>Selected</span>
-                    </div>
-                  )}
-                </div>
-              </div>
+      {/* INTERNAL TRANSFER */}
+      {tab === 'Internal' && (
+        <div className="bg-card border border-border rounded-xl p-5 space-y-4">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-10 h-10 rounded-lg bg-[#7C3AED]/10 flex items-center justify-center">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
             </div>
-          )
-        })}
-      </div>
-
-      {/* Swap Button */}
-      <div className="flex justify-center -my-2 mb-4 relative z-10">
-        <button
-          onClick={toggleFromTo}
-          className="w-10 h-10 rounded-full bg-[#16162A] border border-white/[0.08] flex items-center justify-center hover:border-[#3B82F6]/40 hover:bg-[#3B82F6]/10 transition-all duration-200 group"
-        >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B7280" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:stroke-[#3B82F6] transition-colors">
-            <polyline points="7 16 3 12 7 8" />
-            <polyline points="17 8 21 12 17 16" />
-            <line x1="3" y1="12" x2="21" y2="12" />
-          </svg>
-        </button>
-      </div>
-
-      {/* Amount Card */}
-      <div className="bg-[#16162A] border border-white/[0.04] rounded-xl p-6 space-y-5">
-        <div>
-          <label className="text-[#6B7280] text-xs font-medium mb-1.5 block">Amount to Transfer</label>
-          <div className="relative">
-            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#6B7280] text-sm font-medium">$</span>
-            <input
-              type="number"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-              placeholder="0.00"
-              className="bg-[#0F0F1A] border border-white/[0.06] rounded-xl pl-8 pr-4 py-3 text-[#F1F5F9] text-sm w-full outline-none focus:border-[#3B82F6] transition-colors placeholder-[#4B5563]"
-            />
+            <div><h3 className="text-white font-semibold text-sm">Internal Transfer</h3><p className="text-gray-500 text-xs">Free instant transfers between your accounts</p></div>
           </div>
-        </div>
-
-        {/* Transfer Button */}
-        <button className="w-full bg-[#3B82F6] hover:bg-[#2563EB] text-white font-semibold text-sm rounded-xl py-3.5 transition-colors">
-          Transfer Now
-        </button>
-
-        {/* Fee note */}
-        <div className="flex items-center justify-center gap-2">
-          <div className="flex items-center gap-1.5">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22C55E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="20 6 9 17 4 12" />
-            </svg>
-            <span className="text-[#22C55E] text-xs font-medium">Free instant transfers between your CoreWealth accounts</span>
+          <div className="grid grid-cols-2 gap-3">
+            <div><label className="block text-gray-300 text-sm font-medium mb-1.5">From</label>
+              <select value={fromWallet} onChange={e => setFromWallet(e.target.value)} className={selectCls}><option value="">Select account</option>{wallets.map(w => <option key={w.id} value={w.id}>{w.type === 'live' ? 'Checking' : 'Savings'} — ${w.balance.toLocaleString()}</option>)}</select></div>
+            <div><label className="block text-gray-300 text-sm font-medium mb-1.5">To</label>
+              <select value={toWallet} onChange={e => setToWallet(e.target.value)} className={selectCls}><option value="">Select account</option>{wallets.map(w => <option key={w.id} value={w.id}>{w.type === 'live' ? 'Checking' : 'Savings'} — ${w.balance.toLocaleString()}</option>)}</select></div>
           </div>
+          <div><label className="block text-gray-300 text-sm font-medium mb-1.5">Amount (USD)</label><div className="relative"><span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-sm">$</span><input type="number" value={intAmount} onChange={e => setIntAmount(e.target.value)} placeholder="0.00" className={inputCls + ' pl-8'} /></div></div>
+          <button onClick={submitInternal} disabled={loading} className="w-full bg-[#7C3AED] hover:bg-[#6D28D9] disabled:opacity-50 text-white font-semibold py-3 rounded-lg transition-colors text-sm">{loading ? 'Processing...' : 'Transfer Now'}</button>
         </div>
-      </div>
+      )}
+
+      {/* LOCAL TRANSFER */}
+      {tab === 'Local' && (
+        <div className="bg-card border border-border rounded-xl p-5 space-y-4">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-10 h-10 rounded-lg bg-[#7C3AED]/10 flex items-center justify-center">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18"/><path d="M3 7v1a3 3 0 0 0 6 0V7"/><path d="M9 7v1a3 3 0 0 0 6 0V7"/><path d="M15 7v1a3 3 0 0 0 6 0V7"/><path d="M3 7h18l-1.5-4H4.5L3 7z"/></svg>
+            </div>
+            <div><h3 className="text-white font-semibold text-sm">Local Transfer</h3><p className="text-gray-500 text-xs">Send to a saved beneficiary</p></div>
+          </div>
+          <div><label className="block text-gray-300 text-sm font-medium mb-1.5">Beneficiary</label>
+            <select value={localBeneficiary} onChange={e => setLocalBeneficiary(e.target.value)} className={selectCls}><option value="">Select beneficiary</option>{beneficiaries.map(b => <option key={b.id} value={b.id}>{b.name} — {b.bankName} (****{b.accountNumber?.slice(-4)})</option>)}</select>
+            {beneficiaries.length === 0 && <p className="text-gray-600 text-xs mt-1.5">No beneficiaries yet. <a href="/beneficiaries" className="text-[#A78BFA] hover:underline">Add one first</a></p>}</div>
+          <div><label className="block text-gray-300 text-sm font-medium mb-1.5">Amount (USD)</label><div className="relative"><span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-sm">$</span><input type="number" value={localAmount} onChange={e => setLocalAmount(e.target.value)} placeholder="0.00" className={inputCls + ' pl-8'} /></div></div>
+          <div><label className="block text-gray-300 text-sm font-medium mb-1.5">Note (optional)</label><input type="text" value={localNote} onChange={e => setLocalNote(e.target.value)} placeholder="Payment reference" className={inputCls} /></div>
+          <button onClick={submitLocal} disabled={loading} className="w-full bg-[#7C3AED] hover:bg-[#6D28D9] disabled:opacity-50 text-white font-semibold py-3 rounded-lg transition-colors text-sm">{loading ? 'Processing...' : 'Send Transfer'}</button>
+        </div>
+      )}
+
+      {/* INTERNATIONAL TRANSFER */}
+      {tab === 'International' && (
+        <div className="bg-card border border-border rounded-xl p-5 space-y-4">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-10 h-10 rounded-lg bg-[#7C3AED]/10 flex items-center justify-center">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/></svg>
+            </div>
+            <div><h3 className="text-white font-semibold text-sm">International Wire Transfer</h3><p className="text-gray-500 text-xs">Send money worldwide</p></div>
+          </div>
+          <div><label className="block text-gray-300 text-sm font-medium mb-1.5">Beneficiary</label>
+            <select value={intnlBeneficiary} onChange={e => setIntnlBeneficiary(e.target.value)} className={selectCls}><option value="">Select beneficiary</option>{beneficiaries.map(b => <option key={b.id} value={b.id}>{b.name} — {b.country || 'N/A'} (****{b.accountNumber?.slice(-4)})</option>)}</select></div>
+          <div className="grid grid-cols-2 gap-3">
+            <div><label className="block text-gray-300 text-sm font-medium mb-1.5">Amount (USD)</label><div className="relative"><span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-sm">$</span><input type="number" value={intnlAmount} onChange={e => setIntnlAmount(e.target.value)} placeholder="0.00" className={inputCls + ' pl-8'} /></div></div>
+            <div><label className="block text-gray-300 text-sm font-medium mb-1.5">Currency</label><select value={intnlCurrency} onChange={e => setIntnlCurrency(e.target.value)} className={selectCls}>{CURRENCIES.map(c => <option key={c} value={c}>{c}</option>)}</select></div>
+          </div>
+          <div><label className="block text-gray-300 text-sm font-medium mb-1.5">Purpose of Transfer</label><select value={intnlPurpose} onChange={e => setIntnlPurpose(e.target.value)} className={selectCls}><option value="">Select purpose</option>{PURPOSES.map(p => <option key={p} value={p}>{p}</option>)}</select></div>
+          <div><label className="block text-gray-300 text-sm font-medium mb-1.5">SWIFT/BIC Code</label><input type="text" value={intnlSwift} onChange={e => setIntnlSwift(e.target.value)} placeholder="e.g. CHASUS33" className={inputCls} /></div>
+          <div className="bg-[#111] border border-border rounded-lg p-3 space-y-1.5"><div className="flex justify-between text-sm"><span className="text-gray-500">Transfer fee</span><span className="text-white">$25.00</span></div><div className="flex justify-between text-sm"><span className="text-gray-500">Exchange rate</span><span className="text-white">1.00 {intnlCurrency}</span></div></div>
+          <button onClick={submitInternational} disabled={loading} className="w-full bg-[#7C3AED] hover:bg-[#6D28D9] disabled:opacity-50 text-white font-semibold py-3 rounded-lg transition-colors text-sm">{loading ? 'Processing...' : 'Send International Transfer'}</button>
+        </div>
+      )}
+
+      <ChatWidget />
     </div>
-  )
+  );
 }

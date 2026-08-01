@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import CoreWealthLogo from '@/components/CoreWealthLogo';
 import TurnstileWidget from '@/components/TurnstileWidget';
+import { useAuthStore } from '@/store/useAuthStore';
 
 function getPasswordStrength(pw: string): { level: number; label: string; color: string } {
   let score = 0;
@@ -25,12 +26,12 @@ function getPasswordStrength(pw: string): { level: number; label: string; color:
 
 export default function RegisterPage() {
   const router = useRouter();
+  const { setAuth } = useAuthStore();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [form, setForm] = useState({ firstName: '', lastName: '', email: '', password: '', confirmPassword: '', referralCode: '', terms: false });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
 
@@ -79,8 +80,10 @@ export default function RegisterPage() {
         }),
       });
       const data = await res.json();
-      if (res.ok) {
-        setSuccess(true);
+      if (res.ok && data.data?.token) {
+        localStorage.setItem('token', data.data.token);
+        setAuth(data.data.user, data.data.token);
+        router.push('/dashboard');
       } else {
         if (data.error?.code === 'EMAIL_EXISTS') setError('This email is already registered. Please sign in.');
         else if (data.error?.code === 'INVALID_REFERRAL_CODE') setError('Invalid referral code.');
@@ -93,38 +96,9 @@ export default function RegisterPage() {
   const inputCls = (field?: string) =>
     `w-full bg-white/5 border ${field && fieldErrors[field] ? 'border-red-500/80' : 'border-white/10'} rounded-xl px-4 py-3.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#7C3AED]/60 focus:ring-1 focus:ring-[#7C3AED]/20 transition-all duration-200`;
 
-  // ── SUCCESS SCREEN ──
-  if (success) {
-    return (
-      <div className="min-h-screen bg-[#060A13] flex items-center justify-center px-6">
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-green-500/5 rounded-full blur-[150px]" />
-        </div>
-        <div className="max-w-md w-full text-center relative z-10 animate-fade-in-up">
-          <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center">
-            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#22C55E" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
-          </div>
-          <CoreWealthLogo className="h-10 mx-auto mb-5" />
-          <h1 className="text-3xl font-bold text-white mb-3">Account Created</h1>
-          <p className="text-gray-400 text-base leading-relaxed mb-8">
-            Welcome to CoreWealth Bank, {form.firstName}! Your account is ready. Sign in to explore your dashboard, apply for cards, and start banking.
-          </p>
-          <Link
-            href="/login"
-            className="inline-block w-full bg-gradient-to-r from-[#7C3AED] to-[#6D28D9] hover:from-[#6D28D9] hover:to-[#5B21B6] text-white font-semibold py-3.5 rounded-xl transition-all duration-200 text-sm shadow-[0_4px_20px_rgba(124,58,237,0.3)] hover:shadow-[0_6px_30px_rgba(124,58,237,0.4)]"
-          >
-            Go to Sign In
-          </Link>
-          <p className="text-gray-600 text-xs mt-6">&copy; {new Date().getFullYear()} CoreWealth Bank. All rights reserved.</p>
-        </div>
-      </div>
-    );
-  }
-
-  // ── REGISTRATION FORM ──
   return (
     <div className="min-h-screen bg-[#060A13] flex">
-      {/* Left panel — branding (hidden on mobile) */}
+      {/* Left panel — branding */}
       <div className="hidden lg:flex lg:w-[55%] relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-[#7C3AED]/20 via-[#060A13] to-[#6D28D9]/10" />
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#7C3AED]/8 rounded-full blur-[120px]" />

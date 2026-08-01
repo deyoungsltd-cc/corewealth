@@ -1,125 +1,54 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import Link from 'next/link'
-import { useAuthStore } from '@/store/useAuthStore'
+import { useState, useEffect } from 'react';
+import ChatWidget from '@/components/ChatWidget';
 
-const dateRanges = ['This Month', 'Last 3 Months', 'This Year'] as const
-
-type DateRange = (typeof dateRanges)[number]
-
-const summaryCards = [
-  { label: 'Opening Balance', value: '$44,890.00' },
-  { label: 'Total Credits', value: '$2,450.00' },
-  { label: 'Closing Balance', value: '$45,230.50' },
-]
-
-const transactions = [
-  { description: 'Interest Credit', amount: '+$42.50', date: 'Jul 31', type: 'credit' as const },
-  { description: 'Deposit', amount: '+$1,000.00', date: 'Jul 28', type: 'credit' as const },
-  { description: 'Interest Credit', amount: '+$38.20', date: 'Jun 30', type: 'credit' as const },
-  { description: 'Withdrawal', amount: '-$250.00', date: 'Jun 15', type: 'debit' as const },
-  { description: 'Interest Credit', amount: '+$620.30', date: 'May 31', type: 'credit' as const },
-]
-
-function CreditIcon() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="10" cy="10" r="10" fill="#22C55E" fill-opacity="0.15" />
-      <path d="M10 5.5V14.5M6 9.5L10 5.5L14 9.5" stroke="#22C55E" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  )
-}
-
-function DebitIcon() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="10" cy="10" r="10" fill="#EF4444" fill-opacity="0.15" />
-      <path d="M10 14.5V5.5M6 10.5L10 14.5L14 10.5" stroke="#EF4444" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  )
-}
+interface Transaction { id: string; type: string; amount: number; status: string; description?: string; createdAt: string; }
 
 export default function SavingsStatementPage() {
-  const [dateRange, setDateRange] = useState<DateRange>('This Month')
-  useAuthStore((s) => s.user)
+  const [txns, setTxns] = useState<Transaction[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [from, setFrom] = useState('');
+  const [to, setTo] = useState('');
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+    fetch('/api/wallet/transactions', { headers: { Authorization: `Bearer ${token}` } })
+      .then(r => r.json()).then(d => { setTxns(d.data?.transactions || d.data || []); setLoading(false); }).catch(() => setLoading(false));
+  }, []);
+
+  const filtered = txns.filter(t => {
+    if (from && new Date(t.createdAt) < new Date(from)) return false;
+    if (to && new Date(t.createdAt) > new Date(to + 'T23:59:59')) return false;
+    return true;
+  });
+
+  const totalCredits = filtered.filter(t => t.type === 'credit' || t.type === 'deposit').reduce((s, t) => s + t.amount, 0);
+  const totalDebits = filtered.filter(t => t.type === 'debit' || t.type === 'withdrawal').reduce((s, t) => s + t.amount, 0);
+  const statusBadge = (s: string) => {
+    const m: Record<string, string> = { confirmed: 'bg-green-900/30 text-green-400', completed: 'bg-green-900/30 text-green-400', pending: 'bg-yellow-900/30 text-yellow-400' };
+    return <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${m[s] || 'bg-gray-700/50 text-gray-400'}`}>{s}</span>;
+  };
 
   return (
-    <main className="min-h-screen bg-[#0F0F1A] px-4 py-6 md:px-8 lg:px-16">
-      {/* Header */}
-      <header className="flex items-center gap-4 mb-8">
-        <Link
-          href="/dashboard"
-          className="flex items-center justify-center w-10 h-10 rounded-xl bg-[#16162A] border border-white/[0.04] hover:bg-white/[0.06] transition-colors"
-          aria-label="Back to Dashboard"
-        >
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M11 4L7 9L11 14" stroke="#9CA3AF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </Link>
-        <div>
-          <h1 className="text-[#F1F5F9] font-bold text-xl md:text-2xl">Savings Statement</h1>
-          <p className="text-[#6B7280] text-sm mt-0.5">Savings Account ****4521</p>
-        </div>
-      </header>
-
-      {/* Date Range Filter */}
-      <div className="flex gap-2 mb-6">
-        {dateRanges.map((range) => (
-          <button
-            key={range}
-            onClick={() => setDateRange(range)}
-            className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors ${
-              dateRange === range
-                ? 'bg-[#3B82F6] text-white'
-                : 'bg-[#16162A] border border-white/[0.04] text-[#6B7280] hover:text-[#9CA3AF]'
-            }`}
-          >
-            {range}
-          </button>
-        ))}
+    <div className="space-y-5">
+      <div className="flex gap-3 flex-wrap">
+        <div className="bg-card border border-border rounded-xl p-4 flex-1 min-w-[140px]"><p className="text-gray-500 text-xs">Total Deposits</p><p className="text-green-400 font-bold text-lg mt-1">+${totalCredits.toFixed(2)}</p></div>
+        <div className="bg-card border border-border rounded-xl p-4 flex-1 min-w-[140px]"><p className="text-gray-500 text-xs">Total Withdrawals</p><p className="text-red-400 font-bold text-lg mt-1">-${totalDebits.toFixed(2)}</p></div>
+        <div className="bg-card border border-border rounded-xl p-4 flex-1 min-w-[140px]"><p className="text-gray-500 text-xs">Net Change</p><p className={`font-bold text-lg mt-1 ${(totalCredits - totalDebits) >= 0 ? 'text-green-400' : 'text-red-400'}`}>${(totalCredits - totalDebits).toFixed(2)}</p></div>
       </div>
-
-      {/* Summary Cards */}
-      <div className="grid grid-cols-3 gap-3 md:gap-4 mb-6">
-        {summaryCards.map((card) => (
-          <div key={card.label} className="bg-[#16162A] border border-white/[0.04] rounded-xl p-3 md:p-4 text-center">
-            <p className="text-[#6B7280] text-xs md:text-sm mb-1">{card.label}</p>
-            <p className="text-[#F1F5F9] font-bold text-sm md:text-lg">{card.value}</p>
-          </div>
-        ))}
+      <div className="flex gap-3 items-end">
+        <div className="flex-1"><label className="block text-gray-300 text-xs font-medium mb-1">From</label><input type="date" value={from} onChange={e => setFrom(e.target.value)} className="w-full bg-[#1a1a1a] border border-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-[#7C3AED]" /></div>
+        <div className="flex-1"><label className="block text-gray-300 text-xs font-medium mb-1">To</label><input type="date" value={to} onChange={e => setTo(e.target.value)} className="w-full bg-[#1a1a1a] border border-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-[#7C3AED]" /></div>
+        <button className="bg-white/5 hover:bg-white/10 border border-border px-4 py-2 rounded-lg text-sm text-gray-300 hover:text-white transition-colors whitespace-nowrap">Export PDF</button>
       </div>
-
-      {/* Transactions Section */}
-      <section className="mb-6">
-        <h2 className="text-[#F1F5F9] font-bold text-base md:text-lg mb-4">Transaction History</h2>
-        <div className="flex flex-col gap-3">
-          {transactions.map((tx, idx) => (
-            <div
-              key={idx}
-              className="bg-[#16162A] border border-white/[0.04] rounded-xl p-3 flex items-center gap-3"
-            >
-              {tx.type === 'credit' ? <CreditIcon /> : <DebitIcon />}
-              <div className="flex-1 min-w-0">
-                <p className="text-[#F1F5F9] text-sm font-medium truncate">{tx.description}</p>
-                <p className="text-[#6B7280] text-xs mt-0.5">{tx.date}</p>
-              </div>
-              <span
-                className={`text-sm font-semibold whitespace-nowrap ${
-                  tx.type === 'credit' ? 'text-[#22C55E]' : 'text-[#EF4444]'
-                }`}
-              >
-                {tx.amount}
-              </span>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Download PDF Button */}
-      <button className="w-full py-3 rounded-xl border border-[#3B82F6] text-[#3B82F6] font-semibold text-sm hover:bg-[#3B82F6]/10 transition-colors">
-        Download PDF
-      </button>
-    </main>
-  )
+      <div className="bg-card border border-border rounded-xl overflow-hidden">
+        {loading ? (<div className="text-center text-gray-500 py-10 text-sm">Loading...</div>) : filtered.length === 0 ? (<div className="text-center text-gray-500 py-10 text-sm">No transactions found</div>) : (
+          <div className="overflow-x-auto"><table className="w-full text-sm"><thead><tr className="border-b border-border bg-white/[0.02]"><th className="text-left text-gray-500 font-medium px-4 py-3">Date</th><th className="text-left text-gray-500 font-medium px-4 py-3">Description</th><th className="text-right text-gray-500 font-medium px-4 py-3">Amount</th><th className="text-right text-gray-500 font-medium px-4 py-3">Status</th></tr></thead><tbody>{filtered.map(t => (<tr key={t.id} className="border-b border-border/50 last:border-0 hover:bg-white/[0.02]"><td className="text-gray-300 px-4 py-3 text-xs whitespace-nowrap">{new Date(t.createdAt).toLocaleDateString()}</td><td className="text-white px-4 py-3 text-xs capitalize max-w-[200px] truncate">{t.description || t.type}</td><td className={`px-4 py-3 text-right font-medium text-xs ${(t.type === 'credit' || t.type === 'deposit') ? 'text-green-400' : 'text-red-400'}`}>{(t.type === 'credit' || t.type === 'deposit') ? '+' : '-'}${t.amount?.toFixed(2)}</td><td className="px-4 py-3 text-right">{statusBadge(t.status)}</td></tr>))}</tbody></table></div>
+        )}
+      </div>
+      <ChatWidget />
+    </div>
+  );
 }

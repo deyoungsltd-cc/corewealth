@@ -1,151 +1,83 @@
 'use client';
 
-import Link from 'next/link';
-import { useAuthStore } from '@/store/useAuthStore';
+import { useState, useEffect } from 'react';
+import ChatWidget from '@/components/ChatWidget';
 
-const beneficiaries = [
-  {
-    name: 'Beneficiary Name',
-    contact: 'j***@gmail.com',
-    transferType: 'Bank Transfer',
-    status: 'Active' as const,
-    initials: 'JD',
-  },
-  {
-    name: 'Sarah Smith',
-    contact: '+1 (***) ***-4521',
-    transferType: 'Wire Transfer',
-    status: 'Active' as const,
-    initials: 'SS',
-  },
-  {
-    name: 'Second Beneficiary',
-    contact: 'm***@bank.com',
-    transferType: 'Local Transfer',
-    status: 'Pending' as const,
-    initials: 'MJ',
-  },
-  {
-    name: 'ABC Corp',
-    contact: 'a***@corp.com',
-    transferType: 'Business',
-    status: 'Active' as const,
-    initials: 'AC',
-  },
-];
+interface Beneficiary { id: string; name: string; bankName: string; accountNumber: string; routingNumber?: string; swiftCode?: string; country?: string; relationship?: string; createdAt: string; }
+
+const RELATIONSHIPS = ['Personal', 'Business', 'Family'];
+const COUNTRY_FLAGS: Record<string, string> = { US: '🇺🇸', GB: '🇬🇧', CA: '🇨🇦', AU: '🇦🇺', DE: '🇩🇪', FR: '🇫🇷', NG: '🇳🇬', GH: '🇬🇭', KE: '🇰🇪', IN: '🇮🇳' };
 
 export default function BeneficiariesPage() {
-  const user = useAuthStore((s) => s.user);
+  const [list, setList] = useState<Beneficiary[]>([]);
+  const [showForm, setShowForm] = useState(false);
+  const [search, setSearch] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState('');
+  const [error, setError] = useState('');
+  const [form, setForm] = useState({ name: '', bankName: '', accountNumber: '', routingNumber: '', swiftCode: '', country: 'US', relationship: 'Personal' });
+
+  const fetchList = () => {
+    const token = localStorage.getItem('token');
+    if (token) fetch('/api/beneficiaries', { headers: { Authorization: `Bearer ${token}` } }).then(r => r.json()).then(d => { if (d.success) setList(d.data || []); }).catch(() => {});
+  };
+
+  useEffect(() => { fetchList(); }, []);
+
+  const handleSubmit = async () => {
+    setError('');
+    if (!form.name || !form.bankName || !form.accountNumber) { setError('Name, bank, and account number are required'); return; }
+    setLoading(true);
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch('/api/beneficiaries', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify(form) });
+      const data = await res.json();
+      if (data.success) { setSuccess('Beneficiary added!'); setShowForm(false); setForm({ name: '', bankName: '', accountNumber: '', routingNumber: '', swiftCode: '', country: 'US', relationship: 'Personal' }); fetchList(); }
+      else setError(data.error?.message || 'Failed to add');
+    } catch { setError('Network error'); } finally { setLoading(false); }
+  };
+
+  const handleDelete = async (id: string) => {
+    if (!confirm('Remove this beneficiary?')) return;
+    const token = localStorage.getItem('token');
+    await fetch(`/api/beneficiaries?id=${id}`, { method: 'DELETE', headers: { Authorization: `Bearer ${token}` } }).then(() => fetchList());
+  };
+
+  const filtered = list.filter(b => b.name.toLowerCase().includes(search.toLowerCase()) || b.bankName.toLowerCase().includes(search.toLowerCase()));
+  const inputCls = 'w-full bg-[#1a1a1a] border border-border rounded-lg px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED] transition-colors';
+  const selectCls = 'w-full bg-[#1a1a1a] border border-border rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-[#7C3AED] transition-colors appearance-none';
 
   return (
-    <main className="min-h-screen bg-[#0F0F1A] px-4 py-6 pb-10">
-      {/* Header */}
-      <div className="flex items-center gap-3 mb-1">
-        <Link
-          href="/dashboard"
-          className="w-9 h-9 flex items-center justify-center rounded-xl bg-[#16162A] border border-white/[0.04]"
-          aria-label="Back to dashboard"
-        >
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#F1F5F9"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M19 12H5" />
-            <path d="M12 19l-7-7 7-7" />
-          </svg>
-        </Link>
-        <h1 className="text-[#F1F5F9] font-bold text-xl">Beneficiaries</h1>
+    <div className="space-y-5">
+      {error && <div className="bg-red-900/30 border border-red-800/50 text-red-400 text-sm rounded-lg px-4 py-3">{error}</div>}
+      {success && <div className="bg-green-900/30 border border-green-800/50 text-green-400 text-sm rounded-lg px-4 py-3">{success}</div>}
+
+      <div className="flex gap-3">
+        <div className="relative flex-1"><svg className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-600" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="text" value={search} onChange={e => setSearch(e.target.value)} placeholder="Search beneficiaries..." className={inputCls + ' pl-10'} /></div>
+        <button onClick={() => setShowForm(!showForm)} className="bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-semibold px-4 py-3 rounded-lg transition-colors text-sm whitespace-nowrap">{showForm ? 'Cancel' : '+ Add'}</button>
       </div>
 
-      {/* Subtitle */}
-      <p className="text-[#9CA3AF] text-sm ml-12 mb-6">
-        Manage your transfer recipients
-      </p>
+      {showForm && (
+        <div className="bg-card border border-border rounded-xl p-5 space-y-3">
+          <h3 className="text-white font-semibold text-sm">New Beneficiary</h3>
+          <div><label className="block text-gray-300 text-sm font-medium mb-1.5">Full Name *</label><input type="text" value={form.name} onChange={e => setForm(p => ({ ...p, name: e.target.value }))} placeholder="John Doe" className={inputCls} /></div>
+          <div className="grid grid-cols-2 gap-3"><div><label className="block text-gray-300 text-sm font-medium mb-1.5">Bank Name *</label><input type="text" value={form.bankName} onChange={e => setForm(p => ({ ...p, bankName: e.target.value }))} placeholder="Bank name" className={inputCls} /></div><div><label className="block text-gray-300 text-sm font-medium mb-1.5">Account Number *</label><input type="text" value={form.accountNumber} onChange={e => setForm(p => ({ ...p, accountNumber: e.target.value }))} placeholder="Account number" className={inputCls} /></div></div>
+          <div className="grid grid-cols-2 gap-3"><div><label className="block text-gray-300 text-sm font-medium mb-1.5">Routing Number</label><input type="text" value={form.routingNumber} onChange={e => setForm(p => ({ ...p, routingNumber: e.target.value }))} placeholder="Routing number" className={inputCls} /></div><div><label className="block text-gray-300 text-sm font-medium mb-1.5">SWIFT Code</label><input type="text" value={form.swiftCode} onChange={e => setForm(p => ({ ...p, swiftCode: e.target.value }))} placeholder="e.g. CHASUS33" className={inputCls} /></div></div>
+          <div className="grid grid-cols-2 gap-3"><div><label className="block text-gray-300 text-sm font-medium mb-1.5">Country</label><select value={form.country} onChange={e => setForm(p => ({ ...p, country: e.target.value }))} className={selectCls}><option value="US">United States</option><option value="GB">United Kingdom</option><option value="CA">Canada</option><option value="AU">Australia</option><option value="NG">Nigeria</option><option value="GH">Ghana</option><option value="KE">Kenya</option></select></div><div><label className="block text-gray-300 text-sm font-medium mb-1.5">Relationship</label><select value={form.relationship} onChange={e => setForm(p => ({ ...p, relationship: e.target.value }))} className={selectCls}>{RELATIONSHIPS.map(r => <option key={r} value={r}>{r}</option>)}</select></div></div>
+          <button onClick={handleSubmit} disabled={loading} className="w-full bg-[#7C3AED] hover:bg-[#6D28D9] disabled:opacity-50 text-white font-semibold py-3 rounded-lg transition-colors text-sm">{loading ? 'Saving...' : 'Add Beneficiary'}</button>
+        </div>
+      )}
 
-      {/* Add Beneficiary Button */}
-      <button
-        className="w-full border border-dashed border-white/[0.1] rounded-xl p-4 text-center text-[#3B82F6] text-sm font-semibold flex items-center justify-center gap-2 hover:bg-white/[0.03] transition-colors mb-6"
-      >
-        <svg
-          width="18"
-          height="18"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <line x1="12" y1="5" x2="12" y2="19" />
-          <line x1="5" y1="12" x2="19" y2="12" />
-        </svg>
-        Add Beneficiary
-      </button>
-
-      {/* Beneficiary List */}
-      <div className="flex flex-col gap-3">
-        {beneficiaries.map((b) => (
-          <div
-            key={b.name}
-            className="bg-[#16162A] rounded-xl p-3.5 flex items-center gap-3 border border-white/[0.03]"
-          >
-            {/* Avatar */}
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#3B82F6] to-[#1D4ED8] flex items-center justify-center shrink-0">
-              <span className="text-white text-xs font-bold">{b.initials}</span>
-            </div>
-
-            {/* Info */}
-            <div className="flex-1 min-w-0">
-              <p className="text-[#F1F5F9] font-semibold text-sm truncate">{b.name}</p>
-              <p className="text-[#6B7280] text-xs truncate mt-0.5">{b.contact}</p>
-              <span className="inline-block text-[9px] px-2 py-0.5 rounded-full bg-white/[0.06] text-[#9CA3AF] mt-1.5">
-                {b.transferType}
-              </span>
-            </div>
-
-            {/* Status + Chevron */}
-            <div className="flex items-center gap-2.5 shrink-0">
-              <div className="flex items-center gap-1.5">
-                <span
-                  className={`w-2 h-2 rounded-full ${
-                    b.status === 'Active' ? 'bg-[#22C55E]' : 'bg-[#F59E0B]'
-                  }`}
-                />
-                <span
-                  className={`text-xs ${
-                    b.status === 'Active' ? 'text-[#22C55E]' : 'text-[#F59E0B]'
-                  }`}
-                >
-                  {b.status}
-                </span>
-              </div>
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#6B7280"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <polyline points="9 18 15 12 9 6" />
-              </svg>
-            </div>
+      <div className="space-y-2">
+        {filtered.length === 0 ? (<div className="text-center text-gray-500 py-10 text-sm">{search ? 'No beneficiaries match your search' : 'No beneficiaries yet. Add one to get started.'}</div>) : filtered.map(b => (
+          <div key={b.id} className="bg-card border border-border rounded-xl p-4 flex items-center gap-4">
+            <div className="w-10 h-10 rounded-full bg-[#7C3AED]/15 flex items-center justify-center text-lg shrink-0">{COUNTRY_FLAGS[b.country || 'US'] || '🏦'}</div>
+            <div className="flex-1 min-w-0"><p className="text-white text-sm font-semibold truncate">{b.name}</p><p className="text-gray-500 text-xs">{b.bankName} — ****{b.accountNumber?.slice(-4)}</p><div className="flex items-center gap-2 mt-1"><span className="text-[10px] text-[#A78BFA] bg-[#7C3AED]/10 px-2 py-0.5 rounded-full">{b.relationship || 'Personal'}</span>{b.country && <span className="text-[10px] text-gray-500">{b.country}</span>}</div></div>
+            <button onClick={() => handleDelete(b.id)} className="text-gray-600 hover:text-red-400 transition-colors p-2"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
           </div>
         ))}
       </div>
-
-      {/* Bottom Note */}
-      <p className="text-[#6B7280] text-xs text-center mt-8 px-4 leading-relaxed">
-        You can add up to 50 beneficiaries. Transfers to verified beneficiaries are processed instantly.
-      </p>
-    </main>
+      <ChatWidget />
+    </div>
   );
 }

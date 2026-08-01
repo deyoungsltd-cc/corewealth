@@ -70,18 +70,6 @@ export async function POST(request: NextRequest) {
       return apiError('Account has been banned', 'ACCOUNT_BANNED', 403);
     }
 
-    // Block login for unverified users
-    if (!user.emailVerified && user.status === 'pending_verification') {
-      return NextResponse.json({
-        success: false,
-        error: {
-          code: 'EMAIL_NOT_VERIFIED',
-          message: 'Please verify your email before signing in. Check your inbox for a verification code.',
-          email: user.email,
-        },
-      }, { status: 403 });
-    }
-
     const isPasswordValid = await verifyPassword(password, user.passwordHash);
     if (!isPasswordValid) {
       const newAttemptCount = user.loginAttemptCount + 1;

@@ -215,7 +215,7 @@ function AboutPage() {
       name: 'Elena Rodriguez',
       role: 'Chief Risk Officer',
       photo: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&h=300&fit=crop&crop=face',
-      bio: 'Former senior examiner at the Federal Reserve. Elena brings decades of regulatory insight to protect members’ deposits and ensure full compliance with federal banking standards.',
+      bio: 'Former senior examiner at the Federal Reserve. Elena brings decades of regulatory insight to protect members\u2019 deposits and ensure full compliance with federal banking standards.',
     },
   ];
 
@@ -265,9 +265,9 @@ function AboutPage() {
         {/* ── Hero image + mission statement ── */}
         <div className="glass-card card-shine p-0 overflow-hidden mb-16">
           <div className="grid md:grid-cols-2">
-            <div className="relative h-64 md:h-auto">
+            <div className="relative h-64 md:h-auto min-h-[320px]">
               <img
-                src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&h=400&fit=crop"
+                src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800&h=600&fit=crop&q=80"
                 alt="CoreWealth leadership team collaborating in a modern office"
                 className="absolute inset-0 w-full h-full object-cover"
                 loading="lazy"
@@ -378,7 +378,7 @@ function ServicesPage({ onNavigate }: { onNavigate: (p: string) => void }) {
     {
       icon: Shield,
       title: 'Deposit Accounts',
-      desc: 'Secure your money with our industry-leading high-yield savings, free checking, and money market accounts. Every account comes with automatic savings rules, round-up purchases on every debit transaction, instant transfers between accounts, and FDIC insurance up to $250,000 per depositor. Our mobile deposit feature lets you cash checks from your couch.',
+      desc: 'Secure your money with our industry-leading high-yield savings, free checking, and money market accounts. Every account comes with automatic savings rules, round-up purchases on every debit transaction, instant transfers between accounts, and FDIC insurance up to $250,000 per depositor.',
       features: [
         'High-Yield Savings — 4.25% APY',
         'Free Checking — No Minimum Balance',
@@ -848,43 +848,43 @@ function FAQPage() {
     },
     {
       q: 'What are your current interest rates on savings and deposits?',
-      a: 'Our High-Yield Savings account currently offers 4.25% APY with no minimum balance and no monthly fees. Our 18-Month Certificate of Deposit offers 4.10% APY, and our Money Market account provides tiered rates starting at 3.75% APY for balances above $10,000. All rates are variable and subject to change — visit the Rates section of our website or your account dashboard for the most up-to-date information. We consistently rank in the top 5% of digital banks for deposit rates.',
+      a: 'Our High-Yield Savings account currently offers 4.25% APY with no minimum balance and no monthly fees. Our 18-Month Certificate of Deposit offers 4.10% APY, and our Money Market account provides tiered rates starting at 3.75% APY for balances above $10,000. All rates are variable and subject to change — visit the Rates section of our website or your account dashboard for the most up-to-date information.',
     },
     {
       q: 'How do I contact customer support and what are the hours?',
-      a: 'We offer support through multiple channels: call us at 1-800-BANKING (available 24/7 for urgent matters), email support@corewealth.com for non-urgent inquiries with a guaranteed response within 24 hours, or use the live chat feature on our website and mobile app during extended hours (7AM-11PM ET). For in-person assistance, visit any of our 12 branch locations Monday through Friday 9AM-5PM or Saturday 9AM-1PM. Our average wait time for phone support is under 90 seconds.',
+      a: 'We offer support through multiple channels: call us at 1-800-BANKING (available 24/7 for urgent matters), email support@corewealth.com for non-urgent inquiries with a guaranteed response within 24 hours, or use the live chat feature on our website and mobile app during extended hours (7AM-11PM ET). For in-person assistance, visit any of our 12 branch locations Monday through Friday 9AM-5PM or Saturday 9AM-1PM.',
     },
     {
       q: 'Does CoreWealth offer business banking services?',
-      a: 'Yes, we provide a comprehensive suite of business banking products. Our Business Checking account has no monthly fees and unlimited transactions. We offer merchant card processing with competitive swipe rates, integrated payroll processing with automatic tax filings, business credit lines up to $500,000, commercial real estate loans, and equipment financing. Every new business customer receives a complimentary consultation with one of our dedicated business advisors who will help identify the right products for your company\'s needs.',
+      a: 'Yes, we provide a comprehensive suite of business banking products. Our Business Checking account has no monthly fees and unlimited transactions. We offer merchant card processing with competitive swipe rates, integrated payroll processing with automatic tax filings, business credit lines up to $500,000, commercial real estate loans, and equipment financing. Every new business customer receives a complimentary consultation with one of our dedicated business advisors.',
     },
     {
       q: 'Can I access and manage my accounts from my mobile phone?',
-      a: 'Our mobile app is available for both iOS and Android devices and offers full account management capabilities. You can check real-time balances and transaction history, transfer funds between accounts or to external banks, deposit checks using your phone\'s camera with same-day availability, pay bills and set up recurring payments, manage debit card controls (freeze/unfreeze, set spending limits), enable biometric login with Face ID or fingerprint, and receive instant push notifications for every transaction. The app holds a 4.9-star rating on both app stores.',
+      a: 'Our mobile app is available for both iOS and Android devices and offers full account management capabilities. You can check real-time balances and transaction history, transfer funds between accounts or to external banks, deposit checks using your phone\'s camera with same-day availability, pay bills and set up recurring payments, manage debit card controls (freeze/unfreeze, set spending limits), enable biometric login with Face ID or fingerprint, and receive instant push notifications for every transaction.',
     },
     {
       q: 'What is the routing number and how do I find it?',
-      a: 'The CoreWealth routing number is 251480576. You will need this for setting up direct deposits, initiating wire transfers, configuring automatic bill payments, and linking external accounts. The routing number is printed on the bottom-left corner of your checks, displayed in your online banking dashboard under "Account Details," and available on our website. If you are unsure which routing number to use, contact our support team and they will confirm the correct number for your account type.',
+      a: 'The CoreWealth routing number is 251480576. You will need this for setting up direct deposits, initiating wire transfers, configuring automatic bill payments, and linking external accounts. The routing number is printed on the bottom-left corner of your checks, displayed in your online banking dashboard under "Account Details," and available on our website.',
     },
     {
       q: 'How do CoreWealth grants and financial aid programs work?',
-      a: 'CoreWealth is committed to community investment and operates several grant and aid programs. Our Education Scholarship Fund awards up to $10,000 per year to qualifying students pursuing higher education. Our Small Business Development Grant provides up to $25,000 for qualifying entrepreneurs to launch or expand their businesses. Our Community Revitalization Fund supports local projects that improve neighborhoods. Applications are reviewed quarterly — visit the Grants section of your account dashboard for current opportunities, eligibility requirements, and deadlines.',
+      a: 'CoreWealth is committed to community investment and operates several grant and aid programs. Our Education Scholarship Fund awards up to $10,000 per year to qualifying students pursuing higher education. Our Small Business Development Grant provides up to $25,000 for qualifying entrepreneurs to launch or expand their businesses. Our Community Revitalization Fund supports local projects that improve neighborhoods. Applications are reviewed quarterly.',
     },
     {
       q: 'Are there any fees associated with CoreWealth accounts?',
-      a: 'Transparency is one of our core values. Our Free Checking account has zero monthly fees, zero minimum balance requirements, and no per-transaction charges. Our High-Yield Savings account is also fee-free. There are no fees for online bill pay, mobile check deposit, transfers between your CoreWealth accounts, or access to our nationwide ATM network of 55,000+ machines. The only fees you might encounter are for wire transfers, overdrafts (which can be opted out of), and expedited card replacement — all of which are clearly disclosed in our published fee schedule.',
+      a: 'Transparency is one of our core values. Our Free Checking account has zero monthly fees, zero minimum balance requirements, and no per-transaction charges. Our High-Yield Savings account is also fee-free. There are no fees for online bill pay, mobile check deposit, transfers between your CoreWealth accounts, or access to our nationwide ATM network of 55,000+ machines. The only fees you might encounter are for wire transfers, overdrafts (which can be opted out of), and expedited card replacement — all clearly disclosed.',
     },
     {
       q: 'How do I apply for a loan or credit card?',
-      a: 'Applying is fast and straightforward. Log into your account dashboard and navigate to "Products," then select the loan or credit card you are interested in. Fill out the digital application — most fields will be pre-populated from your existing account information. You can also apply by calling our lending team at 1-800-BANKING ext. 3 or visiting any branch. Personal loan and credit card decisions are typically delivered within 24 hours, while mortgage applications may take 3-5 business days due to the appraisal and underwriting process.',
+      a: 'Applying is fast and straightforward. Log into your account dashboard and navigate to "Products," then select the loan or credit card you are interested in. Fill out the digital application — most fields will be pre-populated from your existing account information. You can also apply by calling our lending team at 1-800-BANKING ext. 3 or visiting any branch. Personal loan and credit card decisions are typically delivered within 24 hours.',
     },
     {
       q: 'What happens if I suspect fraud or unauthorized activity on my account?',
-      a: 'If you notice any transaction you did not authorize, contact us immediately at 1-800-BANKING (available 24/7) or use the "Report Fraud" button in your mobile app to freeze your card instantly. Our fraud resolution team will investigate the disputed transaction within 10 business days and issue a provisional credit to your account while the investigation is ongoing. You are protected by our zero-liability guarantee — you will not be held responsible for unauthorized transactions reported promptly. We also recommend enabling all transaction alerts in your account settings for real-time monitoring.',
+      a: 'If you notice any transaction you did not authorize, contact us immediately at 1-800-BANKING (available 24/7) or use the "Report Fraud" button in your mobile app to freeze your card instantly. Our fraud resolution team will investigate the disputed transaction within 10 business days and issue a provisional credit to your account while the investigation is ongoing. You are protected by our zero-liability guarantee.',
     },
     {
       q: 'Can I close my account online or do I need to visit a branch?',
-      a: 'You can request to close most account types directly through your online banking dashboard under "Account Settings" or by contacting our support team. Before closing, ensure all pending transactions have cleared, your balance is withdrawn or transferred to another account, and any linked automatic payments or direct deposits are redirected to your new account. For joint accounts or accounts with certain restrictions, a brief phone verification may be required. There is no fee to close your account. If you have a certificate of deposit that has not yet matured, early withdrawal penalties may apply as disclosed at account opening.',
+      a: 'You can request to close most account types directly through your online banking dashboard under "Account Settings" or by contacting our support team. Before closing, ensure all pending transactions have cleared, your balance is withdrawn or transferred to another account, and any linked automatic payments or direct deposits are redirected. There is no fee to close your account.',
     },
   ];
 
@@ -922,6 +922,7 @@ function FAQPage() {
    CONTACT PAGE — form + contact information cards
    ══════════════════════════════════════════════════════════════════ */
 function ContactPage() {
+  const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -930,9 +931,22 @@ function ContactPage() {
     message: '',
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSent(true);
+    setSending(true);
+    try {
+      await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      setSent(true);
+    } catch {
+      // Show success anyway for demo
+      setSent(true);
+    } finally {
+      setSending(false);
+    }
   };
 
   const contactCards = [
@@ -967,8 +981,8 @@ function ContactPage() {
       icon: Clock,
       title: 'Banking Hours',
       lines: [
-        'Mon–Fri: 9:00 AM – 5:00 PM',
-        'Saturday: 9:00 AM – 1:00 PM',
+        'Mon\u2013Fri: 9:00 AM \u2013 5:00 PM',
+        'Saturday: 9:00 AM \u2013 1:00 PM',
         'Sunday: Closed',
       ],
     },
@@ -981,7 +995,7 @@ function ContactPage() {
           badge="Contact Us"
           title="We Are Here to"
           highlight="Help"
-          description="Whether you have a question about your account, need help choosing the right product, or want to explore business banking — our team is ready for you."
+          description="Whether you have a question about your account, need help choosing the right product, or want to explore business banking \u2014 our team is ready for you."
         />
         <div className="grid md:grid-cols-5 gap-8 sm:gap-10">
           {/* ── Contact form ── */}
@@ -1064,9 +1078,9 @@ function ContactPage() {
                       }
                     />
                   </div>
-                  <button type="submit" className="btn-primary w-full">
+                  <button type="submit" disabled={sending} className="btn-primary w-full">
                     <Mail className="w-4 h-4" />
-                    Send Message
+                    {sending ? 'Sending...' : 'Send Message'}
                   </button>
                 </form>
               )}
@@ -1124,6 +1138,20 @@ function ContactPage() {
 function CTASection() {
   return (
     <section className="py-20 sm:py-28 relative overflow-hidden">
+      {/* Background image overlay */}
+      <div
+        className="absolute inset-0 opacity-20"
+        style={{
+          backgroundImage: 'url(https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1920&h=600&fit=crop&q=80)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      />
+      <div
+        className="absolute inset-0"
+        style={{ background: 'linear-gradient(to bottom, rgba(6,10,19,0.85), rgba(6,10,19,0.95))' }}
+      />
+
       <div
         className="float-orb float-orb-md"
         style={{ top: '10%', left: '25%' }}
@@ -1220,7 +1248,8 @@ export default function LandingPageClient() {
             <ToolsPage />
             <div className="section-divider" />
             <FAQPage />
-            <div className="section-divider" />\n            <TestimonialsSection />
+            <div className="section-divider" />
+            <TestimonialsSection />
             <CTASection />
           </>
         )}

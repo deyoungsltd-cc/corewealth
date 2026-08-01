@@ -58,16 +58,19 @@ const titles: Record<string, string> = {
   '/security': 'Security',
   '/transactions': 'Transaction History',
   '/market': 'Markets & Rates',
-  '/internal-transfer': 'Transfer',
+  '/internal-transfer': 'Transfers',
   '/wire-transfer': 'Wire Transfer',
   '/pay-bills': 'Pay Bills',
   '/beneficiaries': 'Beneficiaries',
   '/checking-statement': 'Checking Statement',
   '/savings-statement': 'Savings Statement',
+  '/crypto-statement': 'Crypto Statement',
   '/cards': 'Cards',
   '/cards/apply': 'Apply for Card',
   '/cards/manage': 'Manage Card',
   '/cards/tracking': 'Card Tracking',
+  '/buy-crypto': 'Buy Crypto',
+  '/tax-refund': 'Tax Refund',
 };
 
 const bottomNav = [
@@ -145,8 +148,12 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     { href: '/withdraw', label: 'Withdraw', icon: <Upload size={18} /> },
     { href: '/investments', label: 'Investments', icon: <Landmark size={18} /> },
     { href: '/cards', label: 'Cards', icon: <CreditCard size={18} /> },
+    { href: '/buy-crypto', label: 'Buy Crypto', icon: <Send size={18} /> },
+    { href: '/pay-bills', label: 'Pay Bills', icon: <Receipt size={18} /> },
     { href: '/beneficiaries', label: 'Beneficiaries', icon: <Receipt size={18} /> },
+    { href: '/tax-refund', label: 'Tax Refund', icon: <FileText size={18} /> },
     { href: '/kyc', label: 'Verification', icon: <Shield size={18} /> },
+    { href: '/security', label: 'Security', icon: <Shield size={18} /> },
     { href: '/support', label: 'Support', icon: <HelpCircle size={18} /> },
     { href: '/profile', label: 'Profile', icon: <User size={18} /> },
   ];

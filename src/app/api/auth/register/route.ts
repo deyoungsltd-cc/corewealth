@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db, ensureSchema } from '@/lib/db';
-import { hashPassword, generateReferralCode, generateOtpCode } from '@/lib/auth';
+import { hashPassword, generateReferralCode, generateToken } from '@/lib/auth';
 import { apiResponse, apiError } from '@/lib/api-helpers';
 import { rateLimit } from '@/lib/rate-limit';
-import { sendVerificationEmail } from '@/lib/email';
 import { verifyCaptcha, isCaptchaConfigured } from '@/lib/captcha';
 import { z } from 'zod';
 
@@ -16,7 +15,6 @@ const registerSchema = z.object({
 });
 
 export async function POST(request: NextRequest) {
-  // Ensure schema columns exist before querying (safety-net for missing columns)
   await ensureSchema();
 
   const rl = rateLimit(request, true);
@@ -72,8 +70,6 @@ export async function POST(request: NextRequest) {
     const newReferralCode = generateReferralCode();
     const fullName = `${firstName || ''} ${lastName || ''}`.trim() || undefined;
 
-    const otp = generateOtpCode();
-
     const user = await db.$transaction(async (tx) => {
       const newUser = await tx.user.create({
         data: {
@@ -81,10 +77,8 @@ export async function POST(request: NextRequest) {
           passwordHash,
           referralCode: newReferralCode,
           referredById,
-          status: 'pending_verification',
-          emailVerified: false,
-          verificationCode: otp,
-          verificationCodeExpires: new Date(Date.now() + 10 * 60 * 1000),
+          status: 'active',
+          emailVerified: true,
         },
       });
 
@@ -108,21 +102,12 @@ export async function POST(request: NextRequest) {
       return newUser;
     });
 
-    // Send verification OTP email — capture result so we can surface errors
-    let emailSent = false;
-    let emailError: string | undefined;
-    try {
-      const result = await sendVerificationEmail(email, otp, fullName);
-      emailSent = result.success;
-      emailError = result.error;
-      console.log(`[REGISTER] OTP email send result for ${email}: success=${emailSent}, provider=${result.provider}, messageId=${result.messageId || 'none'}, error=${emailError || 'none'}`);
-    } catch (err: any) {
-      emailError = err?.message || String(err);
-      console.error(`[REGISTER] Verification email threw for ${email}:`, emailError);
-    }
+    // Auto-generate token so user is immediately logged in
+    const token = generateToken({ userId: user.id, email: user.email });
 
     return apiResponse(
       {
+        token,
         user: {
           id: user.id,
           email: user.email,
@@ -130,15 +115,10 @@ export async function POST(request: NextRequest) {
           referralCode: user.referralCode,
           activeMode: user.activeMode,
           kycLevel: user.kycLevel,
-          emailVerified: false,
+          emailVerified: true,
           createdAt: user.createdAt,
         },
-        message: emailSent
-          ? 'Account created. Please check your email for a verification code.'
-          : `Account created, but we had trouble sending your verification email. Use "Resend Code" on the verification page. (${emailError || 'unknown error'})`,
-        requiresVerification: true,
-        emailSent,
-        emailError: emailError || undefined,
+        message: 'Account created successfully. Welcome to CoreWealth Bank!',
       },
       201
     );

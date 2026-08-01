@@ -18,6 +18,11 @@ export default function SecurityPage() {
   const [pushLoading, setPushLoading] = useState(false);
   const [pushMessage, setPushMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
+  // Merchant alert toggle state
+  const [merchantAlerts, setMerchantAlerts] = useState(true);
+  const [merchantLoading, setMerchantLoading] = useState(false);
+  const [merchantMessage, setMerchantMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+
   // Load user 2FA state on mount
   useEffect(() => {
     if (user?.twoFactorEnabled !== undefined) {
@@ -274,6 +279,52 @@ export default function SecurityPage() {
             <p className={`text-xs ${pushMessage.type === 'success' ? 'text-green-400' : 'text-red-400'}`}>{pushMessage.text}</p>
           </div>
         )}
+      </div>
+
+      {/* ── Merchant Transaction Alerts ── */}
+      <div className="bg-card border border-border rounded-xl p-5 space-y-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${merchantAlerts ? 'bg-green-500/10' : 'bg-gray-500/10'}`}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={merchantAlerts ? '#22c55e' : '#6b7280'} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+              </svg>
+            </div>
+            <div>
+              <h3 className="text-white font-semibold">Merchant Transaction Alerts</h3>
+              <p className="text-gray-400 text-xs">
+                {merchantAlerts ? 'You will receive instant alerts for all card transactions at merchants' : 'Merchant transaction alerts are disabled'}
+              </p>
+            </div>
+          </div>
+          <button
+            onClick={async () => {
+              setMerchantLoading(true);
+              setMerchantMessage(null);
+              const newState = !merchantAlerts;
+              try {
+                const res = await fetch('/api/user/profile', { method: 'PUT', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify({ merchantAlerts: newState }) });
+                const data = await res.json();
+                if (data.success) { setMerchantAlerts(newState); setMerchantMessage({ type: 'success', text: newState ? 'Merchant alerts enabled' : 'Merchant alerts disabled' }); }
+                else setMerchantMessage({ type: 'error', text: 'Failed to update' });
+              } catch { setMerchantMessage({ type: 'error', text: 'Network error' }); }
+              finally { setMerchantLoading(false); }
+            }}
+            disabled={merchantLoading}
+            className={`text-sm font-medium px-4 py-2 rounded-lg transition-colors disabled:opacity-50 ${merchantAlerts ? 'bg-red-500/10 text-red-400 hover:bg-red-500/20' : 'bg-[#7C3AED] text-white hover:bg-[#6D28D9]'}`}
+          >
+            {merchantLoading ? (<span className="flex items-center gap-2"><span className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />Saving...</span>) : merchantAlerts ? 'Disable' : 'Enable'}
+          </button>
+        </div>
+        {merchantMessage && (
+          <div className={`rounded-lg p-3 animate-fade-in ${merchantMessage.type === 'success' ? 'bg-green-500/10 border border-green-500/20' : 'bg-red-500/10 border border-red-500/20'}`}>
+            <p className={`text-xs ${merchantMessage.type === 'success' ? 'text-green-400' : 'text-red-400'}`}>{merchantMessage.text}</p>
+          </div>
+        )}
+        <div className="bg-[#111] border border-border rounded-lg p-3">
+          <p className="text-gray-400 text-xs">When enabled, you will receive real-time push notifications and email alerts whenever your CoreWealth debit or credit card is used at a merchant. This helps you quickly detect unauthorized transactions.</p>
+        </div>
       </div>
 
       {/* Current Session — real data */}
