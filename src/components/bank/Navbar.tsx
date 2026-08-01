@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useCallback, useSyncExternalStore } from 'react';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import {
   Sheet,
@@ -10,15 +11,15 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { Separator } from '@/components/ui/separator';
-import { Diamond, Sun, Moon, Menu } from 'lucide-react';
+import { Sun, Moon, Menu } from 'lucide-react';
 import { useTheme } from 'next-themes';
+import CoreWealthLogo from '@/components/CoreWealthLogo';
 
-const NAV_LINKS = ['Home', 'About', 'Services', 'Tools', 'Contact'] as const;
+const NAV_LINKS = ['Home', 'About', 'Services', 'Tools', 'FAQ', 'Contact'] as const;
 
 const PAGE_MAP: Record<string, string> = {
   'Home': 'home', 'About': 'about', 'Services': 'services',
   'Tools': 'tools', 'Contact': 'contact', 'FAQ': 'faq',
-  'Login': 'login', 'Open Account': 'signup', 'Dashboard': 'dashboard',
 };
 
 interface NavbarProps {
@@ -71,7 +72,7 @@ export default function Navbar({ onNavigate, currentPage }: NavbarProps) {
         bg-background/80 backdrop-blur-xl border-b border-border/50
         transition-all duration-500 ease-out
         ${scrolled
-          ? 'shadow-[0_1px_30px_rgba(16,185,129,0.08)] border-primary/20'
+          ? 'shadow-[0_1px_30px_rgba(124,58,237,0.08)] border-[#7C3AED]/20'
           : ''
         }
       `}
@@ -83,9 +84,9 @@ export default function Navbar({ onNavigate, currentPage }: NavbarProps) {
           className="flex items-center gap-2 group transition-opacity hover:opacity-90"
           aria-label="CoreWealth Home"
         >
-          <Diamond className="size-5 text-primary fill-primary/20 transition-transform duration-300 group-hover:rotate-12" />
+          <CoreWealthLogo variant="icon" className="h-7 w-7" />
           <span className="font-[family-name:var(--font-dm-sans)] text-xl font-bold tracking-tight text-foreground">
-            Vault<span className="text-primary">Edge</span>
+            Core<span className="text-[#7C3AED]">Wealth</span>
           </span>
         </button>
 
@@ -101,14 +102,14 @@ export default function Navbar({ onNavigate, currentPage }: NavbarProps) {
                     relative px-4 py-2 text-sm font-medium rounded-lg
                     transition-all duration-200
                     ${active
-                      ? 'text-primary'
+                      ? 'text-[#7C3AED]'
                       : 'text-muted-foreground hover:text-foreground'
                     }
                   `}
                 >
                   {link}
                   {active && (
-                    <span className="absolute inset-x-2 -bottom-[9px] h-0.5 rounded-full bg-primary shadow-[0_0_8px_rgba(16,185,129,0.6)]" />
+                    <span className="absolute inset-x-2 -bottom-[9px] h-0.5 rounded-full bg-[#7C3AED] shadow-[0_0_8px_rgba(124,58,237,0.6)]" />
                   )}
                 </button>
               </li>
@@ -137,20 +138,22 @@ export default function Navbar({ onNavigate, currentPage }: NavbarProps) {
             </button>
           )}
 
-          <Button
-            variant="ghost"
-            className="btn-ghost h-9 px-4 text-sm"
-            onClick={() => handleNav('Login')}
-          >
-            Login
-          </Button>
+          <Link href="/login">
+            <Button
+              variant="ghost"
+              className="btn-ghost h-9 px-4 text-sm"
+            >
+              Login
+            </Button>
+          </Link>
 
-          <Button
-            className="btn-primary h-9 px-5 text-sm"
-            onClick={() => handleNav('Open Account')}
-          >
-            Open Account
-          </Button>
+          <Link href="/register">
+            <Button
+              className="btn-primary h-9 px-5 text-sm"
+            >
+              Open Account
+            </Button>
+          </Link>
         </div>
 
         {/* Mobile Hamburger */}
@@ -186,9 +189,9 @@ export default function Navbar({ onNavigate, currentPage }: NavbarProps) {
             <SheetContent side="right" className="w-72 bg-background/95 backdrop-blur-xl border-l border-border/50 p-0">
               <SheetHeader className="px-6 pt-6 pb-2">
                 <SheetTitle className="flex items-center gap-2">
-                  <Diamond className="size-4 text-primary fill-primary/20" />
+                  <CoreWealthLogo variant="icon" className="h-5 w-5" />
                   <span className="font-[family-name:var(--font-dm-sans)] text-lg font-bold tracking-tight">
-                    Vault<span className="text-primary">Edge</span>
+                    Core<span className="text-[#7C3AED]">Wealth</span>
                   </span>
                 </SheetTitle>
               </SheetHeader>
@@ -206,14 +209,14 @@ export default function Navbar({ onNavigate, currentPage }: NavbarProps) {
                         flex items-center rounded-lg px-4 py-3 text-sm font-medium
                         transition-all duration-200
                         ${active
-                          ? 'bg-primary/10 text-primary'
+                          ? 'bg-[#7C3AED]/10 text-[#7C3AED]'
                           : 'text-muted-foreground hover:bg-accent/50 hover:text-foreground'
                         }
                       `}
                     >
                       {link}
                       {active && (
-                        <span className="ml-auto size-1.5 rounded-full bg-primary shadow-[0_0_6px_rgba(16,185,129,0.8)]" />
+                        <span className="ml-auto size-1.5 rounded-full bg-[#7C3AED] shadow-[0_0_6px_rgba(124,58,237,0.8)]" />
                       )}
                     </button>
                   );
@@ -223,19 +226,21 @@ export default function Navbar({ onNavigate, currentPage }: NavbarProps) {
               <Separator className="bg-border/50" />
 
               <div className="flex flex-col gap-3 px-6 py-5">
-                <Button
-                  variant="ghost"
-                  className="btn-ghost w-full h-11 text-sm"
-                  onClick={() => handleNav('Login')}
-                >
-                  Login
-                </Button>
-                <Button
-                  className="btn-primary w-full h-11 text-sm"
-                  onClick={() => handleNav('Open Account')}
-                >
-                  Open Account
-                </Button>
+                <Link href="/login" onClick={() => setMobileOpen(false)}>
+                  <Button
+                    variant="ghost"
+                    className="btn-ghost w-full h-11 text-sm"
+                  >
+                    Login
+                  </Button>
+                </Link>
+                <Link href="/register" onClick={() => setMobileOpen(false)}>
+                  <Button
+                    className="btn-primary w-full h-11 text-sm"
+                  >
+                    Open Account
+                  </Button>
+                </Link>
               </div>
             </SheetContent>
           </Sheet>

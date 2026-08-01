@@ -17,13 +17,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
-  Shield, CreditCard, Landmark, Building2, TrendingUp, Gift, ArrowRight, ArrowLeft,
-  MapPin, Phone, Mail, Clock, Check, Wallet, Send, Download, Eye, EyeOff, User, Lock as LockIcon,
-  PiggyBank, BarChart3, FileText, QrCode, Calculator, ArrowRightLeft, Diamond,
-  Percent, ArrowDown, ArrowUp, X, Users, Heart, ChevronRight, Star, Globe, Award, Zap
+  Shield, CreditCard, Landmark, Building2, TrendingUp, Gift, ArrowRight,
+  MapPin, Phone, Mail, Clock, Check, Calculator, ArrowRightLeft,
+  Percent, Users, Heart, Star, Globe, Award, Zap
 } from 'lucide-react';
 
-type Page = 'home' | 'about' | 'services' | 'tools' | 'faq' | 'contact' | 'login' | 'signup' | 'dashboard';
+type Page = 'home' | 'about' | 'services' | 'tools' | 'faq' | 'contact';
 
 // ═══ SCROLL PROGRESS ═══
 function ScrollProgress() {
@@ -379,235 +378,10 @@ function ContactPage() {
   );
 }
 
-// ═══ LOGIN PAGE ═══
-function LoginPage({ onLogin }: { onLogin: () => void }) {
-  const [show, setShow] = useState(false);
-  return (
-    <section className="py-20 sm:py-28 page-enter">
-      <div className="max-w-md mx-auto px-4 sm:px-6">
-        <div className="glass-card p-8">
-          <div className="text-center mb-8">
-            <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
-              <LockIcon className="w-7 h-7 text-primary" />
-            </div>
-            <h2 className="text-2xl font-bold">Welcome Back</h2>
-            <p className="text-sm text-muted-foreground mt-1">Sign in to your CoreWealth account</p>
-          </div>
-          <form onSubmit={e => { e.preventDefault(); onLogin(); }} className="space-y-5">
-            <div>
-              <Label>Email Address</Label>
-              <div className="relative mt-1.5">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                <Input type="email" placeholder="you@example.com" className="pl-10" required />
-              </div>
-            </div>
-            <div>
-              <Label>Password</Label>
-              <div className="relative mt-1.5">
-                <LockIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                <Input type={show ? 'text' : 'password'} placeholder="Enter password" className="pl-10 pr-10" required />
-                <button type="button" onClick={() => setShow(!show)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
-                  {show ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                </button>
-              </div>
-            </div>
-            <div className="flex items-center justify-between text-sm">
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" className="rounded" />
-                <span className="text-muted-foreground">Remember me</span>
-              </label>
-              <a href="#" className="text-primary hover:underline">Forgot password?</a>
-            </div>
-            <button type="submit" className="btn-primary w-full">Sign In <ArrowRight className="w-4 h-4" /></button>
-          </form>
-          <p className="text-center text-sm text-muted-foreground mt-6">
-            Don&apos;t have an account?{' '}
-            <button onClick={() => {}} className="text-primary hover:underline font-medium">Open Account</button>
-          </p>
-        </div>
-      </div>
-    </section>
-  );
-}
 
-// ═══ SIGNUP PAGE ═══
-function SignupPage({ onSignup }: { onSignup: () => void }) {
-  const [step, setStep] = useState(1);
-  const [show, setShow] = useState(false);
-  return (
-    <section className="py-20 sm:py-28 page-enter">
-      <div className="max-w-md mx-auto px-4 sm:px-6">
-        <div className="glass-card p-8">
-          <div className="text-center mb-6">
-            <h2 className="text-2xl font-bold">Open Your Account</h2>
-            <p className="text-sm text-muted-foreground mt-1">Join 75,000+ members at CoreWealth</p>
-          </div>
-          <form onSubmit={e => { e.preventDefault(); if (step < 3) setStep(step + 1); else onSignup(); }} className="space-y-5">
-            <div className="flex gap-2 mb-4">
-              {[1, 2, 3].map(s => (
-                <div key={s} className={`h-1 flex-1 rounded-full transition-colors duration-300 ${s <= step ? 'bg-primary' : 'bg-muted'}`} />
-              ))}
-            </div>
-            {step === 1 && (
-              <>
-                <div className="grid grid-cols-2 gap-4">
-                  <div><Label>First Name</Label><Input placeholder="John" className="mt-1.5" required /></div>
-                  <div><Label>Last Name</Label><Input placeholder="Doe" className="mt-1.5" required /></div>
-                </div>
-                <div><Label>Email</Label><Input type="email" placeholder="john@example.com" className="mt-1.5" required /></div>
-                <div><Label>Phone</Label><Input type="tel" placeholder="(555) 123-4567" className="mt-1.5" required /></div>
-              </>
-            )}
-            {step === 2 && (
-              <>
-                <div><Label>Date of Birth</Label><Input type="date" className="mt-1.5" required /></div>
-                <div><Label>Address</Label><Input placeholder="123 Main Street" className="mt-1.5" required /></div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div><Label>City</Label><Input placeholder="New York" className="mt-1.5" required /></div>
-                  <div><Label>ZIP Code</Label><Input placeholder="10001" className="mt-1.5" required /></div>
-                </div>
-              </>
-            )}
-            {step === 3 && (
-              <>
-                <div>
-                  <Label>Account Type</Label>
-                  <Select>
-                    <SelectTrigger className="mt-1.5"><SelectValue placeholder="Select account type" /></SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="checking">Checking Account</SelectItem>
-                      <SelectItem value="savings">High-Yield Savings</SelectItem>
-                      <SelectItem value="business">Business Account</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div>
-                  <Label>Password</Label>
-                  <div className="relative mt-1.5">
-                    <LockIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                    <Input type={show ? 'text' : 'password'} placeholder="Min 8 characters" className="pl-10 pr-10" required />
-                    <button type="button" onClick={() => setShow(!show)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
-                      {show ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                    </button>
-                  </div>
-                </div>
-                <label className="flex items-start gap-2 text-sm text-muted-foreground">
-                  <input type="checkbox" className="mt-1 rounded" required />
-                  <span>I agree to the <a href="#" className="text-primary hover:underline">Terms of Service</a> and <a href="#" className="text-primary hover:underline">Privacy Policy</a></span>
-                </label>
-              </>
-            )}
-            <div className="flex gap-3">
-              {step > 1 && (
-                <button type="button" onClick={() => setStep(step - 1)} className="btn-ghost flex-1">
-                  <ArrowLeft className="w-4 h-4" /> Back
-                </button>
-              )}
-              <button type="submit" className="btn-primary flex-1">
-                {step < 3 ? 'Continue' : 'Create Account'} {step < 3 && <ArrowRight className="w-4 h-4" />}
-              </button>
-            </div>
-          </form>
-          <p className="text-center text-sm text-muted-foreground mt-6">
-            Already have an account?{' '}
-            <button className="text-primary hover:underline font-medium">Sign In</button>
-          </p>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ═══ DASHBOARD PAGE ═══
-function DashboardPage() {
-  const txns = [
-    { name: 'Direct Deposit - Salary', date: 'Jul 28, 2026', amount: 4500.00, type: 'credit' as const },
-    { name: 'Amazon Purchase', date: 'Jul 27, 2026', amount: -89.99, type: 'debit' as const },
-    { name: 'Netflix Subscription', date: 'Jul 26, 2026', amount: -15.99, type: 'debit' as const },
-    { name: 'Transfer from Savings', date: 'Jul 25, 2026', amount: 1000.00, type: 'credit' as const },
-    { name: 'Electric Bill Payment', date: 'Jul 24, 2026', amount: -142.50, type: 'debit' as const },
-    { name: 'Freelance Payment', date: 'Jul 23, 2026', amount: 750.00, type: 'credit' as const },
-    { name: 'Grocery Store', date: 'Jul 22, 2026', amount: -67.32, type: 'debit' as const },
-  ];
-  const accounts = [
-    { label: 'Checking', value: '$12,450.80', change: '+$4,500', icon: Wallet, color: 'text-primary' },
-    { label: 'Savings', value: '$28,340.25', change: '+$180.50', icon: PiggyBank, color: 'text-emerald-400' },
-    { label: 'Credit Card', value: '$1,230.45', change: '-$89.99', icon: CreditCard, color: 'text-amber-400' },
-    { label: 'Investments', value: '$45,120.00', change: '+$2,100', icon: BarChart3, color: 'text-sky-400' },
-  ];
-  const actions = [
-    { icon: Send, label: 'Transfer' },
-    { icon: Download, label: 'Deposit' },
-    { icon: FileText, label: 'Pay Bills' },
-    { icon: QrCode, label: 'Scan QR' },
-  ];
-  return (
-    <section className="py-20 sm:py-28 page-enter">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-8">
-          <h2 className="text-2xl sm:text-3xl font-bold">
-            Welcome back, <span className="gradient-text-animated">John</span>
-          </h2>
-          <p className="text-muted-foreground text-sm mt-1">Here is your account overview</p>
-        </div>
-
-        {/* Account Cards */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
-          {accounts.map(a => (
-            <div key={a.label} className="glass-card card-shine p-5">
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-sm text-muted-foreground">{a.label}</span>
-                <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center">
-                  <a.icon className={`w-4 h-4 ${a.color}`} />
-                </div>
-              </div>
-              <p className="text-2xl font-bold">{a.value}</p>
-              <p className={`text-xs mt-1 ${a.change.startsWith('+') ? 'text-emerald-400' : 'text-destructive'}`}>{a.change}</p>
-            </div>
-          ))}
-        </div>
-
-        {/* Quick Actions */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
-          {actions.map(a => (
-            <button key={a.label} className="glass-card p-4 flex flex-col items-center gap-2 hover:glow-emerald-sm transition-all text-sm font-medium">
-              <a.icon className="w-5 h-5 text-primary" />{a.label}
-            </button>
-          ))}
-        </div>
-
-        {/* Transactions */}
-        <div className="glass-card p-6">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-semibold">Recent Transactions</h3>
-            <button className="text-primary text-sm font-medium hover:underline">View All</button>
-          </div>
-          <div className="space-y-1">
-            {txns.map((t, i) => (
-              <div key={i} className="flex items-center justify-between py-3 border-b border-border/50 last:border-0">
-                <div className="flex items-center gap-3">
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${t.type === 'credit' ? 'bg-emerald-500/10' : 'bg-destructive/10'}`}>
-                    {t.type === 'credit' ? <ArrowDown className="w-4 h-4 text-emerald-400" /> : <ArrowUp className="w-4 h-4 text-destructive" />}
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium">{t.name}</p>
-                    <p className="text-xs text-muted-foreground">{t.date}</p>
-                  </div>
-                </div>
-                <p className={`text-sm font-semibold ${t.type === 'credit' ? 'text-emerald-400' : ''}`}>
-                  {t.type === 'credit' ? '+' : ''}{t.amount.toFixed(2)}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 // ═══ CTA SECTION ═══
-function CTASection({ onSignup }: { onSignup: () => void }) {
+function CTASection() {
   return (
     <section className="py-20 sm:py-28 relative overflow-hidden">
       <div className="float-orb float-orb-md" style={{ top: '10%', left: '25%' }} />
@@ -620,8 +394,8 @@ function CTASection({ onSignup }: { onSignup: () => void }) {
           Join 75,000+ members who trust CoreWealth for their financial future. Open your account today and discover the difference.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <button onClick={onSignup} className="btn-primary">Open Account Today <ArrowRight className="w-4 h-4" /></button>
-          <button className="btn-ghost"><Phone className="w-4 h-4" /> Contact Us</button>
+          <a href="/register" className="btn-primary">Open Account Today <ArrowRight className="w-4 h-4" /></a>
+          <button onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} className="btn-ghost"><Phone className="w-4 h-4" /> Contact Us</button>
         </div>
       </div>
     </section>
@@ -672,7 +446,7 @@ export default function LandingPageClient() {
             <FAQPage />
             <div className="section-divider" />
             <TestimonialsSection />
-            <CTASection onSignup={() => handleNavigate('signup')} />
+            <CTASection />
           </>
         )}
         {currentPage === 'about' && <AboutPage />}
@@ -680,9 +454,7 @@ export default function LandingPageClient() {
         {currentPage === 'tools' && <ToolsPage />}
         {currentPage === 'faq' && <FAQPage />}
         {currentPage === 'contact' && <ContactPage />}
-        {currentPage === 'login' && <LoginPage onLogin={() => handleNavigate('dashboard')} />}
-        {currentPage === 'signup' && <SignupPage onSignup={() => handleNavigate('dashboard')} />}
-        {currentPage === 'dashboard' && <DashboardPage />}
+
       </main>
 
       <Footer />

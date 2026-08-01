@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { Users, DollarSign, Clock, Headphones } from 'lucide-react';
 
 interface HeroSectionProps {
@@ -32,18 +33,12 @@ export default function HeroSection({ onNavigate }: HeroSectionProps) {
             Experience banking reimagined. Secure, fast, and built for the modern world.
           </p>
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button
-              onClick={() => onNavigate('signup')}
-              className="btn-primary"
-            >
+            <Link href="/register" className="btn-primary">
               Open Account
-            </button>
-            <button
-              onClick={() => onNavigate('login')}
-              className="btn-ghost"
-            >
+            </Link>
+            <Link href="/login" className="btn-ghost">
               Login to Banking
-            </button>
+            </Link>
           </div>
         </div>
       </div>
