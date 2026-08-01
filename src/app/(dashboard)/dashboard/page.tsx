@@ -232,6 +232,16 @@ export default function DashboardPage() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [investments, setInvestments] = useState<Investment[]>([]);
 
+  /* ─── Stagger trigger when transactions load ─── */
+  const [txAnimated, setTxAnimated] = useState(false);
+  const txAnimTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => {
+    if (transactions.length > 0 && !txAnimated) {
+      txAnimTimerRef.current = setTimeout(() => setTxAnimated(true), 150);
+    }
+    return () => { if (txAnimTimerRef.current) clearTimeout(txAnimTimerRef.current); };
+  }, [transactions, txAnimated]);
+
   const firstName = userData?.profile?.firstName || 'Valued Customer';
   const lastName = userData?.profile?.lastName || '';
 
@@ -247,6 +257,38 @@ export default function DashboardPage() {
   const kycVerified = userData?.kycLevel !== '0' && userData?.kycLevel !== 'LEVEL_0';
 
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  /* ─── 3D Tilt State ─── */
+  interface TiltState {
+    rotateX: number;
+    rotateY: number;
+    shineX: number;
+    shineY: number;
+  }
+  const [tiltCards, setTiltCards] = useState<Record<number, TiltState>>({});
+
+  const handleCardPointerMove = useCallback((e: React.PointerEvent<HTMLDivElement>, idx: number) => {
+    if (e.pointerType !== 'mouse') return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * -6;
+    const rotateY = ((x - centerX) / centerX) * 6;
+    setTiltCards(prev => ({
+      ...prev,
+      [idx]: { rotateX, rotateY, shineX: (x / rect.width) * 100, shineY: (y / rect.height) * 100 },
+    }));
+  }, []);
+
+  const handleCardPointerLeave = useCallback((idx: number) => {
+    setTiltCards(prev => {
+      const next = { ...prev };
+      delete next[idx];
+      return next;
+    });
+  }, []);
 
   const handleScroll = useCallback(() => {
     if (!scrollRef.current) return;
@@ -267,6 +309,8 @@ export default function DashboardPage() {
     scrollRef.current.scrollTo({ left: index * offset, behavior: 'smooth' });
     setActiveCard(index);
   }, []);
+
+  /* ─── Transaction Stagger Animation ─── */
 
   useEffect(() => {
     const abort = new AbortController();
@@ -339,6 +383,11 @@ export default function DashboardPage() {
     load();
     return () => abort.abort();
   }, []);
+
+  /* ─── Reset tx animation when transactions change ─── */
+  useEffect(() => {
+    setTxAnimated(false);
+  }, [transactions.length]);
 
   /* ─── Balance Card Data ─── */
   const balanceCards = [
@@ -429,6 +478,21 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-6 page-enter">
+      {/* ─── Micro-Interaction Keyframes ─── */}
+      <style dangerouslySetInnerHTML={{ __html: `
+        @keyframes cw-ripple-anim {
+          0% { transform: scale(0); opacity: 0.5; }
+          100% { transform: scale(4); opacity: 0; }
+        }
+        @keyframes cw-fade-slide-up {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes cw-pulse-glow {
+          0%, 100% { box-shadow: 0 0 20px rgba(37,99,235,0.2), 0 25px 50px -12px rgba(0,0,0,0.25); }
+          50% { box-shadow: 0 0 30px rgba(37,99,235,0.4), 0 25px 50px -12px rgba(0,0,0,0.25); }
+        }
+      ` }} />
       <ChatWidget />
 
       {/* ═══════════════════════════════════════════ */}
@@ -496,11 +560,24 @@ export default function DashboardPage() {
             msOverflowStyle: 'none',
           }}
         >
-          {balanceCards.map((card, idx) => (
+          {balanceCards.map((card, idx) => {
+            const tilt = tiltCards[idx];
+            return (
             <div
               key={idx}
-              className="relative flex-shrink-0 w-[85%] max-w-[360px] aspect-[1.6/1] rounded-2xl overflow-hidden shadow-2xl cursor-grab active:cursor-grabbing transition-shadow duration-300 hover:shadow-purple-500/20"
-              style={{ scrollSnapAlign: 'center' }}
+              className="relative flex-shrink-0 w-[85%] max-w-[360px] aspect-[1.6/1] rounded-2xl overflow-hidden shadow-2xl cursor-grab active:cursor-grabbing"
+              style={{
+                scrollSnapAlign: 'center',
+                transform: tilt
+                  ? `perspective(800px) rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg)`
+                  : 'perspective(800px) rotateX(0deg) rotateY(0deg)',
+                transition: tilt
+                  ? 'transform 0.1s ease-out, box-shadow 0.3s ease'
+                  : 'transform 0.4s ease-out, box-shadow 0.3s ease',
+                animation: idx === activeCard && !tilt ? 'cw-pulse-glow 3s infinite ease-in-out' : undefined,
+              }}
+              onPointerMove={(e) => handleCardPointerMove(e, idx)}
+              onPointerLeave={() => handleCardPointerLeave(idx)}
             >
               {/* Gradient background */}
               <div className={`absolute inset-0 bg-gradient-to-br ${card.gradient}`} />
@@ -563,8 +640,18 @@ export default function DashboardPage() {
                   </div>
                 </div>
               </div>
+              {/* 3D Tilt Shine/Glare Overlay */}
+              {tilt && (
+                <div
+                  className="absolute inset-0 pointer-events-none z-20 rounded-2xl"
+                  style={{
+                    background: `radial-gradient(circle at ${tilt.shineX}% ${tilt.shineY}%, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.05) 30%, transparent 60%)`,
+                  }}
+                />
+              )}
             </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Dot indicators */}
@@ -625,7 +712,20 @@ export default function DashboardPage() {
               href={action.href}
               className="flex flex-col items-center gap-2.5 group"
             >
-              <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm flex items-center justify-center text-[#60A5FA] shadow-lg shadow-black/10 group-hover:bg-[#2563EB]/20 group-hover:border-[#2563EB]/30 group-hover:text-white group-hover:scale-105 group-hover:shadow-[#2563EB]/20 transition-all duration-300">
+              <div
+                className="relative overflow-hidden w-14 h-14 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm flex items-center justify-center text-[#60A5FA] shadow-lg shadow-black/10 group-hover:bg-[#2563EB]/20 group-hover:border-[#2563EB]/30 group-hover:text-white group-hover:scale-105 group-hover:shadow-[#2563EB]/20 transition-all duration-300"
+                onClick={(e) => {
+                  const el = e.currentTarget;
+                  const rect = el.getBoundingClientRect();
+                  const size = Math.max(rect.width, rect.height) * 2;
+                  const x = e.clientX - rect.left - size / 2;
+                  const y = e.clientY - rect.top - size / 2;
+                  const ripple = document.createElement('span');
+                  ripple.style.cssText = `position:absolute;border-radius:50%;background:rgba(37,99,235,0.3);width:${size}px;height:${size}px;left:${x}px;top:${y}px;pointer-events:none;animation:cw-ripple-anim 0.6s ease-out forwards;z-index:10;`;
+                  el.appendChild(ripple);
+                  setTimeout(() => ripple.remove(), 650);
+                }}
+              >
                 {action.icon}
               </div>
               <span className="text-muted-foreground text-xs font-medium group-hover:text-foreground transition-colors">
@@ -662,10 +762,16 @@ export default function DashboardPage() {
           </div>
         ) : (
           <div className="bg-white/5 border border-white/10 backdrop-blur-sm rounded-2xl divide-y divide-white/5 overflow-hidden">
-            {transactions.slice(0, 5).map((tx) => (
+            {transactions.slice(0, 5).map((tx, tIdx) => (
               <div
                 key={tx.id}
                 className="flex items-center gap-3 px-4 py-3.5 hover:bg-white/5 transition-colors"
+                style={{
+                  animation: txAnimated
+                    ? `cw-fade-slide-up 0.4s ease-out ${tIdx * 50}ms both`
+                    : 'none',
+                  opacity: txAnimated ? undefined : 0,
+                }}
               >
                 <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center shrink-0">
                   {getTransactionIcon(tx.type)}

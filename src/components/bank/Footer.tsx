@@ -16,6 +16,7 @@ const productLinks: { label: string; href: string }[] = [
   { label: 'Cards', href: '/register' },
   { label: 'Investments', href: '/register' },
   { label: 'Wire Transfers', href: '/register' },
+  { label: 'Download App', href: '/#app-download' },
 ];
 
 const legalLinks: { label: string; href: string }[] = [

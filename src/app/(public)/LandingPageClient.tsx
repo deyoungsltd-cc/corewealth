@@ -2,11 +2,14 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useTheme } from 'next-themes';
+import RateTicker from '@/components/bank/RateTicker';
 import Navbar from '@/components/bank/Navbar';
 import HeroSection from '@/components/bank/HeroSection';
 import RatesSection from '@/components/bank/RatesSection';
 import ServicesSection from '@/components/bank/ServicesSection';
 import TestimonialsSection from '@/components/bank/TestimonialsSection';
+import AppDownloadSection from '@/components/bank/AppDownloadSection';
+import VideoTestimonialsSection from '@/components/bank/VideoTestimonialsSection';
 import Footer from '@/components/bank/Footer';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -1231,6 +1234,7 @@ export default function LandingPageClient() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <RateTicker />
       <ScrollProgress />
       <Navbar currentPage={pageLabel} onNavigate={handleNavigate} />
 
@@ -1250,6 +1254,8 @@ export default function LandingPageClient() {
             <FAQPage />
             <div className="section-divider" />
             <TestimonialsSection />
+            <AppDownloadSection />
+            <VideoTestimonialsSection />
             <CTASection />
           </>
         )}

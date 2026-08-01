@@ -8,6 +8,7 @@ import CoreWealthLogo from '@/components/CoreWealthLogo';
 import NotificationWatcher from '@/components/NotificationWatcher';
 import KycCodeGate from '@/components/KycCodeGate';
 import PWAInstallPrompt from '@/components/PWAInstallPrompt';
+import OnboardingWalkthrough from '@/components/OnboardingWalkthrough';
 import { useAuthStore } from '@/store/useAuthStore';
 
 // ── Error Boundary ──
@@ -277,6 +278,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
 
         <NotificationWatcher onUnreadChange={handleUnreadChange} onNewNotification={handleNewNotification} />
         <PWAInstallPrompt />
+        <OnboardingWalkthrough />
 
         {/* Toast Notification */}
         {toast && (
