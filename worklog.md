@@ -163,3 +163,21 @@ Stage Summary:
 - TestimonialsSection: Glass-morphism cards, initial avatars, decorative quotes, scroll fade-in
 - Purple theme consistent: #7C3AED primary, #6D28D9 hover, #A78BFA secondary, bg #060A13
 - Props interface preserved: currentPage + onNavigate on HeroSection
+
+---
+Task ID: 10-11
+Agent: main
+Task: Create 3D globe component and fix hero slideshow visibility
+
+Work Log:
+- Created Globe3D.tsx with canvas-based rotating wireframe globe (longitude/latitude lines, intersection dots, 12 animated connection arcs, outer glow, mouse parallax tilt, ResizeObserver responsive sizing)
+- Rewrote HeroSection.tsx with visible slideshow (reduced overlay opacity: top 0.6, middle 0.3, bottom 0.7; image opacity 0.6)
+- Added Globe3D to hero: right-side 45% width on desktop (lg+), centered background at 30% opacity on mobile
+- Two-column layout on desktop (60% text left, 40% globe right), single-column centered on mobile
+- Replaced all remaining purple rgba(124,58,237,...) colors with blue rgba(37,99,235,...) equivalents
+- Updated slide indicator glow and stat icon backgrounds to blue
+- Zero TypeScript errors, no Send imports, no lucide-react imports
+
+Stage Summary:
+- New component: Globe3D.tsx — lightweight canvas 3D wireframe globe with auto-rotation, parallax, and connection arcs
+- Updated: HeroSection.tsx — visible banking photos, two-column desktop layout with globe, all-blue color scheme
