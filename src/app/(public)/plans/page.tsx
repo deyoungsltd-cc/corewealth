@@ -23,8 +23,8 @@ function FadeIn({ children, className = '', delay = 0 }: { children: ReactNode; 
 const plans = [
   {
     name: 'Basic', badge: 'STARTER', badgeColor: 'bg-gradient-to-r from-gray-600 to-gray-700',
-    min: 200, max: 4999, daily: 0.5, duration: 30, model: 'Model 3',
-    image: 'https://cdn.motor1.com/images/mgl/3r5Xj/s1/corewealth-model-3.jpg',
+    min: 200, max: 4999, daily: 0.5, duration: 30, model: 'Starter',
+    image: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=600&h=400&fit=crop',
     color: 'border-gray-600', borderColor: 'hover:border-gray-500',
     features: [
       { title: 'Daily Returns', desc: 'Earn 0.5% daily on your invested capital, credited automatically every 24 hours to your account balance.' },
@@ -36,8 +36,8 @@ const plans = [
   },
   {
     name: 'Silver', badge: 'MOST POPULAR', badgeColor: 'bg-gradient-to-r from-[#7C3AED] to-[#ff1a1a]',
-    min: 5000, max: 9999, daily: 0.8, duration: 21, model: 'Model Y',
-    image: 'https://cdn.motor1.com/images/mgl/8N3Eo/s1/corewealth-model-y.jpg',
+    min: 5000, max: 9999, daily: 0.8, duration: 21, model: 'Growth',
+    image: 'https://images.unsplash.com/photo-1560472355-536de3962603?w=600&h=400&fit=crop',
     color: 'border-[#7C3AED]', borderColor: 'hover:border-[#ff1a1a]',
     features: [
       { title: 'Higher Daily Returns', desc: 'Earn 0.8% daily returns — 60% more than the Basic plan — with profits credited to your available balance every day.' },
@@ -49,8 +49,8 @@ const plans = [
   },
   {
     name: 'Gold', badge: 'PREMIUM', badgeColor: 'bg-gradient-to-r from-amber-500 to-yellow-500',
-    min: 10000, max: 49999, daily: 1.2, duration: 14, model: 'Model S',
-    image: 'https://cdn.motor1.com/images/mgl/MY1YN/s1/corewealth-model-s.jpg',
+    min: 10000, max: 49999, daily: 1.2, duration: 14, model: 'Premium',
+    image: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&h=400&fit=crop',
     color: 'border-amber-600', borderColor: 'hover:border-amber-500',
     features: [
       { title: 'Premium Daily Rates', desc: 'Earn 1.2% daily returns — among the highest rates in the industry — credited automatically to your account every 24 hours.' },
@@ -62,8 +62,8 @@ const plans = [
   },
   {
     name: 'Platinum', badge: 'ELITE', badgeColor: 'bg-gradient-to-r from-purple-500 to-indigo-500',
-    min: 50000, max: 100000, daily: 1.8, duration: 7, model: 'Model X',
-    image: 'https://cdn.motor1.com/images/mgl/Q0KNR/s1/corewealth-model-x.jpg',
+    min: 50000, max: 100000, daily: 1.8, duration: 7, model: 'Elite',
+    image: 'https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=600&h=400&fit=crop',
     color: 'border-purple-600', borderColor: 'hover:border-purple-500',
     features: [
       { title: 'Maximum Daily Returns', desc: 'Earn 1.8% daily — the highest return rate available — allowing significant wealth accumulation over the 7-day plan duration.' },

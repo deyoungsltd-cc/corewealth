@@ -23,7 +23,7 @@ const sections = [
   {
     title: '1. Information We Collect',
     content: [
-      'At CoreWealth Bank, we collect information that you voluntarily provide when creating an account, making deposits, or interacting with our platform. This includes your full name, email address, phone number (optional), government-issued identification documents (for KYC verification), cryptocurrency wallet addresses, and transaction history.',
+      'At CoreWealth Bank, we collect information that you voluntarily provide when creating an account, making deposits, or interacting with our platform. This includes your full name, email address, phone number (optional), government-issued identification documents (for KYC verification), bank account details, and transaction history.',
       'We also automatically collect certain technical information when you use our platform, including your IP address, browser type and version, operating system, device identifiers, pages visited, time spent on pages, and referring URLs. This data helps us improve our service, prevent fraud, and ensure platform security.',
     ],
   },

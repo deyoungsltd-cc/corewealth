@@ -46,7 +46,7 @@ export default function StructuredData() {
         name: 'How does CoreWealth Bank generate returns?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Our fund managers deploy capital across diversified strategies including equities, crypto assets, and algorithmic trading for consistent daily returns.',
+          text: 'Our fund managers deploy capital across diversified strategies including savings accounts, investment portfolios, and wealth management services for consistent daily returns.',
         },
       },
       {
@@ -62,7 +62,7 @@ export default function StructuredData() {
         name: 'How do I withdraw my earnings?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Navigate to Withdraw in your dashboard, enter the amount and wallet address. Withdrawals are processed within minutes for verified accounts.',
+          text: 'Navigate to Withdraw in your dashboard, enter the amount and bank account details. Withdrawals are processed within minutes for verified accounts.',
         },
       },
     ],

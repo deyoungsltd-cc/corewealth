@@ -65,7 +65,7 @@ export default function WithdrawPage() {
       const res = await fetch('/api/withdrawals', {
         method: 'POST',
         headers,
-        body: JSON.stringify({ amount: numAmount, destinationType: 'crypto', destinationAddress: walletAddress }),
+        body: JSON.stringify({ amount: numAmount, destinationType: 'bank', destinationAddress: walletAddress }),
       });
       const data = await res.json();
       if (res.ok && data.success) {
@@ -83,7 +83,7 @@ export default function WithdrawPage() {
     <div className="space-y-5">
       <div>
         <h2 className="text-white font-bold text-lg">Withdraw Funds</h2>
-        <p className="text-gray-500 text-sm mt-0.5">Request a withdrawal to your crypto wallet</p>
+        <p className="text-gray-500 text-sm mt-0.5">Request a withdrawal to your bank account</p>
       </div>
 
       {/* KYC Level 3 required banner */}
@@ -144,12 +144,12 @@ export default function WithdrawPage() {
           )}
 
           <div>
-            <label className="block text-gray-300 text-sm font-medium mb-1.5">Wallet Address</label>
+            <label className="block text-gray-300 text-sm font-medium mb-1.5">Bank Account Number</label>
             <input
               type="text"
               value={walletAddress}
               onChange={(e) => setWalletAddress(e.target.value)}
-              placeholder="Enter your crypto wallet address"
+              placeholder="Enter your bank account number"
               className="w-full bg-[#1a1a1a] border border-border rounded-lg px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED] transition-colors"
             />
           </div>
@@ -190,7 +190,7 @@ export default function WithdrawPage() {
                 <svg className="w-4 h-4 text-amber-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
                 </svg>
-                <p className="text-amber-300 text-xs">Withdrawals are irreversible. Please double-check your wallet address before confirming.</p>
+                <p className="text-amber-300 text-xs">Withdrawals are irreversible. Please double-check your account number before confirming.</p>
               </div>
 
               {/* Details */}
@@ -211,7 +211,7 @@ export default function WithdrawPage() {
 
               {/* Wallet address display */}
               <div className="bg-[#1a1a1a] rounded-lg p-4">
-                <span className="text-gray-400 text-xs block mb-1">Destination Wallet</span>
+                <span className="text-gray-400 text-xs block mb-1">Destination Bank Account</span>
                 <p className="text-white text-sm font-mono break-all">{walletAddress}</p>
               </div>
 

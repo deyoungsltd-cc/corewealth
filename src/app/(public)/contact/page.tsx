@@ -21,7 +21,7 @@ function FadeIn({ children, className = '', delay = 0 }: { children: ReactNode; 
 
 const quickAnswers = [
   { q: 'How long does support take to respond?', a: 'Our live chat provides instant responses 24/7. Email inquiries are typically answered within 1-2 hours during business hours, and within 4 hours during off-peak times.' },
-  { q: 'I have a deposit that hasn\'t been credited.', a: 'For cryptocurrency deposits, check the blockchain transaction status first. If confirmed but not credited, contact support with your transaction hash. Gift card deposits may take 1-3 hours for verification.' },
+  { q: 'I have a deposit that hasn\'t been credited.', a: 'For bank transfers, please allow 1-3 business days for processing. If the deposit is confirmed by your bank but not credited, contact support with your transaction reference number.' },
   { q: 'My withdrawal is pending.', a: 'Standard withdrawals are processed within 1-24 hours. If your withdrawal exceeds the expected processing time, contact support with your withdrawal details for immediate assistance.' },
 ];
 

@@ -3,14 +3,13 @@
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import dynamic from 'next/dynamic';
 
 
-function CoreWealthTLogo({ className = 'w-7 h-7' }: { className?: string }) {
+function AdminLogo({ className = 'w-7 h-7' }: { className?: string }) {
   return (
     <div className={`w-8 h-8 rounded-lg bg-[#7C3AED]/10 border border-[#7C3AED]/20 flex items-center justify-center ${className}`}>
-      <svg viewBox="0 0 24 24" className="w-5 h-5" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 5.362l2.475-3.026s4.245.09 8.471 2.054c-1.082 1.636-3.231 2.438-3.231 2.438-.146-1.439-1.154-1.79-4.354-1.79L12 24 8.619 5.034c-3.18 0-4.188.354-4.335 1.792 0 0-2.146-.795-3.229-2.43C5.28 2.431 9.525 2.34 9.525 2.34L12 5.362h-.004.004zm0-3.899c3.415-.03 7.326.528 11.328 2.28.535-.968.672-1.395.672-1.395C19.625.612 15.528.015 12 0 8.472.015 4.375.61 0 2.349c0 0 .195.525.672 1.396C4.674 1.989 8.585 1.435 12 1.46V1.463z" fill="#7C3AED"/>
+      <svg viewBox="0 0 24 24" className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#7C3AED" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M3 21h18"/><path d="M3 7v1a3 3 0 0 0 6 0V7"/><path d="M9 7v1a3 3 0 0 0 6 0V7"/><path d="M15 7v1a3 3 0 0 0 6 0V7"/><path d="M3 7h18l-1.5-4H4.5L3 7z"/>
       </svg>
     </div>
   );
@@ -22,8 +21,7 @@ const navItems = [
   { label: 'Deposits', key: 'deposits', icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19" /><polyline points="19 12 12 19 5 12" /></svg> },
   { label: 'Withdrawals', key: 'withdrawals', icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="19" x2="12" y2="5" /><polyline points="5 12 12 5 19 12" /></svg> },
   { label: 'KYC Review', key: 'kyc', icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 4h18v16H3z" /><path d="M3 10h18" /></svg> },
-  { label: 'Market', key: 'market', icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12" /></svg> },
-  { label: 'Trade Control', key: 'trade-control', icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></svg> },
+
   { label: 'Messages', key: 'messages', icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" /><path d="M13.73 21a2 2 0 0 1-3.46 0" /></svg> },
   { label: 'Audit Log', key: 'audit', icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /><line x1="16" y1="13" x2="8" y2="13" /><line x1="16" y1="17" x2="8" y2="17" /><polyline points="10 9 9 9 8 9" /></svg> },
   { label: 'Settings', key: 'settings', icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" /></svg> },
@@ -82,12 +80,12 @@ export default function AdminPage() {
   const [messageDialog, setMessageDialog] = useState<{type: 'kyc'|'deposit'|'withdrawal', id: string, action: 'approve'|'reject', defaultReason?: string} | null>(null);
   const [dialogMessage, setDialogMessage] = useState('');
   const [dialogAttachment, setDialogAttachment] = useState('');
-  // Payment addresses state
-  const [paymentAddresses, setPaymentAddresses] = useState<any[]>([]);
-  const [addressesLoading, setAddressesLoading] = useState(false);
-  const [showAddAddress, setShowAddAddress] = useState(false);
-  const [editingAddress, setEditingAddress] = useState<any | null>(null);
-  const [addrForm, setAddrForm] = useState({ label: '', currency: 'BTC', network: '', address: '', qrCodeUrl: '', isActive: true, sortOrder: 0 });
+  // Bank accounts state
+  const [bankAccounts, setBankAccounts] = useState<any[]>([]);
+  const [bankAccountsLoading, setBankAccountsLoading] = useState(false);
+  const [showAddBank, setShowAddBank] = useState(false);
+  const [editingBank, setEditingBank] = useState<any | null>(null);
+  const [bankForm, setBankForm] = useState({ label: '', bankName: '', accountNumber: '', routingNumber: '', accountType: 'Checking', isActive: true });
   // Messages state
   const [msgSubject, setMsgSubject] = useState('');
   const [msgBody, setMsgBody] = useState('');
@@ -112,29 +110,6 @@ export default function AdminPage() {
   const [fundEditAmount, setFundEditAmount] = useState<string>('');
   const [fundEditMode, setFundEditMode] = useState<'adjust' | 'set'>('adjust');
   const [fundEditLoading, setFundEditLoading] = useState(false);
-  // KYC Code state
-  const [kycCodeValue, setKycCodeValue] = useState('');
-  const [kycCodeMessage, setKycCodeMessage] = useState('');
-  const [kycCodeNotify, setKycCodeNotify] = useState(true);
-  const [kycCodeLoading, setKycCodeLoading] = useState(false);
-  const [confirmPurchaseLoading, setConfirmPurchaseLoading] = useState(false);
-  // Standalone KYC Code Generator state (on KYC Review tab)
-  const [kycGenUserId, setKycGenUserId] = useState('');
-  const [kycGenCode, setKycGenCode] = useState('');
-  const [kycGenMessage, setKycGenMessage] = useState('');
-  const [kycGenNotify, setKycGenNotify] = useState(true);
-  const [kycGenLoading, setKycGenLoading] = useState(false);
-
-  // ── Trade Control (chart spike) state ──
-  // Admin picks a user, picks a direction + magnitude, and fires a "spike"
-  // that visibly jumps that user's  on their next poll.
-  const [spikeUserId, setSpikeUserId] = useState<string>('');
-  const [spikeDirection, setSpikeDirection] = useState<'up' | 'down'>('up');
-  const [spikeMagnitude, setSpikeMagnitude] = useState<number>(10);
-  const [spikeMessage, setSpikeMessage] = useState<string>('');
-  const [spikeLoading, setSpikeLoading] = useState(false);
-  const [spikeHistory, setSpikeHistory] = useState<any[]>([]);
-  const [spikeHistoryLoading, setSpikeHistoryLoading] = useState(false);
 
   // Auth check — verify admin access server-side, not just localStorage
   const [authChecking, setAuthChecking] = useState(true);
@@ -212,14 +187,14 @@ export default function AdminPage() {
     } catch (e) { console.error(e); }
   }, []);
 
-  const fetchPaymentAddresses = useCallback(async () => {
-    setAddressesLoading(true);
+  const fetchBankAccounts = useCallback(async () => {
+    setBankAccountsLoading(true);
     try {
-      const res = await apiCall('/api/admin/payment-addresses');
+      const res = await apiCall('/api/admin/bank-accounts');
       const data = await res.json();
-      if (data.success) setPaymentAddresses(data.data.addresses || []);
+      if (data.success) setBankAccounts(data.data.accounts || []);
     } catch (e) { console.error(e); }
-    setAddressesLoading(false);
+    setBankAccountsLoading(false);
   }, []);
 
   const fetchAuditLog = useCallback(async (page: number) => {
@@ -255,164 +230,10 @@ export default function AdminPage() {
     fetchUserDetail(userId);
   };
 
-  // ── Trade Control: spike a user's chart ──
-  const fetchSpikeHistory = useCallback(async () => {
-    setSpikeHistoryLoading(true);
-    try {
-      const res = await apiCall('/api/admin/chart-spike');
-      const data = await res.json();
-      if (data.success) setSpikeHistory(data.data.spikes || []);
-    } catch (e) { console.error(e); }
-    setSpikeHistoryLoading(false);
-  }, []);
-
-  const fireSpike = async () => {
-    if (!spikeUserId) { showToast('Select a user first'); return; }
-    if (spikeMagnitude <= 0 || spikeMagnitude > 100) { showToast('Magnitude must be between 0.1 and 100'); return; }
-    setSpikeLoading(true);
-    try {
-      const res = await apiCall('/api/admin/chart-spike', {
-        method: 'POST',
-        body: JSON.stringify({
-          userId: spikeUserId,
-          direction: spikeDirection,
-          magnitudePct: spikeMagnitude,
-          message: spikeMessage.trim() || undefined,
-        }),
-      });
-      const data = await res.json();
-      if (data.success) {
-        const target = users.find((u: any) => u.id === spikeUserId);
-        showToast(`Spike fired: ${spikeDirection === 'up' ? '+' : '-'}${spikeMagnitude}% → ${target?.email || data.data?.targetEmail || 'user'}`);
-        setSpikeMessage('');
-        fetchSpikeHistory();
-      } else {
-        showToast(data.error?.message || 'Failed to fire spike');
-      }
-    } catch { showToast('Network error'); }
-    setSpikeLoading(false);
-  };
-
-  const quickSpike = (userId: string, direction: 'up' | 'down', magnitudePct: number) => {
-    setSpikeUserId(userId);
-    setSpikeDirection(direction);
-    setSpikeMagnitude(magnitudePct);
-    // fire on next tick so state settles
-    setTimeout(() => {
-      (async () => {
-        setSpikeLoading(true);
-        try {
-          const res = await apiCall('/api/admin/chart-spike', {
-            method: 'POST',
-            body: JSON.stringify({ userId, direction, magnitudePct }),
-          });
-          const data = await res.json();
-          if (data.success) {
-            const target = users.find((u: any) => u.id === userId);
-            showToast(`Quick spike: ${direction === 'up' ? '+' : '-'}${magnitudePct}% → ${target?.email || 'user'}`);
-            fetchSpikeHistory();
-          } else {
-            showToast(data.error?.message || 'Failed');
-          }
-        } catch { showToast('Network error'); }
-        setSpikeLoading(false);
-      })();
-    }, 50);
-  };
-
   const closeUserDetail = () => {
     setSelectedUserId(null);
     setUserDetail(null);
     setFundEditAmount('');
-    setKycCodeValue('');
-    setKycCodeMessage('');
-    setKycCodeNotify(true);
-  };
-
-  // Quick-generate KYC code (NO email — client must purchase first)
-  const quickSendKycCode = async (userId: string) => {
-    const code = 'KYC-' + Math.random().toString(36).substring(2, 8).toUpperCase();
- setKycCodeLoading(true);
-    try {
-      const res = await apiCall(`/api/admin/users/${userId}/kyc-code`, {
-        method: 'POST',
-        body: JSON.stringify({ code }),
-      });
-      const data = await res.json();
-      if (data.success) {
-        showToast(`KYC code ${code} generated. Client notified to purchase.`);
-      } else {
-        showToast(data.error?.message || 'Failed to generate code');
-      }
-    } catch { showToast('Network error'); }
-    setKycCodeLoading(false);
-  };
-
-  // Confirm purchase & send code email
-  const confirmPurchase = async (userId: string) => {
-    setConfirmPurchaseLoading(true);
-    try {
-      const res = await apiCall(`/api/admin/users/${userId}/kyc-code`, {
-        method: 'POST',
-        body: JSON.stringify({ action: 'confirm_purchase' }),
-      });
-      const data = await res.json();
-      if (data.success) {
-        showToast('Purchase confirmed! Code sent to client email.');
-      } else {
-        showToast(data.error?.message || 'Failed to confirm');
-      }
-    } catch { showToast('Network error'); }
-    setConfirmPurchaseLoading(false);
-  };
-
-  // Standalone KYC Code Generator submit
-  const submitKycGenCode = async () => {
-    if (!kycGenUserId || !kycGenCode.trim()) { showToast('Select a user and enter a code'); return; }
-    setKycGenLoading(true);
-    try {
-      const res = await apiCall(`/api/admin/users/${kycGenUserId}/kyc-code`, {
-        method: 'POST',
-        body: JSON.stringify({ code: kycGenCode.trim(), adminMessage: kycGenMessage.trim() || undefined }),
-      });
-      const data = await res.json();
-      if (data.success) {
-        showToast(`KYC code generated: ${kycGenCode.trim()}. Client notified to purchase.`);
-        setKycGenCode('');
-        setKycGenMessage('');
-      } else {
-        showToast(data.error?.message || 'Failed');
-      }
-    } catch { showToast('Network error'); }
-    setKycGenLoading(false);
-  };
-
-  // Quick generate code from KYC review table row
-  const quickSendCodeForRow = async (userId: string) => {
-    const code = 'KYC-' + Math.random().toString(36).substring(2, 8).toUpperCase();
-    try {
-      const res = await apiCall(`/api/admin/users/${userId}/kyc-code`, {
-        method: 'POST',
-        body: JSON.stringify({ code }),
-      });
-      const data = await res.json();
-      if (data.success) showToast(`Code ${code} generated. Awaiting purchase.`);
-      else showToast(data.error?.message || 'Failed');
-    } catch { showToast('Network error'); }
-  };
-  // Quick confirm purchase from KYC review table row
-  const quickConfirmPurchaseForRow = async (userId: string) => {
-    setConfirmPurchaseLoading(true);
-    try {
-      const res = await apiCall(`/api/admin/users/${userId}/kyc-code`, {
-        method: 'POST',
-        body: JSON.stringify({ action: 'confirm_purchase' }),
-      });
-      const data = await res.json();
-      if (data.success) showToast('Purchase confirmed & code sent!');
-      else showToast(data.error?.message || 'Failed');
-    } catch { showToast('Network error'); }
-    setConfirmPurchaseLoading(false);
   };
 
   const handleFundEdit = async () => {
@@ -455,11 +276,6 @@ export default function AdminPage() {
     if (activeTab === 'kyc') fetchKyc();
     if (activeTab === 'messages') fetchUsers('');
     if (activeTab === 'audit') fetchAuditLog(1);
-    if (activeTab === 'trade-control') {
-      // Need user list for the dropdown, plus recent spike history
-      fetchUsers('');
-      fetchSpikeHistory();
-    }
     if (activeTab === 'settings') {
       apiCall('/api/admin/settings').then(r => r.json()).then(d => {
         if (d.success) {
@@ -467,7 +283,7 @@ export default function AdminPage() {
           if (d.data?.managementPhotoUrl) setCEOPhotoUrl(d.data.managementPhotoUrl);
         }
       }).catch(() => {});
-      fetchPaymentAddresses();
+      fetchBankAccounts();
     }
   }, [activeTab, depositFilter, withdrawalFilter]);
 
@@ -652,33 +468,6 @@ export default function AdminPage() {
                   </div>
                   <div className="flex items-center gap-2">
                     {statusBadge(userDetail.status)}
-                    {/* Quick KYC Code button right in the header */}
-                    <button
-                      onClick={() => quickSendKycCode(selectedUserId)}
-                      disabled={kycCodeLoading}
-                      className="flex items-center gap-1.5 px-3 py-1.5 bg-[#7C3AED]/10 border border-[#7C3AED]/30 text-[#7C3AED] text-xs font-bold rounded-lg hover:bg-[#7C3AED]/20 transition-colors disabled:opacity-50"
-                      title="Auto-generate and send a KYC verification code to this user"
-                    >
-                      {kycCodeLoading ? (
-                        <svg className="animate-spin h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" strokeOpacity="0.25"/><path d="M12 2a10 10 0 0 1 10 10"/></svg>
-                      ) : (
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>
-                      )}
-                      Send KYC Code
-                    </button>
-                    <button
-                      onClick={() => confirmPurchase(selectedUserId)}
-                      disabled={confirmPurchaseLoading}
-                      className="flex items-center gap-1.5 px-3 py-1.5 bg-green-600/10 border border-green-600/30 text-green-400 text-xs font-bold rounded-lg hover:bg-green-600/20 transition-colors disabled:opacity-50"
-                      title="Confirm client purchased the code & send it to their email"
-                    >
-                      {confirmPurchaseLoading ? (
-                        <svg className="animate-spin h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" strokeOpacity="0.25"/><path d="M12 2a10 10 0 0 1 10 10"/></svg>
-                      ) : (
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                      )}
-                      Confirm Purchase &amp; Send
-                    </button>
                     <button onClick={closeUserDetail} className="p-1.5 rounded-lg hover:bg-white/10 text-gray-400 hover:text-white transition-colors">
                       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
                     </button>
@@ -876,133 +665,26 @@ export default function AdminPage() {
                   </div>
                 )}
 
-                {/* KYC Verification Code */}
-                <div className="space-y-4">
-                  <h4 className="text-white font-semibold text-sm flex items-center gap-2">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="1.5"><rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>
-                    KYC Verification Code
-                  </h4>
-                  <p className="text-gray-500 text-xs">Generate and assign a KYC verification code to this user. They must enter this code to submit Level 1 KYC documents.</p>
-                  <div className="bg-[#111] border border-border rounded-xl p-5 space-y-4">
-                    {/* Generate button */}
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => setKycCodeValue('KYC-' + Math.random().toString(36).substring(2, 8).toUpperCase())}
-                        className="px-4 py-2.5 bg-[#7C3AED]/10 border border-[#7C3AED]/30 text-[#7C3AED] text-xs font-bold rounded-lg hover:bg-[#7C3AED]/20 transition-colors"
-                      >
-                        Auto-Generate Code
-                      </button>
-                      <button
-                        onClick={() => setKycCodeValue('')}
-                        className="px-4 py-2.5 bg-white/5 border border-border text-gray-400 text-xs font-medium rounded-lg hover:bg-white/10 transition-colors"
-                      >
-                        Clear
-                      </button>
-                    </div>
-                    {/* Code input */}
-                    <div>
-                      <label className="block text-gray-400 text-xs font-medium mb-1.5">Verification Code</label>
-                      <input
-                        type="text"
-                        value={kycCodeValue}
-                        onChange={(e) => setKycCodeValue(e.target.value)}
-                        placeholder="Enter or auto-generate a code"
-                        className="w-full bg-[#1a1a1a] border border-border rounded-lg px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED] transition-colors font-mono tracking-widest text-center"
-                      />
-                    </div>
-                    {/* Optional message to user */}
-                    <div>
-                      <label className="block text-gray-400 text-xs font-medium mb-1.5">Message to User (optional)</label>
-                      <input
-                        type="text"
-                        value={kycCodeMessage}
-                        onChange={(e) => setKycCodeMessage(e.target.value)}
-                        placeholder="e.g. Please use this code to complete your KYC verification"
-                        maxLength={200}
-                        className="w-full bg-[#1a1a1a] border border-border rounded-lg px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED] transition-colors"
-                      />
-                    </div>
-                    {/* Notify toggle */}
-                    <label className="flex items-center gap-2 cursor-pointer">
-                      <input
-                        type="checkbox"
-                        checked={kycCodeNotify}
-                        onChange={(e) => setKycCodeNotify(e.target.checked)}
-                        className="accent-[#7C3AED]"
-                      />
-                      <span className="text-gray-400 text-xs">Send email notification to user with instructions</span>
-                    </label>
-                    {/* Submit */}
-                    <button
-                      onClick={async () => {
-                        if (!kycCodeValue.trim() || !selectedUserId) return;
-                        setKycCodeLoading(true);
-                        try {
-                          const res = await apiCall(`/api/admin/users/${selectedUserId}/kyc-code`, {
-                            method: 'POST',
-                            body: JSON.stringify({
-                              code: kycCodeValue.trim(),
-                              adminMessage: kycCodeMessage.trim() || undefined,
-                            }),
-                          });
-                          const data = await res.json();
-                          if (data.success) {
-                            showToast(`KYC code generated: ${kycCodeValue.trim()} — Client notified to purchase.`);
-                            setKycCodeValue('');
-                            setKycCodeMessage('');
-                          } else {
-                            showToast(data.error?.message || 'Failed to set KYC code');
-                          }
-                        } catch {
-                          showToast('Failed to set KYC code');
-                        }
-                        setKycCodeLoading(false);
-                      }}
-                      disabled={kycCodeLoading || !kycCodeValue.trim()}
-                      className="w-full py-3 rounded-xl bg-[#7C3AED] hover:bg-red-700 disabled:opacity-50 text-white text-sm font-bold transition-colors flex items-center justify-center gap-2"
-                    >
-                      {kycCodeLoading ? (
-                        <><svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" strokeOpacity="0.25"/><path d="M12 2a10 10 0 0 1 10 10"/></svg>Generating...</>
-                      ) : (
-                        <><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>Generate Code (Awaiting Purchase)</>
-                      )}
-                    </button>
-                    <button
-                      onClick={() => confirmPurchase(selectedUserId)}
-                      disabled={confirmPurchaseLoading || !selectedUserId}
-                      className="w-full py-3 rounded-xl bg-green-600 hover:bg-green-700 disabled:opacity-50 text-white text-sm font-bold transition-colors flex items-center justify-center gap-2 mt-2"
-                    >
-                      {confirmPurchaseLoading ? (
-                        <><svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" strokeOpacity="0.25"/><path d="M12 2a10 10 0 0 1 10 10"/></svg>Confirming...</>
-                      ) : (
-                        <><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Confirm Purchase &amp; Send Code to Email</>
-                      )}
-                    </button>
-                  </div>
-                </div>
-
-                {/* Recent Investments */}
-                {userDetail.investments && userDetail.investments.length > 0 && (
+                {/* Account Activity */}
+                {userDetail.deposits && userDetail.deposits.length > 0 && (
                   <div className="space-y-2">
-                    <h4 className="text-white font-semibold text-sm">Recent Investments</h4>
+                    <h4 className="text-white font-semibold text-sm">Account Activity</h4>
                     <div className="bg-[#111] border border-border rounded-xl overflow-hidden">
                       <div className="overflow-x-auto">
                         <table className="w-full text-xs">
                           <thead><tr className="border-b border-border">
-                            <th className="text-left text-gray-500 font-medium px-3 py-2">Plan</th>
+                            <th className="text-left text-gray-500 font-medium px-3 py-2">Type</th>
                             <th className="text-left text-gray-500 font-medium px-3 py-2">Amount</th>
-                            <th className="text-left text-gray-500 font-medium px-3 py-2">Return</th>
+                            <th className="text-left text-gray-500 font-medium px-3 py-2">Date</th>
                             <th className="text-left text-gray-500 font-medium px-3 py-2">Status</th>
-                            <th className="text-right text-gray-500 font-medium px-3 py-2">Date</th>
                           </tr></thead>
                           <tbody>
-                            {userDetail.investments.slice(0, 5).map((inv: any) => (
-                              <tr key={inv.id} className="border-b border-border/50 last:border-0">
-                                <td className="text-white font-medium px-3 py-2">{inv.plan?.name || '—'}</td>
-                                <td className="text-blue-400 font-medium px-3 py-2">${(inv.amount || 0).toLocaleString()}</td>
-                                <td className="text-green-400 px-3 py-2">${(inv.expectedReturn || 0).toLocaleString()}</td>
-                                <td className="px-3 py-2">{statusBadge(inv.status)}</td>
-                                <td className="text-gray-500 px-3 py-2 text-right">{new Date(inv.createdAt).toLocaleDateString()}</td>
+                            {userDetail.deposits.slice(0, 5).map((d: any) => (
+                              <tr key={d.id} className="border-b border-border/50 last:border-0">
+                                <td className="text-white font-medium px-3 py-2">Deposit</td>
+                                <td className="text-blue-400 font-medium px-3 py-2">${(d.amount || 0).toLocaleString()}</td>
+                                <td className="text-gray-400 px-3 py-2">{new Date(d.createdAt).toLocaleDateString()}</td>
+                                <td className="px-3 py-2">{statusBadge(d.status)}</td>
                               </tr>
                             ))}
                           </tbody>
@@ -1023,7 +705,7 @@ export default function AdminPage() {
 
       <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-card border-r border-border flex flex-col transition-transform lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className="flex items-center gap-2.5 px-5 h-16 border-b border-border">
-          <CoreWealthTLogo />
+          <AdminLogo />
           <span className="font-bold text-sm">CoreWealth Admin</span>
           <button className="lg:hidden ml-auto text-gray-400" onClick={() => setSidebarOpen(false)}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
@@ -1080,8 +762,8 @@ export default function AdminPage() {
                 {[
                   { label: 'Total Users', value: stats?.totalUsers?.toLocaleString() || '—', color: 'text-white', icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /></svg> },
                   { label: 'Total Deposits', value: `$${(stats?.totalDeposits || 0).toLocaleString()}`, color: 'text-green-400', icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><line x1="12" y1="5" x2="12" y2="19" /><polyline points="19 12 12 19 5 12" /></svg> },
-                  { label: 'Active Investments', value: stats?.activeInvestments?.toString() || '—', color: 'text-blue-400', icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12" /></svg> },
-                  { label: 'Total Investments', value: `$${(stats?.totalInvestments || 0).toLocaleString()}`, color: 'text-purple-400', icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="7" width="20" height="14" rx="2" /><path d="M16 7V5a4 4 0 0 0-8 0v2" /></svg> },
+                  { label: 'Active Accounts', value: stats?.activeInvestments?.toString() || '—', color: 'text-blue-400', icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /></svg> },
+                  { label: 'Total Deposits', value: `$${(stats?.totalInvestments || 0).toLocaleString()}`, color: 'text-purple-400', icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="7" width="20" height="14" rx="2" /><path d="M16 7V5a4 4 0 0 0-8 0v2" /></svg> },
                 ].map((s, i) => (
                   <div key={i} className="bg-card border border-border rounded-xl p-4">
                     <div className="flex items-center justify-between mb-2">
@@ -1296,103 +978,6 @@ export default function AdminPage() {
           {/* KYC TAB */}
           {activeTab === 'kyc' && (
             <div className="space-y-4">
-              {/* ─── KYC Code Generator (always visible) ─── */}
-              <div className="bg-card border border-[#7C3AED]/20 rounded-xl p-5 space-y-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-lg bg-[#7C3AED]/10 flex items-center justify-center">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>
-                    </div>
-                    <div>
-                      <h3 className="text-white font-semibold text-sm">KYC Code Generator</h3>
-                      <p className="text-gray-500 text-[10px]">Generate and send a verification code to any user</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                  {/* User select */}
-                  <div>
-                    <label className="block text-gray-400 text-xs uppercase tracking-wider mb-1.5">User</label>
-                    <select
-                      value={kycGenUserId}
-                      onChange={(e) => setKycGenUserId(e.target.value)}
-                      className="w-full bg-[#111] border border-border text-white text-sm rounded-lg px-3 py-2.5 focus:outline-none focus:border-[#7C3AED]"
-                    >
-                      <option value="">— Select user —</option>
-                      {users.map((u: any) => (
-                        <option key={u.id} value={u.id}>
-                          {u.email}{u.profile?.firstName ? ` (${u.profile.firstName})` : ''}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  {/* Code */}
-                  <div>
-                    <label className="block text-gray-400 text-xs uppercase tracking-wider mb-1.5">Verification Code</label>
-                    <div className="flex gap-2">
-                      <input
-                        type="text"
-                        value={kycGenCode}
-                        onChange={(e) => setKycGenCode(e.target.value)}
-                        placeholder="Enter or auto-generate"
-                        className="flex-1 bg-[#111] border border-border rounded-lg px-3 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED] font-mono tracking-widest text-center"
-                      />
-                      <button
-                        onClick={() => setKycGenCode('KYC-' + Math.random().toString(36).substring(2, 8).toUpperCase())}
-                        className="px-3 py-2.5 bg-[#7C3AED]/10 border border-[#7C3AED]/30 text-[#7C3AED] text-xs font-bold rounded-lg hover:bg-[#7C3AED]/20 transition-colors whitespace-nowrap"
-                      >
-                        Auto
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Submit */}
-                  <div>
-                    <label className="block text-gray-400 text-xs uppercase tracking-wider mb-1.5">Action</label>
-                    <div className="flex gap-2">
-                      <button
-                        onClick={submitKycGenCode}
-                        disabled={kycGenLoading || !kycGenUserId || !kycGenCode.trim()}
-                        className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 bg-[#7C3AED] hover:bg-[#6D28D9] disabled:opacity-40 disabled:cursor-not-allowed text-white text-xs font-bold rounded-lg transition-colors"
-                      >
-                        {kycGenLoading ? (
-                          <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" strokeOpacity="0.25"/><path d="M12 2a10 10 0 0 1 10 10"/></svg>
-                        ) : (
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-                        )}
-                        Send Code
-                      </button>
-                      <label className="flex items-center gap-1.5 px-3 py-2.5 bg-white/5 border border-border rounded-lg cursor-pointer hover:bg-white/10 transition-colors" title="Also send email">
-                        <input
-                          type="checkbox"
-                          checked={kycGenNotify}
-                          onChange={(e) => setKycGenNotify(e.target.checked)}
-                          className="w-3.5 h-3.5 accent-[#7C3AED]"
-                        />
-                        <span className="text-gray-400 text-[10px] whitespace-nowrap">Email</span>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Optional message */}
-                {kycGenUserId && (
-                  <div>
-                    <label className="block text-gray-400 text-xs uppercase tracking-wider mb-1.5">Message to User (optional)</label>
-                    <input
-                      type="text"
-                      value={kycGenMessage}
-                      onChange={(e) => setKycGenMessage(e.target.value)}
-                      placeholder="e.g. Please use this code to complete your KYC verification"
-                      maxLength={200}
-                      className="w-full bg-[#111] border border-border rounded-lg px-3 py-2.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED]"
-                    />
-                  </div>
-                )}
-              </div>
-
               {/* ─── KYC Review Table ─── */}
               <div className="bg-card border border-border rounded-xl overflow-hidden">
                 <div className="overflow-x-auto">
@@ -1414,17 +999,10 @@ export default function AdminPage() {
                           <td className="px-4 py-3">{statusBadge(k.status)}</td>
                           <td className="text-gray-500 px-4 py-3 text-xs hidden md:table-cell">{k.submittedAt ? new Date(k.submittedAt).toLocaleDateString() : '—'}</td>
                           <td className="px-4 py-3 text-right space-x-2 whitespace-nowrap">
-                            <button
-                              onClick={() => quickSendCodeForRow(k.userId)}
-                              className="bg-[#7C3AED]/15 border border-[#7C3AED]/30 text-[#7C3AED] text-xs font-medium px-2.5 py-1.5 rounded-lg hover:bg-[#7C3AED]/25 transition-colors"
-                              title="Auto-generate and send KYC code"
-                            >
-                              Send Code
-                            </button>
                             {k.status === 'pending' && (
                               <>
-                                <button onClick={() => handleKycAction(k.id, 'approve')} disabled={actionLoading === k.id} className="bg-green-600 hover:bg-green-700 disabled:opacity-50 text-white text-xs font-medium px-3 py-1.5 rounded-lg transition-colors">Approve</button>
-                                <button onClick={() => handleKycAction(k.id, 'reject')} disabled={actionLoading === k.id} className="bg-red-600 hover:bg-red-700 disabled:opacity-50 text-white text-xs font-medium px-3 py-1.5 rounded-lg transition-colors">Reject</button>
+                                <button onClick={() => handleKycAction(k.id, 'approve')} disabled={actionLoading === k.id} className="bg-green-600 hover:bg-green-700 disabled:opacity-50 text-white text-xs font-medium px-3 py-1.5 rounded-lg transition-colors">Approve KYC</button>
+                                <button onClick={() => handleKycAction(k.id, 'reject')} disabled={actionLoading === k.id} className="bg-red-600 hover:bg-red-700 disabled:opacity-50 text-white text-xs font-medium px-3 py-1.5 rounded-lg transition-colors">Reject KYC</button>
                               </>
                             )}
                           </td>
@@ -1434,247 +1012,6 @@ export default function AdminPage() {
                     </tbody>
                   </table>
                 </div>
-              </div>
-            </div>
-          )}
-
-          {/* MARKET TAB */}
-          {activeTab === 'market' && (
-            <div className="space-y-4">
-              <h3 className="text-white font-semibold text-sm">Market Overview</h3>
-              <div className="bg-card border border-border rounded-xl overflow-hidden !p-0">
-                <div className="px-5 py-3 border-b border-border flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                    <span className="text-white font-bold">BINANCE:BTCUSDT</span>
-                    <span className="text-gray-500 text-sm">CoreWealth, Inc.</span>
-                  </div>
-                </div>
-                {/* removed */}
-              </div>
-            </div>
-          )}
-
-          {/* TRADE CONTROL TAB */}
-          {activeTab === 'trade-control' && (
-            <div className="space-y-6">
-              {/* Spike builder */}
-              <div className="bg-card border border-border rounded-xl p-6">
-                <div className="flex items-center gap-2 mb-1">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-                  </svg>
-                  <h3 className="text-white font-semibold text-sm">Spike a User&apos;s Trade Chart</h3>
-                </div>
-                <p className="text-gray-500 text-xs mb-5">
-                  Fires a one-time visible jump on the target user&apos;s <span className="text-gray-300"></span>.
-                  They will see the spike within ~5 seconds (next poll). The chart only runs if the user has at least one active investment.
-                </p>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                  {/* Target user */}
-                  <div>
-                    <label className="block text-gray-400 text-xs uppercase tracking-wider mb-2">Target User</label>
-                    <select
-                      value={spikeUserId}
-                      onChange={(e) => setSpikeUserId(e.target.value)}
-                      className="w-full bg-corewealth-gray-900 border border-border text-white text-sm rounded-md px-3 py-2 focus:outline-none focus:border-[#7C3AED]"
-                    >
-                      <option value="">— Select a user —</option>
-                      {users.map((u: any) => (
-                        <option key={u.id} value={u.id}>
-                          {u.email}{u.profile?.firstName ? ` (${u.profile.firstName})` : ''}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  {/* Direction */}
-                  <div>
-                    <label className="block text-gray-400 text-xs uppercase tracking-wider mb-2">Direction</label>
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => setSpikeDirection('up')}
-                        className={`flex-1 px-4 py-2 rounded-md text-sm font-semibold border transition-colors ${
-                          spikeDirection === 'up'
-                            ? 'bg-green-900/40 text-green-400 border-green-700/60'
-                            : 'bg-corewealth-gray-900 text-gray-400 border-border hover:border-gray-500'
-                        }`}
-                      >
-                        ▲ Up
-                      </button>
-                      <button
-                        onClick={() => setSpikeDirection('down')}
-                        className={`flex-1 px-4 py-2 rounded-md text-sm font-semibold border transition-colors ${
-                          spikeDirection === 'down'
-                            ? 'bg-red-900/40 text-red-400 border-red-700/60'
-                            : 'bg-corewealth-gray-900 text-gray-400 border-border hover:border-gray-500'
-                        }`}
-                      >
-                        ▼ Down
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Magnitude */}
-                  <div>
-                    <label className="block text-gray-400 text-xs uppercase tracking-wider mb-2">
-                      Magnitude: <span className="text-white font-bold">{spikeMagnitude}%</span>
-                    </label>
-                    <input
-                      type="range"
-                      min={1}
-                      max={50}
-                      step={0.5}
-                      value={spikeMagnitude}
-                      onChange={(e) => setSpikeMagnitude(Number(e.target.value))}
-                      className="w-full accent-[#7C3AED]"
-                    />
-                    <div className="flex gap-1 mt-2">
-                      {[5, 10, 15, 25, 50].map((preset) => (
-                        <button
-                          key={preset}
-                          onClick={() => setSpikeMagnitude(preset)}
-                          className="px-2 py-1 text-[10px] font-semibold rounded border border-border text-gray-400 hover:text-white hover:border-gray-500"
-                        >
-                          {preset}%
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Message */}
-                  <div>
-                    <label className="block text-gray-400 text-xs uppercase tracking-wider mb-2">
-                      Message <span className="text-gray-600">(optional, shown on user&apos;s chart banner)</span>
-                    </label>
-                    <input
-                      type="text"
-                      value={spikeMessage}
-                      onChange={(e) => setSpikeMessage(e.target.value)}
-                      maxLength={140}
-                      placeholder="e.g. Earnings beat — market moving!"
-                      className="w-full bg-corewealth-gray-900 border border-border text-white text-sm rounded-md px-3 py-2 focus:outline-none focus:border-[#7C3AED]"
-                    />
-                  </div>
-                </div>
-
-                {/* Fire button */}
-                <button
-                  onClick={fireSpike}
-                  disabled={spikeLoading || !spikeUserId}
-                  className="w-full md:w-auto px-6 py-3 rounded-md bg-[#7C3AED] text-white text-sm font-bold hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                >
-                  {spikeLoading ? (
-                    <>
-                      <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
-                      </svg>
-                      Firing…
-                    </>
-                  ) : (
-                    <>
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                        <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-                      </svg>
-                      Fire Spike ({spikeDirection === 'up' ? '+' : '-'}{spikeMagnitude}%)
-                    </>
-                  )}
-                </button>
-              </div>
-
-              {/* Quick spike per user */}
-              {users.length > 0 && (
-                <div className="bg-card border border-border rounded-xl p-6">
-                  <h3 className="text-white font-semibold text-sm mb-1">Quick Spike</h3>
-                  <p className="text-gray-500 text-xs mb-4">Click a preset to instantly fire that spike at the user.</p>
-                  <div className="overflow-x-auto">
-                    <table className="w-full">
-                      <thead>
-                        <tr className="text-left text-xs text-gray-500 uppercase tracking-wider border-b border-border">
-                          <th className="py-2 pr-4">User</th>
-                          <th className="py-2 pr-4">Quick Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {users.slice(0, 20).map((u: any) => (
-                          <tr key={u.id} className="border-b border-border/50">
-                            <td className="py-3 pr-4">
-                              <div className="text-white text-sm font-medium">{u.email}</div>
-                              {u.profile?.firstName && (
-                                <div className="text-gray-500 text-xs">{u.profile.firstName} {u.profile.lastName}</div>
-                              )}
-                            </td>
-                            <td className="py-3 pr-4">
-                              <div className="flex flex-wrap gap-1">
-                                <button onClick={() => quickSpike(u.id, 'up', 5)} className="px-2 py-1 text-[10px] font-bold rounded bg-green-900/30 text-green-400 border border-green-700/40 hover:bg-green-900/50">+5%</button>
-                                <button onClick={() => quickSpike(u.id, 'up', 10)} className="px-2 py-1 text-[10px] font-bold rounded bg-green-900/30 text-green-400 border border-green-700/40 hover:bg-green-900/50">+10%</button>
-                                <button onClick={() => quickSpike(u.id, 'up', 25)} className="px-2 py-1 text-[10px] font-bold rounded bg-green-900/30 text-green-400 border border-green-700/40 hover:bg-green-900/50">+25%</button>
-                                <button onClick={() => quickSpike(u.id, 'down', 5)} className="px-2 py-1 text-[10px] font-bold rounded bg-red-900/30 text-red-400 border border-red-700/40 hover:bg-red-900/50">-5%</button>
-                                <button onClick={() => quickSpike(u.id, 'down', 10)} className="px-2 py-1 text-[10px] font-bold rounded bg-red-900/30 text-red-400 border border-red-700/40 hover:bg-red-900/50">-10%</button>
-                              </div>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              )}
-
-              {/* Recent spikes history */}
-              <div className="bg-card border border-border rounded-xl p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-white font-semibold text-sm">Recent Spikes</h3>
-                  <button onClick={fetchSpikeHistory} className="text-xs text-[#7C3AED] hover:underline">
-                    {spikeHistoryLoading ? 'Refreshing…' : 'Refresh'}
-                  </button>
-                </div>
-                {spikeHistory.length === 0 ? (
-                  <p className="text-gray-500 text-xs text-center py-6">No spikes fired yet.</p>
-                ) : (
-                  <div className="overflow-x-auto">
-                    <table className="w-full">
-                      <thead>
-                        <tr className="text-left text-xs text-gray-500 uppercase tracking-wider border-b border-border">
-                          <th className="py-2 pr-4">When</th>
-                          <th className="py-2 pr-4">User</th>
-                          <th className="py-2 pr-4">Move</th>
-                          <th className="py-2 pr-4">Message</th>
-                          <th className="py-2 pr-4">Status</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {spikeHistory.map((s: any) => (
-                          <tr key={s.id} className="border-b border-border/50">
-                            <td className="py-3 pr-4 text-gray-400 text-xs">
-                              {new Date(s.createdAt).toLocaleString()}
-                            </td>
-                            <td className="py-3 pr-4 text-white text-xs">
-                              {s.userEmail || s.userId}
-                            </td>
-                            <td className="py-3 pr-4">
-                              <span className={`text-xs font-bold ${s.direction === 'up' ? 'text-green-400' : 'text-red-400'}`}>
-                                {s.direction === 'up' ? '+' : '-'}{Number(s.magnitudePct).toFixed(2)}%
-                              </span>
-                            </td>
-                            <td className="py-3 pr-4 text-gray-400 text-xs max-w-xs truncate">
-                              {s.message || <span className="text-gray-600">—</span>}
-                            </td>
-                            <td className="py-3 pr-4">
-                              {s.consumed ? (
-                                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-gray-800/50 text-gray-400">DELIVERED</span>
-                              ) : (
-                                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-yellow-900/30 text-yellow-400 border border-yellow-700/40">PENDING</span>
-                              )}
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                )}
               </div>
             </div>
           )}
@@ -1962,55 +1299,55 @@ export default function AdminPage() {
                 </div>
               </div>
 
-              {/* Payment Addresses */}
+              {/* Bank Account Details */}
               <div className="bg-card border border-border rounded-xl p-6">
                 <div className="flex items-center justify-between mb-1">
-                  <h4 className="text-white font-medium">Payment Addresses</h4>
+                  <h4 className="text-white font-medium">Bank Account Details</h4>
                   <button
-                    onClick={() => { setEditingAddress(null); setAddrForm({ label: '', currency: 'BTC', network: '', address: '', qrCodeUrl: '', isActive: true, sortOrder: 0 }); setShowAddAddress(true); }}
+                    onClick={() => { setEditingBank(null); setBankForm({ label: '', bankName: '', accountNumber: '', routingNumber: '', accountType: 'Checking', isActive: true }); setShowAddBank(true); }}
                     className="inline-flex items-center gap-1.5 bg-[#7C3AED] hover:bg-[#ff1a1a] text-white text-xs font-medium px-3 py-1.5 rounded-lg transition-colors"
                   >
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
-                    Add Address
+                    Add Account
                   </button>
                 </div>
-                <p className="text-gray-500 text-xs mb-4">Manage cryptocurrency wallet addresses shown to users on the deposit page.</p>
+                <p className="text-gray-500 text-xs mb-4">Manage bank account details shown to users for wire transfers and deposits.</p>
 
-                {addressesLoading && paymentAddresses.length === 0 ? (
-                  <div className="text-center text-gray-500 py-6 text-sm">Loading addresses...</div>
-                ) : paymentAddresses.length === 0 && !showAddAddress ? (
-                  <div className="text-center text-gray-500 py-6 text-sm">No payment addresses configured. Click "Add Address" to create one.</div>
+                {bankAccountsLoading && bankAccounts.length === 0 ? (
+                  <div className="text-center text-gray-500 py-6 text-sm">Loading accounts...</div>
+                ) : bankAccounts.length === 0 && !showAddBank ? (
+                  <div className="text-center text-gray-500 py-6 text-sm">No bank accounts configured. Click "Add Account" to create one.</div>
                 ) : (
                   <div className="space-y-3">
-                    {paymentAddresses.map((addr: any) => (
-                      <div key={addr.id} className={`flex items-center gap-3 p-3 rounded-lg border transition-all ${addr.isActive ? 'bg-[#1a1a1a] border-border' : 'bg-[#111] border-border/50 opacity-50'}`}>
+                    {bankAccounts.map((acct: any) => (
+                      <div key={acct.id} className={`flex items-center gap-3 p-3 rounded-lg border transition-all ${acct.isActive ? 'bg-[#1a1a1a] border-border' : 'bg-[#111] border-border/50 opacity-50'}`}>
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-1">
-                            <span className="text-white text-sm font-medium">{addr.label}</span>
-                            <span className="text-xs font-bold px-1.5 py-0.5 rounded bg-[#7C3AED]/10 text-[#7C3AED]">{addr.currency}</span>
-                            {addr.network && <span className="text-gray-500 text-[10px]">{addr.network}</span>}
-                            {!addr.isActive && <span className="text-[10px] text-gray-500 bg-gray-800 px-1.5 py-0.5 rounded">Inactive</span>}
+                            <span className="text-white text-sm font-medium">{acct.label}</span>
+                            <span className="text-xs font-bold px-1.5 py-0.5 rounded bg-[#7C3AED]/10 text-[#7C3AED]">{acct.accountType}</span>
+                            {!acct.isActive && <span className="text-[10px] text-gray-500 bg-gray-800 px-1.5 py-0.5 rounded">Inactive</span>}
                           </div>
-                          <div className="text-gray-400 text-xs font-mono truncate" title={addr.address}>{addr.address}</div>
+                          <div className="text-gray-400 text-xs">{acct.bankName} — ****{acct.accountNumber?.slice(-4)}</div>
+                          <div className="text-gray-500 text-[10px] mt-0.5">Routing/SWIFT: {acct.routingNumber || '—'}</div>
                         </div>
                         <div className="flex items-center gap-1.5 shrink-0">
                           <button
-                            onClick={() => { setEditingAddress(addr); setAddrForm({ label: addr.label, currency: addr.currency, network: addr.network || '', address: addr.address, qrCodeUrl: addr.qrCodeUrl || '', isActive: addr.isActive, sortOrder: addr.sortOrder }); setShowAddAddress(true); }}
+                            onClick={() => { setEditingBank(acct); setBankForm({ label: acct.label, bankName: acct.bankName, accountNumber: acct.accountNumber, routingNumber: acct.routingNumber, accountType: acct.accountType, isActive: acct.isActive }); setShowAddBank(true); }}
                             className="p-1.5 rounded-lg hover:bg-white/10 text-gray-400 hover:text-white transition-colors" title="Edit"
                           >
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" /><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" /></svg>
                           </button>
                           <button
                             onClick={async () => {
-                              if (!confirm(`Delete ${addr.label} (${addr.currency}) address?`)) return;
-                              setAddressesLoading(true);
+                              if (!confirm(`Delete ${acct.label} (${acct.bankName})?`)) return;
+                              setBankAccountsLoading(true);
                               try {
-                                const res = await apiCall(`/api/admin/payment-addresses?id=${addr.id}`, { method: 'DELETE' });
+                                const res = await apiCall(`/api/admin/bank-accounts?id=${acct.id}`, { method: 'DELETE' });
                                 const data = await res.json();
-                                if (data.success) { showToast('Address deleted'); fetchPaymentAddresses(); }
+                                if (data.success) { showToast('Account deleted'); fetchBankAccounts(); }
                                 else showToast(data.error?.message || 'Delete failed');
                               } catch { showToast('Delete failed'); }
-                              setAddressesLoading(false);
+                              setBankAccountsLoading(false);
                             }}
                             className="p-1.5 rounded-lg hover:bg-red-900/30 text-gray-400 hover:text-red-400 transition-colors" title="Delete"
                           >
@@ -2018,18 +1355,18 @@ export default function AdminPage() {
                           </button>
                           <button
                             onClick={async () => {
-                              setAddressesLoading(true);
+                              setBankAccountsLoading(true);
                               try {
-                                const res = await apiCall('/api/admin/payment-addresses', { method: 'PUT', body: JSON.stringify({ id: addr.id, isActive: !addr.isActive }) });
+                                const res = await apiCall('/api/admin/bank-accounts', { method: 'PUT', body: JSON.stringify({ id: acct.id, isActive: !acct.isActive }) });
                                 const data = await res.json();
-                                if (data.success) { showToast(addr.isActive ? 'Address deactivated' : 'Address activated'); fetchPaymentAddresses(); }
+                                if (data.success) { showToast(acct.isActive ? 'Account deactivated' : 'Account activated'); fetchBankAccounts(); }
                                 else showToast(data.error?.message || 'Toggle failed');
                               } catch { showToast('Toggle failed'); }
-                              setAddressesLoading(false);
+                              setBankAccountsLoading(false);
                             }}
-                            className={`p-1.5 rounded-lg transition-colors ${addr.isActive ? 'hover:bg-yellow-900/30 text-green-400 hover:text-yellow-400' : 'hover:bg-green-900/30 text-gray-400 hover:text-green-400'}`} title={addr.isActive ? 'Deactivate' : 'Activate'}
+                            className={`p-1.5 rounded-lg transition-colors ${acct.isActive ? 'hover:bg-yellow-900/30 text-green-400 hover:text-yellow-400' : 'hover:bg-green-900/30 text-gray-400 hover:text-green-400'}`} title={acct.isActive ? 'Deactivate' : 'Activate'}
                           >
-                            {addr.isActive ? (
+                            {acct.isActive ? (
                               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" /></svg>
                             ) : (
                               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" /><line x1="1" y1="1" x2="23" y2="23" /></svg>
@@ -2041,79 +1378,67 @@ export default function AdminPage() {
                   </div>
                 )}
 
-                {/* Add/Edit Address Form */}
-                {showAddAddress && (
+                {/* Add/Edit Bank Account Form */}
+                {showAddBank && (
                   <div className="mt-4 bg-[#111] border border-border rounded-xl p-4 space-y-3">
-                    <h5 className="text-white text-sm font-medium">{editingAddress ? 'Edit Address' : 'New Payment Address'}</h5>
+                    <h5 className="text-white text-sm font-medium">{editingBank ? 'Edit Account' : 'New Bank Account'}</h5>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
                         <label className="block text-gray-400 text-xs font-medium mb-1">Label</label>
-                        <input type="text" value={addrForm.label} onChange={e => setAddrForm({ ...addrForm, label: e.target.value })} placeholder="e.g. Main BTC Wallet" className="w-full bg-[#1a1a1a] border border-border rounded-lg px-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED] transition-colors" />
+                        <input type="text" value={bankForm.label} onChange={e => setBankForm({ ...bankForm, label: e.target.value })} placeholder="e.g. Primary Business Account" className="w-full bg-[#1a1a1a] border border-border rounded-lg px-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED] transition-colors" />
                       </div>
                       <div>
-                        <label className="block text-gray-400 text-xs font-medium mb-1">Currency</label>
-                        <select value={addrForm.currency} onChange={e => setAddrForm({ ...addrForm, currency: e.target.value })} className="w-full bg-[#1a1a1a] border border-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-[#7C3AED] transition-colors">
-                          <option value="BTC">Bitcoin (BTC)</option>
-                          <option value="ETH">Ethereum (ETH)</option>
-                          <option value="USDT">Tether (USDT)</option>
-                          <option value="USDC">USD Coin (USDC)</option>
-                          <option value="BNB">Binance Coin (BNB)</option>
-                          <option value="SOL">Solana (SOL)</option>
-                          <option value="XRP">Ripple (XRP)</option>
-                          <option value="ADA">Cardano (ADA)</option>
-                          <option value="DOGE">Dogecoin (DOGE)</option>
-                          <option value="TRON">TRON (TRX)</option>
-                          <option value="LTC">Litecoin (LTC)</option>
-                        </select>
+                        <label className="block text-gray-400 text-xs font-medium mb-1">Bank Name</label>
+                        <input type="text" value={bankForm.bankName} onChange={e => setBankForm({ ...bankForm, bankName: e.target.value })} placeholder="e.g. JPMorgan Chase" className="w-full bg-[#1a1a1a] border border-border rounded-lg px-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED] transition-colors" />
                       </div>
                       <div>
-                        <label className="block text-gray-400 text-xs font-medium mb-1">Network (optional)</label>
-                        <input type="text" value={addrForm.network} onChange={e => setAddrForm({ ...addrForm, network: e.target.value })} placeholder="e.g. ERC-20, TRC-20, Bitcoin" className="w-full bg-[#1a1a1a] border border-border rounded-lg px-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED] transition-colors" />
+                        <label className="block text-gray-400 text-xs font-medium mb-1">Account Number</label>
+                        <input type="text" value={bankForm.accountNumber} onChange={e => setBankForm({ ...bankForm, accountNumber: e.target.value })} placeholder="Enter account number" className="w-full bg-[#1a1a1a] border border-border rounded-lg px-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED] transition-colors" />
                       </div>
                       <div>
-                        <label className="block text-gray-400 text-xs font-medium mb-1">Sort Order</label>
-                        <input type="number" value={addrForm.sortOrder} onChange={e => setAddrForm({ ...addrForm, sortOrder: parseInt(e.target.value) || 0 })} className="w-full bg-[#1a1a1a] border border-border rounded-lg px-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED] transition-colors" />
+                        <label className="block text-gray-400 text-xs font-medium mb-1">Routing Number / SWIFT</label>
+                        <input type="text" value={bankForm.routingNumber} onChange={e => setBankForm({ ...bankForm, routingNumber: e.target.value })} placeholder="e.g. 021000021 or CHASUS33" className="w-full bg-[#1a1a1a] border border-border rounded-lg px-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED] transition-colors" />
                       </div>
                     </div>
                     <div>
-                      <label className="block text-gray-400 text-xs font-medium mb-1">Wallet Address</label>
-                      <input type="text" value={addrForm.address} onChange={e => setAddrForm({ ...addrForm, address: e.target.value })} placeholder="Enter the wallet address" className="w-full bg-[#1a1a1a] border border-border rounded-lg px-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED] transition-colors font-mono" />
-                    </div>
-                    <div>
-                      <label className="block text-gray-400 text-xs font-medium mb-1">QR Code URL (optional)</label>
-                      <input type="text" value={addrForm.qrCodeUrl} onChange={e => setAddrForm({ ...addrForm, qrCodeUrl: e.target.value })} placeholder="Paste QR code image URL" className="w-full bg-[#1a1a1a] border border-border rounded-lg px-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED] transition-colors" />
+                      <label className="block text-gray-400 text-xs font-medium mb-1">Account Type</label>
+                      <select value={bankForm.accountType} onChange={e => setBankForm({ ...bankForm, accountType: e.target.value })} className="w-full bg-[#1a1a1a] border border-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-[#7C3AED] transition-colors">
+                        <option value="Checking">Checking</option>
+                        <option value="Savings">Savings</option>
+                        <option value="Wire">Wire</option>
+                      </select>
                     </div>
                     <div className="flex items-center gap-2">
-                      <input type="checkbox" id="addrActive" checked={addrForm.isActive} onChange={e => setAddrForm({ ...addrForm, isActive: e.target.checked })} className="accent-[#7C3AED]" />
-                      <label htmlFor="addrActive" className="text-gray-300 text-sm">Active (visible to users)</label>
+                      <input type="checkbox" id="bankActive" checked={bankForm.isActive} onChange={e => setBankForm({ ...bankForm, isActive: e.target.checked })} className="accent-[#7C3AED]" />
+                      <label htmlFor="bankActive" className="text-gray-300 text-sm">Active (visible to users)</label>
                     </div>
                     <div className="flex items-center gap-2 pt-1">
                       <button
                         onClick={async () => {
-                          if (!addrForm.label.trim() || !addrForm.address.trim()) { showToast('Label and address are required'); return; }
-                          setAddressesLoading(true);
+                          if (!bankForm.label.trim() || !bankForm.bankName.trim() || !bankForm.accountNumber.trim()) { showToast('Label, bank name, and account number are required'); return; }
+                          setBankAccountsLoading(true);
                           try {
-                            const method = editingAddress ? 'PUT' : 'POST';
-                            const body = editingAddress ? { ...addrForm, id: editingAddress.id } : addrForm;
-                            const res = await apiCall('/api/admin/payment-addresses', { method, body: JSON.stringify(body) });
+                            const method = editingBank ? 'PUT' : 'POST';
+                            const body = editingBank ? { ...bankForm, id: editingBank.id } : bankForm;
+                            const res = await apiCall('/api/admin/bank-accounts', { method, body: JSON.stringify(body) });
                             const data = await res.json();
                             if (data.success) {
-                              showToast(editingAddress ? 'Address updated!' : 'Address created!');
-                              setShowAddAddress(false);
-                              setEditingAddress(null);
-                              fetchPaymentAddresses();
+                              showToast(editingBank ? 'Account updated!' : 'Account created!');
+                              setShowAddBank(false);
+                              setEditingBank(null);
+                              fetchBankAccounts();
                             } else {
                               showToast(data.error?.message || 'Save failed');
                             }
                           } catch { showToast('Save failed'); }
-                          setAddressesLoading(false);
+                          setBankAccountsLoading(false);
                         }}
-                        disabled={addressesLoading}
+                        disabled={bankAccountsLoading}
                         className="bg-[#7C3AED] hover:bg-[#ff1a1a] disabled:opacity-50 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
                       >
-                        {addressesLoading ? 'Saving...' : editingAddress ? 'Update Address' : 'Create Address'}
+                        {bankAccountsLoading ? 'Saving...' : editingBank ? 'Update Account' : 'Create Account'}
                       </button>
-                      <button onClick={() => { setShowAddAddress(false); setEditingAddress(null); }} className="bg-white/5 hover:bg-white/10 text-gray-300 text-sm px-4 py-2 rounded-lg border border-border transition-colors">Cancel</button>
+                      <button onClick={() => { setShowAddBank(false); setEditingBank(null); }} className="bg-white/5 hover:bg-white/10 text-gray-300 text-sm px-4 py-2 rounded-lg border border-border transition-colors">Cancel</button>
                     </div>
                   </div>
                 )}

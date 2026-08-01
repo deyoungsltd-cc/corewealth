@@ -5,8 +5,8 @@ export default function blogSitemap(): MetadataRoute.Sitemap {
   // In production, fetch from DB. For now static examples:
   const posts = [
     { slug: 'how-to-start-investing-in-2024', date: '2024-01-15' },
-    { slug: 'corewealth-stock-analysis-q1', date: '2024-02-20' },
-    { slug: 'crypto-vs-traditional-investments', date: '2024-03-10' },
+    { slug: 'understanding-interest-rates', date: '2024-02-20' },
+    { slug: 'digital-banking-security-tips', date: '2024-03-10' },
     { slug: 'understanding-daily-returns', date: '2024-04-05' },
     { slug: 'diversification-strategies', date: '2024-05-12' },
   ];

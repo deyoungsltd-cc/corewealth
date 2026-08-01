@@ -37,7 +37,7 @@ export default function AboutPage() {
 
   return (
     <div className="min-h-screen bg-background text-white page-enter">
-      {/* Hero with CEO Musk */}
+      {/* Hero with Leadership */}
       <section className="relative pt-36 pb-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto overflow-hidden">
         <div className="float-orb float-orb-lg" style={{ top: '5%', right: '-10%' }} />
         <div className="float-orb float-orb-sm" style={{ bottom: '5%', left: '-5%' }} />
@@ -86,7 +86,7 @@ export default function AboutPage() {
             <div className="space-y-5 text-gray-400 text-base leading-relaxed">
               <p>CoreWealth Bank was founded with a bold vision: to democratize access to institutional-grade investment strategies that were previously available only to ultra-high-net-worth individuals and large financial institutions. Our founders recognized that millions of aspiring investors around the world were being excluded from the most lucrative investment opportunities due to high entry barriers, complex requirements, and opaque fee structures that favored intermediaries over investors.</p>
               <p>Since our inception, we have grown from a small team of passionate financial technologists into a global platform serving over 45,000 active investors across 180+ countries. We have processed more than $2.4 billion in assets under management and have consistently delivered daily returns that exceed industry benchmarks.</p>
-              <p>Today, CoreWealth Bank stands at the intersection of technology and finance, leveraging artificial intelligence, machine learning, and blockchain technology to optimize investment outcomes while maintaining the highest standards of security and regulatory compliance. Our platform is designed to be intuitive enough for first-time investors while offering the depth and sophistication that experienced traders demand.</p>
+              <p>Today, CoreWealth Bank stands at the intersection of technology and finance, leveraging artificial intelligence, machine learning, and advanced financial technology to optimize investment outcomes while maintaining the highest standards of security and regulatory compliance. Our platform is designed to be intuitive enough for first-time investors while offering the depth and sophistication that experienced traders demand.</p>
             </div>
           </div>
         </FadeIn>
@@ -130,10 +130,10 @@ export default function AboutPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
                 { title: 'Transparency', desc: 'Every transaction, fee, and return is fully visible and auditable. Investors deserve complete visibility into how their capital is being managed.' },
-                { title: 'Security', desc: 'Bank-grade encryption, multi-factor authentication, cold storage for digital assets, and continuous security monitoring to protect every aspect of your account.' },
-                { title: 'Innovation', desc: 'AI-driven analytics, real-time market data integration, and automated trading algorithms that adapt to evolving market conditions for optimal returns.' },
+                { title: 'Security', desc: 'Bank-grade encryption, multi-factor authentication, FDIC-insured custodial services, and continuous security monitoring to protect every aspect of your account.' },
+                { title: 'Innovation', desc: 'AI-driven analytics, real-time market data integration, and automated portfolio management that adapt to evolving market conditions for optimal returns.' },
                 { title: 'Integrity', desc: 'Operating with the highest ethical standards, full regulatory compliance, and honest communication. Your trust is our most valuable asset.' },
-                { title: 'Accessibility', desc: 'Minimum investment of just $200 with support for cryptocurrency and gift cards. We removed traditional barriers that prevent people from investing.' },
+                { title: 'Accessibility', desc: 'Minimum investment of just $200 with support for bank transfers, wire transfers, and ACH. We removed traditional barriers that prevent people from investing.' },
                 { title: 'Excellence', desc: 'From user interface to customer support, every aspect is designed to deliver a premium experience that exceeds expectations and sets new industry standards.' },
               ].map((v, i) => (
                 <FadeIn key={v.title} delay={i * 80}>
@@ -187,7 +187,7 @@ export default function AboutPage() {
             <h2 className="text-3xl sm:text-4xl font-black mb-8 heading-gradient">Our Technology</h2>
             <div className="space-y-5 text-gray-400 text-base leading-relaxed">
               <p>CoreWealth Bank&apos;s investment engine is powered by a proprietary combination of artificial intelligence, machine learning, and quantitative analysis. Our algorithms continuously monitor global markets across multiple asset classes, identifying optimal entry and exit points with precision that exceeds human capabilities.</p>
-              <p>Our technology stack includes high-frequency trading systems capable of executing thousands of transactions per second, risk management AI that dynamically adjusts portfolio allocations based on real-time market volatility, and natural language processing models that analyze news sentiment and social media trends to anticipate market movements before they happen.</p>
+              <p>Our technology stack includes automated savings and investment tools that optimize portfolio allocations based on real-time market conditions, risk management AI that dynamically adjusts positions, and data analytics models that analyze market trends to inform investment decisions.</p>
               <p>All of this is delivered through a modern, responsive web platform built with the latest web technologies, ensuring a seamless experience whether you are managing your investments from a desktop computer or checking your returns on your mobile phone.</p>
             </div>
           </div>

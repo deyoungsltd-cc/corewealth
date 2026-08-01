@@ -413,7 +413,7 @@ export async function sendWelcomeEmail(to: string, name?: string) {
         </tr>
         <tr>
           <td style="padding:6px 0;color:#666666;font-size:12px;vertical-align:top">02</td>
-          <td style="padding:6px 0;color:#cccccc;font-size:13px;line-height:1.6;letter-spacing:0.3px">Fund your account via crypto transfer or bank wire</td>
+          <td style="padding:6px 0;color:#cccccc;font-size:13px;line-height:1.6;letter-spacing:0.3px">Fund your account via bank transfer or wire</td>
         </tr>
         <tr>
           <td style="padding:6px 0;color:#666666;font-size:12px;vertical-align:top">03</td>
