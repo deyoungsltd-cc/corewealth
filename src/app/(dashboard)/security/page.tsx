@@ -20,8 +20,26 @@ export default function SecurityPage() {
 
   // Merchant alert toggle state
   const [merchantAlerts, setMerchantAlerts] = useState(true);
-  const [merchantLoading, setMerchantLoading] = useState(false);
   const [merchantMessage, setMerchantMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [merchantSubToggles, setMerchantSubToggles] = useState({
+    cardPurchases: true,
+    onlineTransactions: true,
+    recurringPayments: false,
+    internationalTransactions: true,
+  });
+  const [settingsToast, setSettingsToast] = useState(false);
+
+  // Load merchant alert settings from localStorage
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('merchantAlerts');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        setMerchantAlerts(parsed.main ?? true);
+        setMerchantSubToggles(parsed.subs ?? { cardPurchases: true, onlineTransactions: true, recurringPayments: false, internationalTransactions: true });
+      }
+    } catch {}
+  }, []);
 
   // Load user 2FA state on mount
   useEffect(() => {
@@ -299,22 +317,18 @@ export default function SecurityPage() {
             </div>
           </div>
           <button
-            onClick={async () => {
-              setMerchantLoading(true);
-              setMerchantMessage(null);
+            onClick={() => {
               const newState = !merchantAlerts;
-              try {
-                const res = await fetch('/api/user/profile', { method: 'PUT', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify({ merchantAlerts: newState }) });
-                const data = await res.json();
-                if (data.success) { setMerchantAlerts(newState); setMerchantMessage({ type: 'success', text: newState ? 'Merchant alerts enabled' : 'Merchant alerts disabled' }); }
-                else setMerchantMessage({ type: 'error', text: 'Failed to update' });
-              } catch { setMerchantMessage({ type: 'error', text: 'Network error' }); }
-              finally { setMerchantLoading(false); }
+              setMerchantAlerts(newState);
+              localStorage.setItem('merchantAlerts', JSON.stringify({ main: newState, subs: merchantSubToggles }));
+              setMerchantMessage({ type: 'success', text: newState ? 'Merchant alerts enabled' : 'Merchant alerts disabled' });
+              setSettingsToast(true);
+              setTimeout(() => setSettingsToast(false), 2000);
+              setTimeout(() => setMerchantMessage(null), 3000);
             }}
-            disabled={merchantLoading}
-            className={`text-sm font-medium px-4 py-2 rounded-lg transition-colors disabled:opacity-50 ${merchantAlerts ? 'bg-red-500/10 text-red-400 hover:bg-red-500/20' : 'bg-[#7C3AED] text-white hover:bg-[#6D28D9]'}`}
+            className={`text-sm font-medium px-4 py-2 rounded-lg transition-colors ${merchantAlerts ? 'bg-red-500/10 text-red-400 hover:bg-red-500/20' : 'bg-[#7C3AED] text-white hover:bg-[#6D28D9]'}`}
           >
-            {merchantLoading ? (<span className="flex items-center gap-2"><span className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />Saving...</span>) : merchantAlerts ? 'Disable' : 'Enable'}
+            {merchantAlerts ? 'Disable' : 'Enable'}
           </button>
         </div>
         {merchantMessage && (
@@ -322,9 +336,49 @@ export default function SecurityPage() {
             <p className={`text-xs ${merchantMessage.type === 'success' ? 'text-green-400' : 'text-red-400'}`}>{merchantMessage.text}</p>
           </div>
         )}
+
+        {/* Sub-toggles */}
+        {merchantAlerts && (
+          <div className="space-y-3 pl-2 border-l-2 border-[#7C3AED]/20">
+            {([
+              { key: 'cardPurchases' as const, label: 'Alert on card purchases', desc: 'Get notified for in-store and point-of-sale transactions', defaultOn: true },
+              { key: 'onlineTransactions' as const, label: 'Alert on online transactions', desc: 'Receive alerts for all online and e-commerce purchases', defaultOn: true },
+              { key: 'recurringPayments' as const, label: 'Alert on recurring payments', desc: 'Notifications for subscriptions and automatic payments', defaultOn: false },
+              { key: 'internationalTransactions' as const, label: 'Alert on international transactions', desc: 'Alerts for transactions made outside your home country', defaultOn: true },
+            ]).map(sub => (
+              <div key={sub.key} className="flex items-center justify-between py-2">
+                <div>
+                  <p className="text-white text-sm font-medium">{sub.label}</p>
+                  <p className="text-gray-500 text-xs mt-0.5">{sub.desc}</p>
+                </div>
+                <button
+                  onClick={() => {
+                    const updated = { ...merchantSubToggles, [sub.key]: !merchantSubToggles[sub.key] };
+                    setMerchantSubToggles(updated);
+                    localStorage.setItem('merchantAlerts', JSON.stringify({ main: merchantAlerts, subs: updated }));
+                    setSettingsToast(true);
+                    setTimeout(() => setSettingsToast(false), 2000);
+                  }}
+                  className={`relative w-10 h-5.5 rounded-full transition-colors ${merchantSubToggles[sub.key] ? 'bg-[#7C3AED]' : 'bg-gray-600'}`}
+                  style={{ width: 40, height: 22, borderRadius: 11 }}
+                >
+                  <span className={`absolute top-0.5 left-0.5 w-4.5 h-4.5 bg-white rounded-full transition-transform shadow-sm ${merchantSubToggles[sub.key] ? 'translate-x-[18px]' : 'translate-x-0'}`} style={{ width: 18, height: 18, top: 2, left: 2 }} />
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+
         <div className="bg-[#111] border border-border rounded-lg p-3">
           <p className="text-gray-400 text-xs">When enabled, you will receive real-time push notifications and email alerts whenever your CoreWealth debit or credit card is used at a merchant. This helps you quickly detect unauthorized transactions.</p>
         </div>
+
+        {/* Settings saved toast */}
+        {settingsToast && (
+          <div className="fixed bottom-20 lg:bottom-6 left-1/2 -translate-x-1/2 bg-green-500/10 border border-green-500/20 text-green-400 text-xs font-medium px-4 py-2 rounded-full animate-fade-in z-50">
+            ✓ Settings saved
+          </div>
+        )}
       </div>
 
       {/* Current Session — real data */}

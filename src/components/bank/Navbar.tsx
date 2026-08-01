@@ -9,7 +9,13 @@ import {
 } from '@/components/ui/sheet';
 import CoreWealthLogo from '@/components/CoreWealthLogo';
 
-const NAV_LINKS = ['About', 'Services', 'Tools', 'FAQ', 'Contact'] as const;
+const NAV_LINKS = [
+  { label: 'About', href: '/about' },
+  { label: 'Services', href: '#services' },
+  { label: 'Tools', href: '/plans' },
+  { label: 'FAQ', href: '/faq' },
+  { label: 'Contact', href: '/contact' },
+] as const;
 
 interface NavbarProps {
   currentPage?: string;
@@ -38,8 +44,12 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
   const scrolled = useScrolled();
   const [open, setOpen] = useState(false);
 
-  const handleNav = (label: string) => {
-    onNavigate?.(label.toLowerCase());
+  const handleNav = (label: string, href: string) => {
+    // If the link is a hash (e.g. #services), let the browser handle scrolling
+    // Otherwise call the SPA navigate handler
+    if (!href.startsWith('#')) {
+      onNavigate?.(label.toLowerCase());
+    }
     setOpen(false);
   };
 
@@ -52,17 +62,20 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
 
         {/* Desktop nav links */}
         <ul className="hidden md:flex items-center gap-1">
-          {NAV_LINKS.map((label) => {
+          {NAV_LINKS.map(({ label, href }) => {
             const active = currentPage === label.toLowerCase();
             return (
               <li key={label}>
-                <button onClick={() => handleNav(label)}
-                  className={`relative px-4 py-2 text-sm font-medium transition-colors duration-200 ${
-                    active ? 'text-[#7C3AED]' : 'text-gray-400 hover:text-white'
-                  }`}>
-                  {label}
-                  {active && <span className="absolute inset-x-2 -bottom-[9px] h-0.5 rounded-full bg-[#7C3AED]" />}
-                </button>
+                <Link href={href} scroll={true} onClick={(e) => handleNav(label, href)}>
+                  <span
+                    className={`relative inline-block px-4 py-2 text-sm font-medium transition-colors duration-200 cursor-pointer ${
+                      active ? 'text-[#7C3AED]' : 'text-gray-400 hover:text-white'
+                    }`}
+                  >
+                    {label}
+                    {active && <span className="absolute inset-x-2 -bottom-[9px] h-0.5 rounded-full bg-[#7C3AED]" />}
+                  </span>
+                </Link>
               </li>
             );
           })}
@@ -86,17 +99,20 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
               <SheetTitle className="text-white"><CoreWealthLogo variant="compact" /></SheetTitle>
             </SheetHeader>
             <div className="flex flex-col gap-1 px-3 py-4">
-              {NAV_LINKS.map((label) => {
+              {NAV_LINKS.map(({ label, href }) => {
                 const active = currentPage === label.toLowerCase();
                 return (
                   <SheetClose asChild key={label}>
-                    <button onClick={() => handleNav(label)}
-                      className={`flex items-center rounded-lg px-4 py-3 text-sm font-medium transition-colors duration-200 ${
-                        active ? 'bg-[#7C3AED]/10 text-[#7C3AED]' : 'text-gray-400 hover:bg-white/5 hover:text-white'
-                      }`}>
-                      {label}
-                      {active && <span className="ml-auto h-1.5 w-1.5 rounded-full bg-[#7C3AED]" />}
-                    </button>
+                    <Link href={href} scroll={true} onClick={(e) => handleNav(label, href)}>
+                      <span
+                        className={`flex items-center rounded-lg px-4 py-3 text-sm font-medium transition-colors duration-200 cursor-pointer ${
+                          active ? 'bg-[#7C3AED]/10 text-[#7C3AED]' : 'text-gray-400 hover:bg-white/5 hover:text-white'
+                        }`}
+                      >
+                        {label}
+                        {active && <span className="ml-auto h-1.5 w-1.5 rounded-full bg-[#7C3AED]" />}
+                      </span>
+                    </Link>
                   </SheetClose>
                 );
               })}

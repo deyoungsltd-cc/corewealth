@@ -3,7 +3,7 @@
 import { type ReactNode, Component, type ErrorInfo, useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { Sun, Moon, LayoutDashboard, Send, Download, Upload, User, CreditCard, FileText, HelpCircle, Bell, Shield, ArrowRightLeft, Receipt, Landmark } from 'lucide-react';
+import { Sun, Moon, LayoutDashboard, Download, Upload, User, CreditCard, FileText, HelpCircle, Bell, Shield, ArrowRightLeft, Receipt, Landmark, QrCode, UserPlus, DollarSign, TrendingUp, Globe, Lock, Bitcoin } from 'lucide-react';
 import CoreWealthLogo from '@/components/CoreWealthLogo';
 import NotificationWatcher from '@/components/NotificationWatcher';
 import KycCodeGate from '@/components/KycCodeGate';
@@ -71,6 +71,8 @@ const titles: Record<string, string> = {
   '/cards/tracking': 'Card Tracking',
   '/buy-crypto': 'Buy Crypto',
   '/tax-refund': 'Tax Refund',
+  '/receive-funds': 'Receive Funds',
+  '/link-bank': 'Link Bank Account',
 };
 
 const bottomNav = [
@@ -144,16 +146,19 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     { href: '/dashboard', label: 'Dashboard', icon: <LayoutDashboard size={18} /> },
     { href: '/transactions', label: 'Transactions', icon: <FileText size={18} /> },
     { href: '/internal-transfer', label: 'Transfers', icon: <ArrowRightLeft size={18} /> },
+    { href: '/wire-transfer', label: 'Wire Transfer', icon: <Globe size={18} /> },
     { href: '/deposit', label: 'Deposit', icon: <Download size={18} /> },
     { href: '/withdraw', label: 'Withdraw', icon: <Upload size={18} /> },
-    { href: '/investments', label: 'Investments', icon: <Landmark size={18} /> },
+    { href: '/receive-funds', label: 'Receive Funds', icon: <QrCode size={18} /> },
+    { href: '/link-bank', label: 'Link Bank', icon: <Landmark size={18} /> },
     { href: '/cards', label: 'Cards', icon: <CreditCard size={18} /> },
-    { href: '/buy-crypto', label: 'Buy Crypto', icon: <Send size={18} /> },
+    { href: '/buy-crypto', label: 'Buy Crypto', icon: <Bitcoin size={18} /> },
     { href: '/pay-bills', label: 'Pay Bills', icon: <Receipt size={18} /> },
-    { href: '/beneficiaries', label: 'Beneficiaries', icon: <Receipt size={18} /> },
-    { href: '/tax-refund', label: 'Tax Refund', icon: <FileText size={18} /> },
+    { href: '/beneficiaries', label: 'Beneficiaries', icon: <UserPlus size={18} /> },
+    { href: '/tax-refund', label: 'Tax Refund', icon: <DollarSign size={18} /> },
+    { href: '/investments', label: 'Investments', icon: <TrendingUp size={18} /> },
     { href: '/kyc', label: 'Verification', icon: <Shield size={18} /> },
-    { href: '/security', label: 'Security', icon: <Shield size={18} /> },
+    { href: '/security', label: 'Security', icon: <Lock size={18} /> },
     { href: '/support', label: 'Support', icon: <HelpCircle size={18} /> },
     { href: '/profile', label: 'Profile', icon: <User size={18} /> },
   ];

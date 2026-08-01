@@ -3,34 +3,92 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 
 interface HeroSectionProps {
+  currentPage?: string;
   onNavigate: (page: string) => void;
 }
 
 const SLIDES = [
   {
-    img: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1920&h=1080&fit=crop&q=80',
-    alt: 'Family managing finances together on a tablet',
+    img: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1600&h=900&fit=crop&q=80',
+    alt: 'Modern banking cards and technology',
   },
   {
-    img: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1920&h=1080&fit=crop&q=80',
-    alt: 'Modern banking dashboard on laptop',
+    img: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1600&h=900&fit=crop&q=80',
+    alt: 'Financial dashboard analytics',
   },
   {
-    img: 'https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=1920&h=1080&fit=crop&q=80',
-    alt: 'Financial growth and savings concept',
+    img: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=1600&h=900&fit=crop&q=80',
+    alt: 'Modern architecture and finance',
+  },
+  {
+    img: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1600&h=900&fit=crop&q=80',
+    alt: 'Banking cards and mobile payments',
   },
 ] as const;
 
 const STATS = [
-  { value: '75,000+', label: 'Members Worldwide' },
-  { value: '$2.4B', label: 'Assets Managed' },
-  { value: '180+', label: 'Countries Served' },
+  { value: '2.4', prefix: '$', suffix: 'B+', label: 'Assets Under Management', icon: 'banknote' },
+  { value: '150', prefix: '', suffix: 'K+', label: 'Active Clients', icon: 'users' },
+  { value: '99.99', prefix: '', suffix: '%', label: 'Uptime', icon: 'clock' },
+  { value: '4.9', prefix: '', suffix: '/5', label: 'Client Rating', icon: 'star' },
 ] as const;
 
-/* ─── Inline SVG Icons ─── */
-function UsersIcon() {
+const TRUST_ITEMS = [
+  { label: 'FDIC Insured', icon: 'shield' },
+  { label: '256-bit Encryption', icon: 'lock' },
+  { label: 'SOC 2 Certified', icon: 'check-circle' },
+  { label: 'PCI DSS Compliant', icon: 'shield-check' },
+] as const;
+
+/* ─── Inline SVG Icon Components ─── */
+function ShieldIcon() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+    </svg>
+  );
+}
+
+function LockIcon() {
+  return (
+    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+      <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+    </svg>
+  );
+}
+
+function CheckCircleIcon() {
+  return (
+    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+      <polyline points="22 4 12 14.01 9 11.01" />
+    </svg>
+  );
+}
+
+function ShieldCheckIcon() {
+  return (
+    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+      <polyline points="9 12 11 14 15 10" />
+    </svg>
+  );
+}
+
+function BanknoteStatIcon() {
+  return (
+    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+      <rect width="20" height="12" x="2" y="6" rx="2" />
+      <circle cx="12" cy="12" r="2" />
+      <path d="M6 12h.01M18 12h.01" />
+    </svg>
+  );
+}
+
+function UsersStatIcon() {
+  return (
+    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
       <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
       <circle cx="9" cy="7" r="4" />
       <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
@@ -39,22 +97,19 @@ function UsersIcon() {
   );
 }
 
-function BanknoteIcon() {
+function ClockStatIcon() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <rect width="20" height="12" x="2" y="6" rx="2" />
-      <circle cx="12" cy="12" r="2" />
-      <path d="M6 12h.01M18 12h.01" />
+    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10" />
+      <polyline points="12 6 12 12 16 14" />
     </svg>
   );
 }
 
-function GlobeIcon() {
+function StarStatIcon() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="10" />
-      <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
-      <path d="M2 12h20" />
+    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01z" />
     </svg>
   );
 }
@@ -67,32 +122,39 @@ function ArrowRightIcon() {
   );
 }
 
-function StarIcon() {
+function ChevronDownIcon() {
   return (
-    <svg className="w-4 h-4" fill="#7C3AED" viewBox="0 0 24 24">
-      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01z" />
+    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
+      <path d="M6 9l6 6 6-6" />
     </svg>
   );
 }
 
-const STAT_ICONS = [UsersIcon, BanknoteIcon, GlobeIcon];
+const STAT_ICON_MAP: Record<string, () => React.ReactNode> = {
+  banknote: BanknoteStatIcon,
+  users: UsersStatIcon,
+  clock: ClockStatIcon,
+  star: StarStatIcon,
+};
+
+const TRUST_ICON_MAP: Record<string, () => React.ReactNode> = {
+  shield: ShieldIcon,
+  lock: LockIcon,
+  'check-circle': CheckCircleIcon,
+  'shield-check': ShieldCheckIcon,
+};
 
 /* ─── Animated counter hook ─── */
-function useAnimatedCounter(target: string, duration: number = 2000) {
-  const numericMatch = target.match(/[\d.]+/);
-  const hasNumeric = !!numericMatch;
-  const [display, setDisplay] = useState(() => (hasNumeric ? '0' : target));
+function useAnimatedCounter(target: string, duration: number = 2500) {
+  const num = parseFloat(target);
+  const hasDecimals = target.includes('.');
+  const decimals = hasDecimals ? target.split('.')[1].length : 0;
+  const [display, setDisplay] = useState(() => '0');
   const started = useRef(false);
 
   useEffect(() => {
-    if (started.current || !hasNumeric) return;
+    if (started.current) return;
     started.current = true;
-
-    const num = parseFloat(numericMatch![0]);
-    const prefix = target.slice(0, target.indexOf(numericMatch![0]));
-    const suffix = target.slice(target.indexOf(numericMatch![0]) + numericMatch![0].length);
-    const hasDecimals = numericMatch![0].includes('.');
-    const decimals = hasDecimals ? numericMatch![0].split('.')[1].length : 0;
 
     const startTime = Date.now();
 
@@ -102,31 +164,73 @@ function useAnimatedCounter(target: string, duration: number = 2000) {
       const eased = 1 - Math.pow(1 - progress, 3);
       const current = num * eased;
 
-      if (decimals > 0) {
-        setDisplay(`${prefix}${current.toFixed(decimals)}${suffix}`);
+      if (hasDecimals) {
+        setDisplay(current.toFixed(decimals));
       } else {
-        const formatted = Math.floor(current).toLocaleString();
-        setDisplay(`${prefix}${formatted}${suffix}`);
+        setDisplay(Math.floor(current).toLocaleString());
       }
 
       if (progress < 1) {
         requestAnimationFrame(tick);
       } else {
-        const finalFormatted = hasDecimals ? num.toFixed(decimals) : Math.floor(num).toLocaleString();
-        setDisplay(`${prefix}${finalFormatted}${suffix}`);
+        setDisplay(hasDecimals ? num.toFixed(decimals) : Math.floor(num).toLocaleString());
       }
     };
 
     requestAnimationFrame(tick);
-  }, [target, duration]);
+  }, [target, duration, num, decimals, hasDecimals]);
 
   return display;
 }
 
+/* ─── Particle / Sparkle component ─── */
+function Particles() {
+  const particles = useRef(
+    Array.from({ length: 30 }, (_, i) => ({
+      id: i,
+      left: Math.random() * 100,
+      size: Math.random() * 3 + 1,
+      duration: Math.random() * 8 + 6,
+      delay: Math.random() * 10,
+      opacity: Math.random() * 0.4 + 0.1,
+    }))
+  ).current;
+
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none z-[5]">
+      <style>{`
+        @keyframes particleFloat {
+          0% { transform: translateY(100vh) scale(0); opacity: 0; }
+          10% { opacity: var(--p-opacity); }
+          90% { opacity: var(--p-opacity); }
+          100% { transform: translateY(-20vh) scale(1); opacity: 0; }
+        }
+      `}</style>
+      {particles.map((p) => (
+        <div
+          key={p.id}
+          className="absolute rounded-full"
+          style={{
+            left: `${p.left}%`,
+            bottom: 0,
+            width: p.size,
+            height: p.size,
+            background: `linear-gradient(135deg, #A78BFA, #7C3AED)`,
+            boxShadow: `0 0 ${p.size * 2}px rgba(167, 139, 250, 0.5)`,
+            '--p-opacity': p.opacity,
+            animation: `particleFloat ${p.duration}s ${p.delay}s infinite ease-out`,
+          } as React.CSSProperties}
+        />
+      ))}
+    </div>
+  );
+}
+
 /* ─── Stat Item Component ─── */
-function StatItem({ value, label, Icon, delay }: { value: string; label: string; Icon: () => React.ReactNode; delay: number }) {
-  const animatedValue = useAnimatedCounter(value, 2200);
+function StatItem({ stat, delay }: { stat: typeof STATS[number]; delay: number }) {
+  const animatedValue = useAnimatedCounter(stat.value, 2500);
   const [visible, setVisible] = useState(false);
+  const IconComponent = STAT_ICON_MAP[stat.icon];
 
   useEffect(() => {
     const timer = setTimeout(() => setVisible(true), delay);
@@ -135,56 +239,61 @@ function StatItem({ value, label, Icon, delay }: { value: string; label: string;
 
   return (
     <div
-      className={`flex items-center gap-4 px-5 py-4 rounded-xl transition-all duration-700 hover:scale-[1.02] ${
+      className={`flex flex-col items-center gap-2 px-4 py-4 rounded-xl transition-all duration-700 ${
         visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
       }`}
       style={{ background: 'rgba(255,255,255,0.04)' }}
     >
-      <div
-        className="shrink-0 flex items-center justify-center w-11 h-11 rounded-xl"
-        style={{ background: 'rgba(124,58,237,0.2)' }}
-      >
-        <span style={{ color: '#A78BFA' }}>
-          <Icon />
-        </span>
-      </div>
-      <div>
-        <div className="text-xl sm:text-2xl font-bold text-white count-up" style={{ fontVariantNumeric: 'tabular-nums' }}>
-          {animatedValue}
+      {IconComponent && (
+        <div
+          className="flex items-center justify-center w-10 h-10 rounded-xl mb-1"
+          style={{ background: 'rgba(124,58,237,0.2)' }}
+        >
+          <span style={{ color: '#A78BFA' }}>
+            <IconComponent />
+          </span>
         </div>
-        <div className="text-xs sm:text-sm" style={{ color: 'rgba(255,255,255,0.5)' }}>{label}</div>
+      )}
+      <div
+        className="text-2xl sm:text-3xl font-bold text-white"
+        style={{ fontVariantNumeric: 'tabular-nums' }}
+      >
+        {stat.prefix}{animatedValue}{stat.suffix}
       </div>
+      <div className="text-xs sm:text-sm text-center" style={{ color: 'rgba(255,255,255,0.45)' }}>{stat.label}</div>
     </div>
   );
 }
 
-export default function HeroSection({ onNavigate }: HeroSectionProps) {
+/* ─── Main Hero Section ─── */
+export default function HeroSection({ currentPage, onNavigate }: HeroSectionProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const goToNext = useCallback(() => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setCurrentSlide((prev) => (prev + 1) % SLIDES.length);
-      setIsTransitioning(false);
-    }, 600);
-  }, [isTransitioning]);
+    setCurrentSlide((prev) => (prev + 1) % SLIDES.length);
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(goToNext, 5000);
     return () => clearInterval(interval);
   }, [goToNext]);
 
+  const scrollToServices = () => {
+    const el = document.getElementById('services');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden" style={{ background: '#060A13' }}>
-      {/* ─── Full-screen slideshow ─── */}
+      {/* ─── Full-bleed background slideshow ─── */}
       {SLIDES.map((slide, i) => (
         <div
           key={i}
-          className="absolute inset-0 transition-opacity duration-[1200ms] ease-in-out"
+          className="absolute inset-0 transition-opacity duration-[2000ms] ease-in-out"
           style={{
-            opacity: currentSlide === i && !isTransitioning ? 0.55 : (currentSlide === i && isTransitioning ? 0.55 : 0.15),
+            opacity: currentSlide === i ? 0.4 : 0,
             backgroundImage: `url(${slide.img})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
@@ -192,222 +301,221 @@ export default function HeroSection({ onNavigate }: HeroSectionProps) {
         />
       ))}
 
-      {/* ─── Overlay gradient ─── */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background: `
-            linear-gradient(135deg, rgba(6,10,19,0.95) 0%, rgba(6,10,19,0.7) 35%, rgba(6,10,19,0.5) 55%, rgba(6,10,19,0.75) 100%),
-            linear-gradient(to top, rgba(6,10,19,0.9) 0%, transparent 40%)
-          `,
-        }}
-      />
-
-      {/* ─── Purple gradient mesh orbs ─── */}
-      <div className="absolute inset-0 pointer-events-none">
+      {/* ─── Animated gradient mesh overlay ─── */}
+      <div className="absolute inset-0 z-[2]">
+        <style>{`
+          @keyframes meshMove1 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(5%, -8%) scale(1.1); }
+            66% { transform: translate(-3%, 5%) scale(0.95); }
+          }
+          @keyframes meshMove2 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(-6%, 4%) scale(1.05); }
+            66% { transform: translate(4%, -6%) scale(1.1); }
+          }
+          @keyframes meshMove3 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(3%, 6%) scale(1.08); }
+            66% { transform: translate(-5%, -4%) scale(0.97); }
+          }
+          @keyframes heroFadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+        `}</style>
+        {/* Primary dark overlay */}
         <div
-          className="absolute -top-32 -left-32 w-[600px] h-[600px] rounded-full opacity-30 blur-[120px]"
-          style={{ background: 'radial-gradient(circle, #7C3AED 0%, transparent 70%)' }}
+          className="absolute inset-0"
+          style={{
+            background: `
+              linear-gradient(135deg, rgba(6,10,19,0.92) 0%, rgba(6,10,19,0.75) 30%, rgba(6,10,19,0.55) 55%, rgba(6,10,19,0.85) 100%),
+              linear-gradient(to top, rgba(6,10,19,0.95) 0%, rgba(6,10,19,0.4) 50%, rgba(6,10,19,0.6) 100%)
+            `,
+          }}
+        />
+        {/* Animated mesh orbs */}
+        <div
+          className="absolute -top-40 -left-40 w-[700px] h-[700px] rounded-full opacity-30 blur-[140px]"
+          style={{
+            background: 'radial-gradient(circle, #7C3AED 0%, #4C1D95 40%, transparent 70%)',
+            animation: 'meshMove1 20s ease-in-out infinite',
+          }}
         />
         <div
-          className="absolute top-1/3 -right-48 w-[500px] h-[500px] rounded-full opacity-20 blur-[100px]"
-          style={{ background: 'radial-gradient(circle, #A78BFA 0%, transparent 70%)' }}
+          className="absolute top-1/3 -right-48 w-[500px] h-[500px] rounded-full opacity-20 blur-[120px]"
+          style={{
+            background: 'radial-gradient(circle, #A78BFA 0%, #7C3AED 50%, transparent 70%)',
+            animation: 'meshMove2 25s ease-in-out infinite',
+          }}
         />
         <div
-          className="absolute -bottom-24 left-1/3 w-[400px] h-[400px] rounded-full opacity-15 blur-[80px]"
-          style={{ background: 'radial-gradient(circle, #6D28D9 0%, transparent 70%)' }}
+          className="absolute -bottom-32 left-1/3 w-[450px] h-[450px] rounded-full opacity-15 blur-[100px]"
+          style={{
+            background: 'radial-gradient(circle, #6D28D9 0%, #4C1D95 50%, transparent 70%)',
+            animation: 'meshMove3 18s ease-in-out infinite',
+          }}
+        />
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-10 blur-[150px]"
+          style={{
+            background: 'radial-gradient(circle, #C084FC 0%, transparent 60%)',
+            animation: 'meshMove1 22s ease-in-out infinite reverse',
+          }}
         />
       </div>
 
+      {/* ─── Particle / Sparkle effects ─── */}
+      <Particles />
+
       {/* ─── Slide indicators ─── */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
+      <div className="absolute bottom-28 sm:bottom-32 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
         {SLIDES.map((_, i) => (
           <button
             key={i}
-            onClick={() => {
-              setIsTransitioning(true);
-              setTimeout(() => {
-                setCurrentSlide(i);
-                setIsTransitioning(false);
-              }, 600);
-            }}
-            className="group relative rounded-full transition-all duration-300"
+            onClick={() => setCurrentSlide(i)}
+            className="rounded-full transition-all duration-500"
             aria-label={`Go to slide ${i + 1}`}
-          >
-            <div
-              className="rounded-full transition-all duration-500"
-              style={{
-                width: currentSlide === i ? 28 : 8,
-                height: 8,
-                background: currentSlide === i
-                  ? 'linear-gradient(90deg, #7C3AED, #A78BFA)'
-                  : 'rgba(255,255,255,0.25)',
-                boxShadow: currentSlide === i ? '0 0 12px rgba(124,58,237,0.5)' : 'none',
-              }}
-            />
-          </button>
+            style={{
+              width: currentSlide === i ? 28 : 8,
+              height: 8,
+              background: currentSlide === i
+                ? 'linear-gradient(90deg, #7C3AED, #A78BFA)'
+                : 'rgba(255,255,255,0.25)',
+              boxShadow: currentSlide === i ? '0 0 12px rgba(124,58,237,0.5)' : 'none',
+            }}
+          />
         ))}
       </div>
 
-      {/* ─── Content ─── */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-0">
-        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
-          {/* Left: Text Content */}
-          <div className="flex-1 text-center lg:text-left">
-            {/* Trust badge */}
-            <div
-              className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full mb-8 animate-fade-in"
-              style={{ background: 'rgba(124,58,237,0.15)', border: '1px solid rgba(124,58,237,0.3)' }}
-            >
-              <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: '#34D399' }} />
-              <span className="text-sm font-medium" style={{ color: '#C4B5FD' }}>FDIC Insured &middot; Member FDIC</span>
-            </div>
+      {/* ─── Main content ─── */}
+      <div
+        className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-36 sm:pt-32 sm:pb-40 lg:pt-0 lg:pb-32 flex flex-col items-center text-center"
+        style={{ animation: 'heroFadeIn 1s ease-out forwards' }}
+      >
+        {/* Trust badge pill */}
+        <div
+          className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full mb-8"
+          style={{
+            background: 'rgba(124,58,237,0.12)',
+            border: '1px solid rgba(124,58,237,0.25)',
+          }}
+        >
+          <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: '#34D399' }} />
+          <span className="text-sm font-medium" style={{ color: '#C4B5FD' }}>
+            Trusted by 150,000+ clients worldwide
+          </span>
+        </div>
 
-            {/* Headline */}
-            <h1
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.08] animate-fade-in-up"
-              style={{ animationDelay: '0.1s' }}
-            >
-              <span className="text-white">Banking Built</span>
-              <br />
-              <span
-                className="bg-clip-text text-transparent"
-                style={{ backgroundImage: 'linear-gradient(135deg, #A78BFA 0%, #7C3AED 40%, #C084FC 70%, #A78BFA 100%)', backgroundSize: '200% 200%', WebkitBackgroundClip: 'text' }}
-              >
-                For Your Future
-              </span>
-            </h1>
+        {/* Main headline */}
+        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.08] max-w-5xl">
+          <span className="text-white">Banking Reimagined for the</span>
+          <br className="hidden sm:block" />
+          <span className="text-white sm:hidden"> </span>
+          <span
+            className="bg-clip-text text-transparent"
+            style={{
+              backgroundImage: 'linear-gradient(135deg, #A78BFA 0%, #7C3AED 35%, #C084FC 65%, #A78BFA 100%)',
+              backgroundSize: '200% 200%',
+              WebkitBackgroundClip: 'text',
+              animation: 'gradientShift 4s ease-in-out infinite',
+            }}
+          >
+            Modern World
+          </span>
+        </h1>
 
-            {/* Subtitle */}
-            <p
-              className="mt-6 text-base sm:text-lg md:text-xl max-w-xl mx-auto lg:mx-0 leading-relaxed animate-fade-in-up"
-              style={{ color: 'rgba(255,255,255,0.65)', animationDelay: '0.2s' }}
-            >
-              From high-yield savings to global wire transfers, CoreWealth delivers
-              secure, modern financial services that grow with you.
-            </p>
+        {/* Subheadline */}
+        <p
+          className="mt-6 text-base sm:text-lg md:text-xl max-w-2xl leading-relaxed"
+          style={{ color: 'rgba(255,255,255,0.6)' }}
+        >
+          Experience seamless financial services with institutional-grade security, instant transfers, and 24/7 access to your wealth.
+        </p>
 
-            {/* CTAs */}
-            <div
-              className="mt-10 flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start animate-fade-in-up"
-              style={{ animationDelay: '0.3s' }}
-            >
-              <a
-                href="/register"
-                className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3.5 rounded-xl text-base font-semibold text-white transition-all duration-300 hover:scale-[1.03] group"
-                style={{
-                  background: 'linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%)',
-                  boxShadow: '0 4px 20px rgba(124,58,237,0.35), 0 0 40px rgba(124,58,237,0.1)',
-                }}
-                onMouseEnter={(e) => {
-                  (e.target as HTMLElement).style.boxShadow = '0 6px 30px rgba(124,58,237,0.5), 0 0 60px rgba(124,58,237,0.15)';
-                }}
-                onMouseLeave={(e) => {
-                  (e.target as HTMLElement).style.boxShadow = '0 4px 20px rgba(124,58,237,0.35), 0 0 40px rgba(124,58,237,0.1)';
-                }}
-              >
-                Open Account
-                <span className="ml-2 transition-transform group-hover:translate-x-1">
-                  <ArrowRightIcon />
-                </span>
-              </a>
-              <a
-                href="/login"
-                className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3.5 rounded-xl text-base font-semibold transition-all duration-300 hover:scale-[1.03]"
-                style={{
-                  color: '#A78BFA',
-                  border: '1.5px solid rgba(124,58,237,0.4)',
-                  background: 'rgba(124,58,237,0.08)',
-                }}
-              >
-                Sign In
-              </a>
-            </div>
+        {/* CTA Buttons */}
+        <div className="mt-10 flex flex-col sm:flex-row items-center gap-4">
+          <a
+            href="/register"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-white transition-all duration-300 hover:scale-[1.03] group"
+            style={{
+              background: 'linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%)',
+              boxShadow: '0 4px 24px rgba(124,58,237,0.4), 0 0 60px rgba(124,58,237,0.12)',
+            }}
+            onMouseEnter={(e) => {
+              (e.target as HTMLElement).style.boxShadow = '0 8px 36px rgba(124,58,237,0.55), 0 0 80px rgba(124,58,237,0.2)';
+            }}
+            onMouseLeave={(e) => {
+              (e.target as HTMLElement).style.boxShadow = '0 4px 24px rgba(124,58,237,0.4), 0 0 60px rgba(124,58,237,0.12)';
+            }}
+          >
+            Open Account
+            <span className="transition-transform group-hover:translate-x-1">
+              <ArrowRightIcon />
+            </span>
+          </a>
+          <button
+            onClick={scrollToServices}
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold transition-all duration-300 hover:scale-[1.03]"
+            style={{
+              color: '#A78BFA',
+              border: '1.5px solid rgba(124,58,237,0.4)',
+              background: 'rgba(124,58,237,0.08)',
+            }}
+          >
+            Learn More
+            <span className="transition-transform">
+              <ChevronDownIcon />
+            </span>
+          </button>
+        </div>
 
-            {/* Trust bar */}
-            <div
-              className="mt-10 flex items-center gap-6 justify-center lg:justify-start animate-fade-in-up"
-              style={{ color: 'rgba(255,255,255,0.4)', animationDelay: '0.4s' }}
-            >
-              <span className="text-xs font-semibold uppercase tracking-widest">Trusted by</span>
-              <div className="flex items-center gap-1">
-                {[...Array(5)].map((_, i) => (
-                  <StarIcon key={i} />
-                ))}
-              </div>
-              <span className="text-xs font-medium">4.9/5 rating</span>
-            </div>
-          </div>
-
-          {/* Right: Featured image card (desktop only) */}
-          <div className="hidden lg:flex flex-1 items-center justify-center animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
-            <div className="relative group">
-              {/* Glow behind card */}
-              <div
-                className="absolute -inset-4 rounded-3xl opacity-50 blur-xl transition-all duration-500 group-hover:opacity-70"
-                style={{ background: 'linear-gradient(135deg, #7C3AED 0%, #A78BFA 100%)' }}
-              />
-              {/* Card */}
-              <div
-                className="relative rounded-2xl overflow-hidden transition-all duration-500 group-hover:scale-[1.02]"
-                style={{
-                  boxShadow: '0 25px 60px rgba(0,0,0,0.4), 0 0 40px rgba(124,58,237,0.1)',
-                  border: '1px solid rgba(255,255,255,0.08)',
-                }}
-              >
-                <img
-                  src={SLIDES[currentSlide].img}
-                  alt={SLIDES[currentSlide].alt}
-                  className="w-full h-auto max-w-[520px] object-cover transition-opacity duration-[1200ms] ease-in-out"
-                  loading="eager"
-                />
-                <div
-                  className="absolute inset-0"
-                  style={{ background: 'linear-gradient(to top, rgba(6,10,19,0.5) 0%, transparent 50%)' }}
-                />
-                {/* Bottom overlay info */}
-                <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between">
-                  <div>
-                    <p className="text-white/80 text-xs font-medium uppercase tracking-wider mb-1">Featured</p>
-                    <p className="text-white text-sm font-semibold">Experience premium banking</p>
-                  </div>
-                  <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full" style={{ background: 'rgba(124,58,237,0.3)' }}>
-                    <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-                    <span className="text-white/90 text-xs font-medium">Live rates</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+        {/* ─── Animated Stats Counter ─── */}
+        <div className="mt-16 sm:mt-20 w-full max-w-4xl">
+          <div
+            className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 p-3 sm:p-4 rounded-2xl"
+            style={{
+              background: 'rgba(124,58,237,0.06)',
+              border: '1px solid rgba(124,58,237,0.12)',
+              backdropFilter: 'blur(12px)',
+            }}
+          >
+            {STATS.map((stat, i) => (
+              <StatItem key={stat.label} stat={stat} delay={800 + i * 200} />
+            ))}
           </div>
         </div>
 
-        {/* ─── Animated floating stats bar ─── */}
-        <div className="mt-16 lg:mt-20">
-          <div
-            className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-2 rounded-2xl transition-all duration-500"
-            style={{
-              background: 'rgba(124,58,237,0.08)',
-              border: '1px solid rgba(124,58,237,0.15)',
-            }}
-          >
-            {STATS.map(({ value, label }, i) => (
-              <StatItem
-                key={label}
-                value={value}
-                label={label}
-                Icon={STAT_ICONS[i]}
-                delay={800 + i * 200}
-              />
-            ))}
+        {/* ─── Trust Bar ─── */}
+        <div className="mt-8 sm:mt-10 w-full max-w-4xl">
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+            {TRUST_ITEMS.map((item) => {
+              const IconComp = TRUST_ICON_MAP[item.icon];
+              return (
+                <div
+                  key={item.label}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300 hover:bg-white/[0.06]"
+                  style={{
+                    background: 'rgba(255,255,255,0.03)',
+                    border: '1px solid rgba(255,255,255,0.08)',
+                  }}
+                >
+                  {IconComp && <span style={{ color: '#34D399' }}><IconComp /></span>}
+                  <span className="text-xs sm:text-sm font-medium" style={{ color: 'rgba(255,255,255,0.6)' }}>{item.label}</span>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
 
-      {/* ─── Animated floating elements ─── */}
-      <div className="absolute top-20 right-[10%] w-3 h-3 rounded-full animate-bounce" style={{ background: '#A78BFA', opacity: 0.4, animationDuration: '3s' }} />
-      <div className="absolute top-[40%] left-[5%] w-2 h-2 rounded-full animate-bounce" style={{ background: '#7C3AED', opacity: 0.3, animationDuration: '4s', animationDelay: '1s' }} />
-      <div className="absolute bottom-[20%] right-[25%] w-2.5 h-2.5 rounded-full animate-bounce" style={{ background: '#C084FC', opacity: 0.35, animationDuration: '3.5s', animationDelay: '0.5s' }} />
-      <div className="absolute top-[15%] left-[20%] w-2 h-2 rounded-full animate-bounce" style={{ background: '#A78BFA', opacity: 0.25, animationDuration: '5s', animationDelay: '2s' }} />
+      {/* ─── Gradient text animation keyframe ─── */}
+      <style>{`
+        @keyframes gradientShift {
+          0%, 100% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+        }
+      `}</style>
     </section>
   );
 }
