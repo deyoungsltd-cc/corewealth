@@ -14,3 +14,4 @@ db/
 worklog.md
 docker-compose*.yml
 Dockerfile.dev
+skills/
