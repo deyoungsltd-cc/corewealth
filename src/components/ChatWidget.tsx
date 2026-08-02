@@ -7,7 +7,7 @@ import { useEffect, useRef } from 'react';
  * Uses the official Smartsupp loader script with the account key.
  */
 
-const SMARTSUPP_KEY = process.env.NEXT_PUBLIC_SMARTSUPP_KEY || '59138034a02772e15361b582df397b0b70eb6327';
+const SMARTSUPP_KEY = process.env.NEXT_PUBLIC_SMARTSUPP_KEY || 'a084ffc7bb12371e272ad46dd9287ab0bc3cc1d7';
 
 export default function ChatWidget() {
   const initialized = useRef(false);
